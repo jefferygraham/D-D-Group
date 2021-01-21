@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&family=Sriracha&display=swap');
+
+body {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header {
+	font-family: Sriracha, Arial, Helvetica, sans-serif;
+	background-color: rgb(182, 29, 29);
+	color: white;
+}
+
+nav {
+	background-color: rgb(97, 71, 211);
+	color: white;
+}
+
+nav > ul > li {
+	display: inline-block;
+}
+
+li > a {
+	color: white;
+}
+
+nav > ul {
+	list-style-type: none;
+	display: flex;
+	justify-content: space-around;
+}
+
+.hero {
+	margin: 100px;
+	font-size: 32px;
+	text-align: center;
+}
+
+.input {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	width: 30%;
+	margin: auto;
+}
+
+h1,
+h2 {
+	text-align: center;
+}
+
+.restaurants {
+	/* display: flex; */
+	justify-content: space-evenly;
+}
+
+/* .restaurant {
+	height:30vh;
+	padding: 20px;
+	margin: 5vh;
+} */
+
+.rest-logo {
+	height:auto;
+	width:100%;
+}
