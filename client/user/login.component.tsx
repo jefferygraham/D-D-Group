@@ -25,18 +25,6 @@ function LoginComponent({ navigation }: LoginProp) {
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   userService
-  //     .getLogin()
-  //     .then((loggedUser) => {
-  //       dispatch(getUser(loggedUser));
-  //       navigation.navigate('Home');
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }, []);
-
   function submitForm() {
     userService.login(user).then((user) => {
       dispatch(getUser(user));
