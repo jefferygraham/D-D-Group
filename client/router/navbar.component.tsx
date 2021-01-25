@@ -18,7 +18,17 @@ function NavBarComponent() {
   //   header = <Text>Not logged in</Text>;
   // }
 
-  return <View>{header}</View>;
+  return (
+    <View>
+      <Button
+        onPress={() => {
+          nav.navigate('CharacterCreation');
+        }}
+        title='Create Character'
+      />
+      {header}
+
+    </View>)
 }
 
 export default NavBarComponent;

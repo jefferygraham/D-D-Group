@@ -9,11 +9,13 @@ import HomeComponent from '../home.component';
 import NavBarComponent from './navbar.component';
 import UnauthorizedComponent from '../unauthorized.component';
 import { AppState } from '../store/store';
+import CharacterCreationComponent from '../character/character.create';
 
 export type StackParams = {
   Login: undefined;
   Home: undefined;
   Unauthorized: undefined;
+  CharacterCreation: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -39,6 +41,11 @@ function RouterComponent(props: any) {
       <Stack.Screen
         name='Unauthorized'
         component={UnauthorizedComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='CharacterCreation'
+        component={CharacterCreationComponent}
         options={headerOptions}
       />
     </Stack.Navigator>
