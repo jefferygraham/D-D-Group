@@ -1,5 +1,6 @@
 import { applyMiddleware, createStore, Store } from 'redux';
 import thunk from 'redux-thunk';
+import { Campaign } from '../campaign/campaign';
 
 import { User } from '../user/user';
 import { AppAction } from './actions';
@@ -10,7 +11,12 @@ export interface UserState {
   loginUser: User;
 }
 
-export interface AppState extends UserState {}
+export interface CampaignState {
+  campaign: Campaign;
+  campaigns: Campaign[];
+}
+
+export interface AppState extends UserState, CampaignState{}
 
 const store: Store<AppState, AppAction> = createStore(
   reducer,
