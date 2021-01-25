@@ -1,4 +1,4 @@
-import { Campaign, Campaign } from '../campaign/campaign';
+import { Campaign } from '../campaign/campaign';
 import { User } from './../user/user';
 
 export enum UserActions {

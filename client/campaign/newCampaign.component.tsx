@@ -4,6 +4,8 @@ import { View } from "react-native";
 import { useForm } from "react-hook-form";
 import { Campaign } from "./campaign";
 import campaignService from './campaign.service';
+import { CampaignState, UserState } from "../store/store";
+import { useSelector } from "react-redux";
 
 type Name = {
     campaignName: string;
@@ -15,6 +17,8 @@ function AddCampaignComponent() {
     const { register, handleSubmit, errors } = useForm<Name>();
 
     const onSubmit = handleSubmit((data) => {
+        const userContext = useSelector((state: UserState) => state.user);
+        const campContext = useSelector((state: CampaignState) => state.campaigns);
         //create a campaign with the data entered and the user's username
         let newC = new Campaign();
         newC.campaignName = data.campaignName;
