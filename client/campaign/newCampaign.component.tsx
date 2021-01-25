@@ -16,11 +16,11 @@ function AddCampaignComponent() {
 
     const onSubmit = handleSubmit((data) => {
         //create a campaign with the data entered and the user's username
+        let newC = new Campaign();
+        newC.campaignName = data.campaignName;
         //need to generate a campaign id
         //let cID = user.campaigns.length++;
-        let cID = '';
-        let name = '';
-        campaignService.addCampaign(new Campaign(cID, data.campaignName, name, [], [])).then(() => {
+        campaignService.addCampaign(new Campaign()).then(() => {
             //replace with campaign page once the route is set up
             nav.navigate('Home');
         });
