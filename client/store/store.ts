@@ -13,6 +13,7 @@ export interface UserState {
 
 export interface CampaignState {
   campaign: Campaign;
+  campaigns: Campaign[];
 }
 
 export interface AppState extends UserState, CampaignState{}

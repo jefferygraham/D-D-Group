@@ -1,4 +1,4 @@
-import { Campaign } from '../campaign/campaign';
+import { Campaign, Campaign } from '../campaign/campaign';
 import { User } from './../user/user';
 
 export enum UserActions {
@@ -7,7 +7,8 @@ export enum UserActions {
 }
 
 export enum CampaignActions {
-  GetCampaign = 'GET_CAMPAIGN',
+  GetCampaigns = 'GET_CAMPAIGNS',
+  ChangeCampaign = 'CHANGE_CAMPAIGN'
 }
 
 export interface AppAction {
@@ -20,9 +21,9 @@ export interface UserAction<P> extends AppAction {
   payload: P;
 }
 
-export interface CampaignAction<P> extends AppAction {
+export interface CampaignAction extends AppAction {
   type: CampaignActions;
-  payload: P;
+  payload: Campaign | Campaign[];
 }
 
 export function getUser(user: User): UserAction<User> {
@@ -41,10 +42,18 @@ export function loginAction(user: User): UserAction<User> {
   return action;
 }
 
-export function getCampaign(campaign: Campaign): CampaignAction<Campaign> {
-  const action: CampaignAction<Campaign> = {
-    type: CampaignActions.GetCampaign,
-    payload: campaign,
+export function getCampaigns(campaigns: Campaign[]): CampaignAction {
+  const action: CampaignAction = {
+    type: CampaignActions.GetCampaigns,
+    payload: campaigns,
   };
   return action;
+}
+
+export function changeCampaign(campaign: Campaign): CampaignAction {
+  const action: CampaignAction = {
+    type: CampaignActions.ChangeCampaign,
+    payload: campaign,
+  };
+  return action
 }
