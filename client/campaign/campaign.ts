@@ -1,5 +1,5 @@
 export class Campaign {
-    id: string = '';
+    campaignID: string = '';
     campaignName: string = '';
     DM: string = '';
     players: number[] = [];

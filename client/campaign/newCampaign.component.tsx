@@ -9,7 +9,7 @@ type Name = {
     campaignName: string;
 }
 
-function AddCampaignComponent(){
+function AddCampaignComponent() {
     const nav = useNavigation();
 
     const { register, handleSubmit, errors } = useForm<Name>();
@@ -20,14 +20,18 @@ function AddCampaignComponent(){
         //let cID = user.campaigns.length++;
         let cID = '';
         let name = '';
-        campaignService.addCampaign(new Campaign(cID, data.campaignName, name, [], []));
+        campaignService.addCampaign(new Campaign(cID, data.campaignName, name, [], [])).then(() => {
+            //replace with campaign page once the route is set up
+            nav.navigate('Home');
+        });
     })
 
     return (
         <View>
-            <form>
+            <form onSubmit={onSubmit}>
                 <label>Campaign Name:</label>
-                <input type="text" name='campaignName' ref={register({ required: true})} />
+                <input type="text" name='campaignName' ref={register({ required: true })} />
+                { errors.campaignName && <div className="error">Enter a campaign name.</div> }
                 <button type="submit">Create</button>
             </form>
         </View>
