@@ -53,14 +53,43 @@ const styles = StyleSheet.create({
       charInputText:{
         height: 50,
         color: 'white',
-
+        padding:10,
       },
       charLabel:{
           alignSelf:'center',
           padding:10,
           color:'white',
-          
+      },
+      radio:{
+        flexDirection: 'row',
 
+      },
+      radioLabel:{
+        fontWeight: 'bold',
+        fontSize: 25,
+        color: '#fb5b5a',
+        alignSelf:'flex-start',
+
+      },
+      radioContainer:{
+        flexDirection:'column',
+        alignItems:'center',
+        width:'80%',      
+      },
+      radioText:{
+        alignSelf:'center',
+        color:'white',
+        margin:5,
+      },
+      radioBox:{
+        flexDirection: 'row',
+        flexWrap:'wrap',
+        width:'100%',
+        backgroundColor: '#465881',
+        borderRadius: 25,
+        padding:10,
+        margin:10,
+        justifyContent:'space-evenly',
 
       },
       charContainer:{
@@ -68,17 +97,14 @@ const styles = StyleSheet.create({
           flexDirection:'column',
           alignItems:'center',
           backgroundColor: '#003f5c',
-          
-          
-
       },
       charInputBox:{
         flexDirection: 'row',
-        width: '80%',
+        width: '100%',
         backgroundColor: '#465881',
         borderRadius: 25,
         height: 50,
-        margin:10,
+        margin:15,
 
 
       },
