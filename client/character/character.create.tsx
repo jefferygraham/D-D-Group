@@ -27,11 +27,11 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
     function RadioButton(props: any) {
         return (
             <View style={[{
-                height: 25,
-                width: 25,
+                height: 15,
+                width: 15,
                 borderRadius: 12,
                 borderWidth: 2,
-                borderColor: '#000',
+                borderColor: 'white',
                 alignItems: 'center',
                 justifyContent: 'center',
                 alignSelf: 'center'
@@ -55,12 +55,14 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
             <View style={styles.radioContainer}>
                 <Text style={styles.radioLabel}>Character Name</Text>
                 <View style={styles.charInputBox}>
-                    <TextInput
-                        style={styles.charInputText}
-                        placeholder='Charater Name ...'
-                        placeholderTextColor='white'
-                    /* value={char.name} */
-                    />
+                    <View style={styles.charInputLabel}>
+                        <TextInput
+                            style={styles.charInputTextLong}
+                            placeholder='Type Name Here'
+                            placeholderTextColor='white'
+                        /* value={char.name} */
+                        />
+                    </View>
                 </View>
             </View>
             {/* Race */}
@@ -131,6 +133,133 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                     </TouchableOpacity >
                 </View>
             </View>
+            {/*  Physical Characteristics */}
+            <View style={styles.radioContainer}>
+                <Text style={styles.radioLabel}>Character Appearance</Text>
+                <View style={styles.radioBox}>
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.looksLabel}>Gender:</Text>
+                        <TextInput
+                            style={styles.charInputTextLong}
+                            placeholder='...'
+                            placeholderTextColor='white'
+                        /* value={char.name} */
+                        />
+                    </View>
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.looksLabel}>Age:</Text>
+                        <TextInput
+                            style={styles.charInputText}
+                            placeholder='0'
+                            placeholderTextColor='white'
+                        /* value={char.name} */
+                        />
+                    </View>
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.looksLabel}>Hair Color:</Text>
+                        <TextInput
+                            style={styles.charInputText}
+                            placeholder='Hair Color ...'
+                            placeholderTextColor='white'
+                        /* value={char.name} */
+                        />
+                    </View>
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.looksLabel}>Skin Color:</Text>
+                        <TextInput
+                            style={styles.charInputText}
+                            placeholder='Skin Color ...'
+                            placeholderTextColor='white'
+                        /* value={char.name} */
+                        />
+                    </View>
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.looksLabel}>Eye Color:</Text>
+                        <TextInput
+                            style={styles.charInputText}
+                            placeholder='Eye Color ...'
+                            placeholderTextColor='white'
+                        /* value={char.name} */
+                        />
+                    </View>
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.looksLabel}>Height:</Text>
+                        <TextInput
+                            style={styles.charInputText}
+                            placeholder='Height ...'
+                            placeholderTextColor='white'
+                        /* value={char.name} */
+                        />
+                    </View>
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.looksLabel}>Weight:</Text>
+                        <TextInput
+                            style={styles.charInputText}
+                            placeholder='Weight ...'
+                            placeholderTextColor='white'
+                        /* value={char.name} */
+                        />
+                    </View>
+                </View>
+            </View>
+            {/*  Personal Characteristics */}
+            <View style={styles.radioContainer}>
+                <Text style={styles.radioLabel}>Personality Characteristics</Text>
+                <View style={styles.charInputBox}>
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.characteristicsLabel}>Personality Traits: </Text>
+                        <TextInput
+                            style={styles.charInputTextLong}
+                            placeholder='Traits ...'
+                            placeholderTextColor='white'
+                            multiline={true}
+                            numberOfLines={5}
+                        /* value={char.name} */
+                        />
+                    </View>
+
+
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.characteristicsLabel}>Ideals: </Text>
+                        <TextInput
+                            style={styles.charInputTextLong}
+                            placeholder='Enter Ideals Here'
+                            placeholderTextColor='white'
+                            multiline={true}
+                            numberOfLines={5}
+                        /* value={char.name} */
+                        />
+                    </View>
+
+
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.characteristicsLabel}>Bonds: </Text>
+                        <TextInput
+                            style={styles.charInputTextLong}
+                            placeholder='Traits ...'
+                            placeholderTextColor='white'
+                            multiline={true}
+                            numberOfLines={5}
+                        /* value={char.name} */
+                        />
+                    </View>
+
+
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.characteristicsLabel}>Flaws: </Text>
+                        <TextInput
+                            style={styles.charInputTextLong}
+                            placeholder='Traits ...'
+                            placeholderTextColor='white'
+                            multiline={true}
+                            numberOfLines={5}
+                        /* value={char.name} */
+                        />
+                    </View>
+                </View>
+
+            </View>
+            {/* Background Info */}
         </View>
     )
 
