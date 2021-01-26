@@ -10,6 +10,7 @@ import {
     TouchableHighlight,
     StyleSheet,
 } from 'react-native';
+import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 import styles from '../global-styles';
 import { Character } from './character';
 
@@ -202,6 +203,111 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                     </View>
                 </View>
             </View>
+            {/* Background Info */}
+            <View style={styles.radioContainer}>
+                <Text style={styles.radioLabel}>Background Information</Text>
+                <View style={styles.radioBox}>
+                    <View style={styles.backgroundInfoContainer}>
+                        <Text style={styles.leftLabel}>Alignment</Text>
+                        <View style={styles.borderedBoxRow}>
+                            <View style={styles.boxOfThree}>
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Lawful Good</Text>
+                                </TouchableOpacity >
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Lawful Neutral</Text>
+                                </TouchableOpacity >
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Lawful Bad</Text>
+                                </TouchableOpacity >
+                            </View>
+                            <View style={styles.boxOfThree}>
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Neutral Good</Text>
+                                </TouchableOpacity >
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>True Neutral</Text>
+                                </TouchableOpacity >
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Neutral Bad</Text>
+                                </TouchableOpacity >
+                            </View>
+                            <View style={styles.boxOfThree}>
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Chaotic Good</Text>
+                                </TouchableOpacity >
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Chaotic Neutral</Text>
+                                </TouchableOpacity >
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Chaotic Bad</Text>
+                                </TouchableOpacity >
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.backgroundInfoContainer}>
+                        <Text style={styles.leftLabel}>Lifestyle</Text>
+                        <View style={styles.borderedBoxRow}>
+                            <View style={styles.boxOfThree}>
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Wretched</Text>
+                                </TouchableOpacity >
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Squalid</Text>
+                                </TouchableOpacity >
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Poor</Text>
+                                </TouchableOpacity >
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Modest</Text>
+                                </TouchableOpacity >
+                            </View>
+                            <View style={styles.boxOfThree}>
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Comfortable</Text>
+                                </TouchableOpacity >
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Wealthy</Text>
+                                </TouchableOpacity >
+                                <TouchableOpacity onPress={() => { }} style={styles.radio} >
+                                    {RadioButton('test')}
+                                    <Text style={styles.radioText}>Aristocratic</Text>
+                                </TouchableOpacity >
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.backgroundInfoContainer}>
+                    
+                        <Text style={styles.leftLabel}>Faith </Text>
+                        <TextInput
+                            style={styles.charInputTextLong}
+                            placeholder='Traits ...'
+                            placeholderTextColor='white'
+                            multiline={true}
+                            numberOfLines={5}
+                        /* value={char.name} */
+                        />
+                    
+
+
+                    </View>
+                </View>
+            </View>
             {/*  Personal Characteristics */}
             <View style={styles.radioContainer}>
                 <Text style={styles.radioLabel}>Personality Characteristics</Text>
@@ -259,7 +365,58 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                 </View>
 
             </View>
-            {/* Background Info */}
+            {/* Backstory Info */}
+            <View style={styles.radioContainer}>
+                <Text style={styles.radioLabel}>Backstory Information</Text>
+                <View style={styles.charInputBox}>
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.characteristicsLabel}>Organizations: </Text>
+                        <TextInput
+                            style={styles.charInputTextLong}
+                            placeholder='Traits ...'
+                            placeholderTextColor='white'
+                            multiline={true}
+                            numberOfLines={5}
+                        /* value={char.name} */
+                        />
+                    </View>
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.characteristicsLabel}>Allies: </Text>
+                        <TextInput
+                            style={styles.charInputTextLong}
+                            placeholder='Traits ...'
+                            placeholderTextColor='white'
+                            multiline={true}
+                            numberOfLines={5}
+                        /* value={char.name} */
+                        />
+                    </View>
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.characteristicsLabel}>Enemies: </Text>
+                        <TextInput
+                            style={styles.charInputTextLong}
+                            placeholder='Traits ...'
+                            placeholderTextColor='white'
+                            multiline={true}
+                            numberOfLines={5}
+                        /* value={char.name} */
+                        />
+                    </View>
+                    <View style={styles.charInputLabel}>
+                        <Text style={styles.characteristicsLabel}>Other Information: </Text>
+                        <TextInput
+                            style={styles.charInputTextLong}
+                            placeholder='Traits ...'
+                            placeholderTextColor='white'
+                            multiline={true}
+                            numberOfLines={5}
+                        /* value={char.name} */
+                        />
+                    </View>
+
+                </View>
+
+            </View>
         </View>
     )
 

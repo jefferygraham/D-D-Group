@@ -72,9 +72,38 @@ const styles = StyleSheet.create({
     padding: 10,
     color: 'white',
   },
+  characteristicsLabel: {
+    color: 'white',
+    fontSize: 20,
+    marginRight: 10,
+    width:'13%',
+    textAlign:'right'
+  },
+  charInputLabel: {
+    flexDirection: 'row',
+    color: 'white',
+    fontSize: 20,
+    margin: 10,
+  },
+  charContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#003f5c',
+  },
+  charInputBox: {
+    flex: 1,
+    flexDirection: 'column',
+    width: '100%',
+    backgroundColor: '#465881',
+    borderRadius: 25,
+    height: 50,
+    padding: 20,
+
+
+  },
   radio: {
     flexDirection: 'row',
-
   },
   radioLabel: {
     fontWeight: 'bold',
@@ -105,6 +134,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
 
   },
+  boxOfThree:{
+    flexDirection:'column',
+    flex:1
+  },
+  borderedBoxRow:{
+    borderWidth:1,
+    borderColor:'white',
+    flexDirection:'row',
+    flex:1
+  },
+  leftLabel:{
+    alignSelf:'flex-start',
+    color:'white',
+    fontSize:20,
+    margin:5
+
+  },
   looksLabel: {
     alignSelf: 'center',
     color: 'white',
@@ -113,39 +159,9 @@ const styles = StyleSheet.create({
 
 
   },
-  characteristicsLabel: {
-    color: 'white',
-    fontSize: 20,
-    marginRight: 10,
-    width:'13%',
-    textAlign:'right'
-    
-
-
-  },
-  charInputLabel: {
-    flexDirection: 'row',
-    color: 'white',
-    fontSize: 20,
-    margin: 10,
-
-
-  },
-  charContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: '#003f5c',
-  },
-  charInputBox: {
-    flex: 1,
-    flexDirection: 'column',
-    width: '100%',
-    backgroundColor: '#465881',
-    borderRadius: 25,
-    height: 50,
-    margin: 15,
-
+  backgroundInfoContainer:{
+    flex:1,
+    margin:5,
 
   },
 
