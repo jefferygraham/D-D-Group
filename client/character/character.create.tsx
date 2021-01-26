@@ -51,20 +51,19 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
     }
     return (
         <View style={styles.charContainer}>
-        {/* Character Name */}
-        <View style={styles.radioContainer}>
-        <Text style={styles.radioLabel}>Character Name</Text>
-            <View style={styles.charInputBox}>
-            
-                <TextInput
-                    style={styles.charInputText}
-                    placeholder='Charater Name ...'
-                    placeholderTextColor='white'
-                /* value={char.name} */
-                />
+            {/* Character Name */}
+            <View style={styles.radioContainer}>
+                <Text style={styles.radioLabel}>Character Name</Text>
+                <View style={styles.charInputBox}>
+                    <TextInput
+                        style={styles.charInputText}
+                        placeholder='Charater Name ...'
+                        placeholderTextColor='white'
+                    /* value={char.name} */
+                    />
+                </View>
             </View>
-            </View>
-        {/* Race */}
+            {/* Race */}
             <View style={styles.radioContainer}>
                 <Text style={styles.radioLabel}>Race</Text>
                 <View style={styles.radioBox}>
@@ -98,8 +97,8 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                     </TouchableOpacity >
                 </View>
             </View>
-        {/* Class */}
-        <View style={styles.radioContainer}>
+            {/* Class */}
+            <View style={styles.radioContainer}>
                 <Text style={styles.radioLabel}>Class</Text>
                 <View style={styles.radioBox}>
                     <TouchableOpacity onPress={() => { }} style={styles.radio} >
