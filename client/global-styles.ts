@@ -164,6 +164,15 @@ const styles = StyleSheet.create({
     margin:5,
 
   },
+  createBtn:{
+    width: '80%',
+    backgroundColor: '#fb5b5a',
+    borderRadius: 25,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin:10
+  },
 
 });
 

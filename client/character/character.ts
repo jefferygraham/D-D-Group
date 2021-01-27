@@ -13,5 +13,15 @@ export class Character{
     alignment = '';
     faith = '';
     lifestyle = '';
-
+    gender = '';
+    age = '';
+    hairColor='';
+    skinColor='';
+    eyecolor='';
+    height = '';
+    weight = '';
+    organizations = '';
+    allies = '';
+    enemies = '';
+    otherInfo = '';
 }
