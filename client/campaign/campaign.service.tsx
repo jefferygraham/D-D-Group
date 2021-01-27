@@ -5,11 +5,11 @@ class CampaignService {
     private URI: string;
     constructor(){
         //URL of lambda server
-        this.URI = '';
+        this.URI = 'https://awti071wrk.execute-api.us-east-1.amazonaws.com/default/campaign';
     }
 
     addCampaign(c: Campaign): Promise<null> {
-        return axios.post(this.URI, c).then(result => null);
+        return axios.post(`${this.URI}/add`, c).then(result => null);
     }
 
     deleteCampaign(id: string): Promise<null> {

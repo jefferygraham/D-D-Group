@@ -22,9 +22,10 @@ function AddCampaignComponent() {
         //create a campaign with the data entered and the user's username
         let newC = new Campaign();
         newC.campaignName = data.campaignName;
+        newC.DM = userContext.id;
         //need to generate a campaign id
         //let cID = user.campaigns.length++;
-        campaignService.addCampaign(new Campaign()).then(() => {
+        campaignService.addCampaign(newC).then(() => {
             //replace with campaign page once the route is set up
             nav.navigate('Home');
         });
