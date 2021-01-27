@@ -48,7 +48,7 @@ exports.handler = async (event) => {
 };
 
 //insert new user
-exports.handler = async (event: any) => {
+exports.handler = async (event) => {
   const { Client } = require('pg'); //  Needs the nodePostgres Lambda Layer.
   const client = new Client();
 
