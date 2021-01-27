@@ -26,9 +26,48 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
     const charSelector = (state: CharacterState) => state.character;
     const char = useSelector(charSelector)
     const dispatch = useDispatch();
+    const dndAPI = 'https://www.dnd5eapi.co/api/';
 
     function submitForm() {
-        console.log(char)
+        let race = char.race.toLowerCase();
+        let api = dndAPI + 'races/' + race;
+        //change stats based on race
+        fetch(api).then((response) => response.json()).then((json) => {
+            console.log(json)
+            json.ability_bonuses.forEach((element: any) => {
+                console.log(element.ability_score.index)
+                
+                let stat: string = element.ability_score.index;
+                switch (stat) {
+                    case 'str':
+                        char.strength += Number(element.bonus)
+                        break;
+                    case 'dex':
+                        char.dexterity += Number(element.bonus)
+                        break;
+                    case 'con':
+                        char.constitution += Number(element.bonus)
+                        break;
+                    case 'int':
+                        char.intelligence += Number(element.bonus)
+                        break;
+                    case 'wis':
+                        char.wisdom += Number(element.bonus)
+                        break;
+                    case 'cha':
+                        char.charisma += Number(element.bonus)
+                        break;
+                    default:
+                        console.log('error')
+                        break;
+                }
+
+
+            })
+            console.log(char)
+        })
+
+        
 
     }
 
@@ -88,11 +127,11 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                         <Text style={styles.radioText}>Dragonborn</Text>
                     </TouchableOpacity >
                     <TouchableOpacity onPress={() => {
-                        char.race = 'Wood Elf'
+                        char.race = 'Elf'
                         dispatch(changeCharacter(char))
                     }} style={styles.radio} >
                         {RadioButton('test')}
-                        <Text style={styles.radioText}>Wood Elf</Text>
+                        <Text style={styles.radioText}>Elf</Text>
                     </TouchableOpacity >
                     <TouchableOpacity onPress={() => {
                         char.race = 'Half-Elf'
@@ -156,14 +195,14 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                         {RadioButton(char.class)}
                         <Text style={styles.radioText}>Fighter</Text>
                     </TouchableOpacity >
-                    <TouchableOpacity onPress={() => { 
+                    <TouchableOpacity onPress={() => {
                         char.class = 'Paladin'
                         dispatch(changeCharacter(char))
                     }} style={styles.radio} >
                         {RadioButton('test')}
                         <Text style={styles.radioText}>Paladin</Text>
                     </TouchableOpacity >
-                    <TouchableOpacity onPress={() => { 
+                    <TouchableOpacity onPress={() => {
                         char.class = 'Ranger'
                         dispatch(changeCharacter(char))
                     }} style={styles.radio} >
@@ -173,11 +212,11 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                     <TouchableOpacity onPress={() => {
                         char.class = 'Rouge'
                         dispatch(changeCharacter(char))
-                     }} style={styles.radio} >
+                    }} style={styles.radio} >
                         {RadioButton('test')}
                         <Text style={styles.radioText}>Rouge</Text>
                     </TouchableOpacity >
-                    <TouchableOpacity onPress={() => { 
+                    <TouchableOpacity onPress={() => {
                         char.class = 'Warlock'
                         dispatch(changeCharacter(char))
                     }} style={styles.radio} >
@@ -284,9 +323,9 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                         <Text style={styles.leftLabel}>Alignment</Text>
                         <View style={styles.borderedBoxRow}>
                             <View style={styles.boxOfThree}>
-                                <TouchableOpacity onPress={() => { 
-                                     char.alignment = 'Lawful Good'
-                                     dispatch(changeCharacter(char))
+                                <TouchableOpacity onPress={() => {
+                                    char.alignment = 'Lawful Good'
+                                    dispatch(changeCharacter(char))
                                 }} style={styles.radio} >
                                     {RadioButton('test')}
                                     <Text style={styles.radioText}>Lawful Good</Text>
@@ -294,11 +333,11 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                                 <TouchableOpacity onPress={() => {
                                     char.alignment = 'Lawful Neutral'
                                     dispatch(changeCharacter(char))
-                                 }} style={styles.radio} >
+                                }} style={styles.radio} >
                                     {RadioButton('test')}
                                     <Text style={styles.radioText}>Lawful Neutral</Text>
                                 </TouchableOpacity >
-                                <TouchableOpacity onPress={() => { 
+                                <TouchableOpacity onPress={() => {
                                     char.alignment = 'Lawful Bad'
                                     dispatch(changeCharacter(char))
                                 }} style={styles.radio} >
@@ -307,7 +346,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                                 </TouchableOpacity >
                             </View>
                             <View style={styles.boxOfThree}>
-                                <TouchableOpacity onPress={() => { 
+                                <TouchableOpacity onPress={() => {
                                     char.alignment = 'Neutral Good'
                                     dispatch(changeCharacter(char))
                                 }} style={styles.radio} >
@@ -317,11 +356,11 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                                 <TouchableOpacity onPress={() => {
                                     char.alignment = 'True Neutral'
                                     dispatch(changeCharacter(char))
-                                 }} style={styles.radio} >
+                                }} style={styles.radio} >
                                     {RadioButton('test')}
                                     <Text style={styles.radioText}>True Neutral</Text>
                                 </TouchableOpacity >
-                                <TouchableOpacity onPress={() => { 
+                                <TouchableOpacity onPress={() => {
                                     char.alignment = 'Neutral Bad'
                                     dispatch(changeCharacter(char))
                                 }} style={styles.radio} >
@@ -330,23 +369,23 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                                 </TouchableOpacity >
                             </View>
                             <View style={styles.boxOfThree}>
-                                <TouchableOpacity onPress={() => { 
+                                <TouchableOpacity onPress={() => {
                                     char.alignment = 'Chaotic Good'
                                     dispatch(changeCharacter(char))
                                 }} style={styles.radio} >
                                     {RadioButton('test')}
                                     <Text style={styles.radioText}>Chaotic Good</Text>
                                 </TouchableOpacity >
-                                <TouchableOpacity onPress={() => { 
-                                     char.alignment = 'Chaotic Neutral'
-                                     dispatch(changeCharacter(char))
+                                <TouchableOpacity onPress={() => {
+                                    char.alignment = 'Chaotic Neutral'
+                                    dispatch(changeCharacter(char))
                                 }} style={styles.radio} >
                                     {RadioButton('test')}
                                     <Text style={styles.radioText}>Chaotic Neutral</Text>
                                 </TouchableOpacity >
                                 <TouchableOpacity onPress={() => {
-                                     char.alignment = 'Chaotic Bad'
-                                     dispatch(changeCharacter(char))
+                                    char.alignment = 'Chaotic Bad'
+                                    dispatch(changeCharacter(char))
                                 }} style={styles.radio} >
                                     {RadioButton('test')}
                                     <Text style={styles.radioText}>Chaotic Bad</Text>
@@ -358,14 +397,14 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                         <Text style={styles.leftLabel}>Lifestyle</Text>
                         <View style={styles.borderedBoxRow}>
                             <View style={styles.boxOfThree}>
-                                <TouchableOpacity onPress={() => { 
-                                     char.lifestyle = 'Wretched'
-                                     dispatch(changeCharacter(char))
+                                <TouchableOpacity onPress={() => {
+                                    char.lifestyle = 'Wretched'
+                                    dispatch(changeCharacter(char))
                                 }} style={styles.radio} >
                                     {RadioButton('test')}
                                     <Text style={styles.radioText}>Wretched</Text>
                                 </TouchableOpacity >
-                                <TouchableOpacity onPress={() => { 
+                                <TouchableOpacity onPress={() => {
                                     char.lifestyle = 'Squalid'
                                     dispatch(changeCharacter(char))
                                 }} style={styles.radio} >
@@ -375,20 +414,20 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                                 <TouchableOpacity onPress={() => {
                                     char.lifestyle = 'Poor'
                                     dispatch(changeCharacter(char))
-                                 }} style={styles.radio} >
+                                }} style={styles.radio} >
                                     {RadioButton('test')}
                                     <Text style={styles.radioText}>Poor</Text>
                                 </TouchableOpacity >
                                 <TouchableOpacity onPress={() => {
                                     char.lifestyle = 'Modest'
                                     dispatch(changeCharacter(char))
-                                 }} style={styles.radio} >
+                                }} style={styles.radio} >
                                     {RadioButton('test')}
                                     <Text style={styles.radioText}>Modest</Text>
                                 </TouchableOpacity >
                             </View>
                             <View style={styles.boxOfThree}>
-                                <TouchableOpacity onPress={() => { 
+                                <TouchableOpacity onPress={() => {
                                     char.lifestyle = 'Comfortable'
                                     dispatch(changeCharacter(char))
                                 }} style={styles.radio} >
@@ -398,14 +437,14 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                                 <TouchableOpacity onPress={() => {
                                     char.lifestyle = 'Wealthy'
                                     dispatch(changeCharacter(char))
-                                 }} style={styles.radio} >
+                                }} style={styles.radio} >
                                     {RadioButton('test')}
                                     <Text style={styles.radioText}>Wealthy</Text>
                                 </TouchableOpacity >
                                 <TouchableOpacity onPress={() => {
                                     char.lifestyle = 'Aristocratic'
                                     dispatch(changeCharacter(char))
-                                 }} style={styles.radio} >
+                                }} style={styles.radio} >
                                     {RadioButton('test')}
                                     <Text style={styles.radioText}>Aristocratic</Text>
                                 </TouchableOpacity >
@@ -529,10 +568,10 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                             placeholderTextColor='white'
                             multiline={true}
                             numberOfLines={5}
-                           onChangeText={(value) =>
-                            dispatch(changeCharacter({ ...char, enemies: value }))
-                        }
-                        value={char.enemies}
+                            onChangeText={(value) =>
+                                dispatch(changeCharacter({ ...char, enemies: value }))
+                            }
+                            value={char.enemies}
                         />
                     </View>
                     <View style={styles.charInputLabel}>
