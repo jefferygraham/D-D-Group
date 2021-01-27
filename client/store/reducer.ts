@@ -1,10 +1,13 @@
 import * as Actions from './actions';
 import { User } from './../user/user';
 import { AppState } from './store';
+import { Campaign } from '../campaign/campaign';
 
 export const initialState: AppState = {
   user: new User(),
   loginUser: new User(),
+  campaign: new Campaign(),
+  campaigns: []
 };
 
 const reducer = (
@@ -20,6 +23,12 @@ const reducer = (
       return newState;
     case Actions.UserActions.LoginChange:
       newState.loginUser = action.payload as User;
+      return newState;
+    case Actions.CampaignActions.GetCampaigns:
+      newState.campaigns = action.payload as Campaign[];
+      return newState;
+    case Actions.CampaignActions.ChangeCampaign:
+      newState.campaign = action.payload as Campaign;
       return newState;
     default:
       return state;
