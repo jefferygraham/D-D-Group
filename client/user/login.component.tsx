@@ -23,7 +23,7 @@ interface LoginProp {
 function LoginComponent({ navigation }: LoginProp) {
   const userSelector = (state: UserState) => {
     console.log(state);
-    return state.user;
+    return state.loginUser;
   };
   const user = useSelector(userSelector);
   const dispatch = useDispatch();

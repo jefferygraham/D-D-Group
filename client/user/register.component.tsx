@@ -22,15 +22,26 @@ function RegisterComponent({ navigation }: RegisterProp) {
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
 
-  function submitForm() {
-    userService.register(user).then((user) => {
-      dispatch(registerAction(user));
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
 
-      if (user) {
-        navigation.navigate('Home');
-      } else {
-        navigation.navigate('Unauthorized');
-      }
+  function submitForm() {
+    const user = {
+      name,
+      password,
+      role,
+    };
+    console.log(user);
+
+    userService.register(user).then((user) => {
+      // dispatch(registerAction(user));
+
+      // if (user) {
+      navigation.navigate('Login');
+      // } else {
+      //   navigation.navigate('Unauthorized');
+      // }
     });
   }
 
@@ -42,10 +53,8 @@ function RegisterComponent({ navigation }: RegisterProp) {
           style={styles.inputText}
           placeholder='Username...'
           placeholderTextColor='#003f5c'
-          onChangeText={(value) =>
-            dispatch(registerAction({ ...user, name: value }))
-          }
-          value={user.name}
+          onChangeText={(name) => setName(name)}
+          value={name}
         />
       </View>
       <View style={styles.inputView}>
@@ -53,20 +62,15 @@ function RegisterComponent({ navigation }: RegisterProp) {
           style={styles.inputText}
           placeholder='Password...'
           placeholderTextColor='#003f5c'
-          secureTextEntry
-          onChangeText={(value) =>
-            dispatch(registerAction({ ...user, password: value }))
-          }
-          value={user.password}
+          onChangeText={(password) => setPassword(password)}
+          value={password}
         />
       </View>
       <View style={styles.inputView}>
         <RNPickerSelect
           placeholder={{ label: 'Select a role', value: null }}
           useNativeAndroidPickerStyle={false}
-          onValueChange={(value) =>
-            dispatch(registerAction({ ...user, role: value }))
-          }
+          onValueChange={(role) => setRole(role)}
           items={[
             { label: 'Player', value: 'player' },
             { label: 'Master', value: 'master' },
