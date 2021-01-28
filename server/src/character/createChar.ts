@@ -5,13 +5,18 @@ exports.handler = async (event:any) =>{
     const client = new Client();
 
     client.connect();
-    console.log(event.race)
+    
+    let char = JSON.parse(event.body);
+    console.log(char);
     const q = `
     INSERT INTO character(playerid,strength, dexterity,constitution,intelligence,wisdom,charisma,race,class,alignment,faith,lifestyle,name) 
-    VALUES (`+ event.playerID +", "+ event.strength + ", "+ event.dexterity +", "+ event.constitution +", "+ event.intelligence +", "+ event.wisdom +", "+ event.charisma + ", '"+ event.race +"', '"+ event.class +"', '"+ event.alignment +"', '"+ event.faith +"', '"+ event.lifestyle +"', '"+ event.name +"')" ;
+    VALUES (`+ char.playerID +", "+ char.strength + ", "+ char.dexterity +", "+ char.constitution +", "+ char.intelligence +", "+ char.wisdom +", "+ char.charisma + ", '"+ char.race +"', '"+ char.class +"', '"+ char.alignment +"', '"+ char.faith +"', '"+ char.lifestyle +"', '"+ char.name +"') RETURNING *" ;
+    
+    
+
     const response = await client.query(q);
     if(response){
-        return createResponse('', 204);
+        return createResponse('', 204, response.rows[0]);
     }else{
         return createResponse('', 400);
     }

@@ -36,22 +36,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var response_1 = require("../../response");
+var response_1 = require("../response");
 exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var Client, client, q, response;
+    var Client, client, char, q, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 Client = require("pg").Client;
                 client = new Client();
                 client.connect();
-                console.log(event.race);
-                q = "\n    INSERT INTO character(playerid,strength, dexterity,constitution,intelligence,wisdom,charisma,race,class,alignment,faith,lifestyle,name) \n    VALUES (" + event.playerID + ", " + event.strength + ", " + event.dexterity + ", " + event.constitution + ", " + event.intelligence + ", " + event.wisdom + ", " + event.charisma + ", '" + event.race + "', '" + event["class"] + "', '" + event.alignment + "', '" + event.faith + "', '" + event.lifestyle + "', '" + event.name + "')";
+                char = JSON.parse(event.body);
+                console.log(char);
+                q = "\n    INSERT INTO character(playerid,strength, dexterity,constitution,intelligence,wisdom,charisma,race,class,alignment,faith,lifestyle,name) \n    VALUES (" + char.playerID + ", " + char.strength + ", " + char.dexterity + ", " + char.constitution + ", " + char.intelligence + ", " + char.wisdom + ", " + char.charisma + ", '" + char.race + "', '" + char["class"] + "', '" + char.alignment + "', '" + char.faith + "', '" + char.lifestyle + "', '" + char.name + "') RETURNING *";
                 return [4 /*yield*/, client.query(q)];
             case 1:
                 response = _a.sent();
                 if (response) {
-                    return [2 /*return*/, response_1["default"]('', 204)];
+                    return [2 /*return*/, response_1["default"]('', 204, response.rows[0])];
                 }
                 else {
                     return [2 /*return*/, response_1["default"]('', 400)];
