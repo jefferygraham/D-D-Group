@@ -14,7 +14,7 @@ import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolic
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../global-styles';
 import { changeCharacter, CharacterActions } from '../store/actions';
-import { CharacterState } from '../store/store';
+import { CharacterState, UserState } from '../store/store';
 import { Character } from './character';
 import characterService from './character.service';
 
@@ -25,12 +25,17 @@ interface CreateProp {
 
 export function CharacterCreationComponent({ navigation }: CreateProp) {
     const charSelector = (state: CharacterState) => state.character;
-    const char = useSelector(charSelector)
+    const userSelector = (state:UserState) => state.user;
+    const char = useSelector(charSelector);
+    const user = useSelector(userSelector);
+
     const dispatch = useDispatch();
     const dndAPI = 'https://www.dnd5eapi.co/api/';
 
     function submitForm() {
-        char.playerID = 2;
+        if(user.id){
+            char.playerID = user.id
+        }
         let race = char.race.toLowerCase();
         let api = dndAPI + 'races/' + race;
         //change stats based on race
