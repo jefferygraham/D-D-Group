@@ -3,9 +3,10 @@ exports.handler = async (event: any) => {
     const client = new Client();
     client.connect();
 
-    const q = 'insert into campaigns(campaignName, DM, players, notes) values ($1,$2,$3,$4) returning *';
+    const q = 'insert into campaigns(campaignName, DM, players, notes) values ($1,$2) returning *';
+    const body = JSON.parse(event.body);
 
-    const args = [event.campaignName, event.DM, event.players, event.notes];
+    const args = [body.campaignName, body.DM];
     const response = await client.query(q, args);
 
     if (response.rows.length > 0) {
@@ -13,10 +14,10 @@ exports.handler = async (event: any) => {
             statusCode: 200,
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST',
             },
-            body: response.rows[0],
+            body: JSON.stringify(response.rows[0]),
         };
     } else {
         return {
@@ -24,7 +25,7 @@ exports.handler = async (event: any) => {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST',
             },
         };
     }

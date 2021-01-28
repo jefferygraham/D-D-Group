@@ -36,42 +36,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var Client, client, q, body, args, response;
+    var Client, client, res, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 Client = require('pg').Client;
                 client = new Client();
-                client.connect();
-                q = 'insert into campaigns(campaignName, DM, players, notes) values ($1,$2) returning *';
-                body = JSON.parse(event.body);
-                args = [body.campaignName, body.DM];
-                return [4 /*yield*/, client.query(q, args)];
+                return [4 /*yield*/, client.connect()];
             case 1:
-                response = _a.sent();
-                if (response.rows.length > 0) {
-                    return [2 /*return*/, {
-                            statusCode: 200,
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Access-Control-Allow-Origin': '*',
-                                'Access-Control-Allow-Methods': 'OPTIONS,POST',
-                            },
-                            body: JSON.stringify(response.rows[0]),
-                        }];
-                }
-                else {
-                    return [2 /*return*/, {
-                            statusCode: 400,
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Access-Control-Allow-Origin': '',
-                                'Access-Control-Allow-Methods': 'OPTIONS,POST',
-                            },
-                        }];
-                }
-                client.end();
-                return [2 /*return*/];
+                _a.sent();
+                return [4 /*yield*/, client.query('select * from campaigns')];
+            case 2:
+                res = _a.sent();
+                return [4 /*yield*/, client.end()];
+            case 3:
+                _a.sent();
+                response = {
+                    statusCode: 200,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+                    },
+                    body: JSON.stringify(res.rows),
+                };
+                console.log('response: ' + JSON.stringify(response));
+                return [2 /*return*/, response];
         }
     });
 }); };
