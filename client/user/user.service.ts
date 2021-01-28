@@ -10,7 +10,7 @@ class UserService {
   }
 
   getLogin(): Promise<User> {
-    return axios.get(this.URI, { withCredentials: true }).then((result) => {
+    return axios.get(this.URI).then((result) => {
       console.log(result);
       return result.data;
     });
@@ -18,15 +18,20 @@ class UserService {
 
   login(user: User): Promise<User> {
     return axios
-      .post(`${this.URI}/login`, user, { withCredentials: true })
+      .post(`${this.URI}/login`, user)
+      .then((result) => result.data.body)
+      .catch((err) => err);
+  }
+
+  register(user: User): Promise<User> {
+    return axios
+      .post(`${this.URI}`, user)
       .then((result) => result.data.body)
       .catch((err) => err);
   }
 
   logout(): Promise<null> {
-    return axios
-      .delete(this.URI, { withCredentials: true })
-      .then((result) => null);
+    return axios.delete(this.URI).then((result) => null);
   }
 }
 

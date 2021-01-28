@@ -4,11 +4,12 @@ import { User } from './../user/user';
 export enum UserActions {
   GetUser = 'GET_USER',
   LoginChange = 'CHANGE_LOGIN',
+  RegisterUser = 'REGISTER_USER',
 }
 
 export enum CampaignActions {
   GetCampaigns = 'GET_CAMPAIGNS',
-  ChangeCampaign = 'CHANGE_CAMPAIGN'
+  ChangeCampaign = 'CHANGE_CAMPAIGN',
 }
 
 export interface AppAction {
@@ -42,6 +43,14 @@ export function loginAction(user: User): UserAction<User> {
   return action;
 }
 
+export function registerAction(user: User): UserAction<User> {
+  const action: UserAction<User> = {
+    type: UserActions.RegisterUser,
+    payload: user,
+  };
+  return action;
+}
+
 export function getCampaigns(campaigns: Campaign[]): CampaignAction {
   const action: CampaignAction = {
     type: CampaignActions.GetCampaigns,
@@ -55,5 +64,5 @@ export function changeCampaign(campaign: Campaign): CampaignAction {
     type: CampaignActions.ChangeCampaign,
     payload: campaign,
   };
-  return action
+  return action;
 }

@@ -7,7 +7,7 @@ export const initialState: AppState = {
   user: new User(),
   loginUser: new User(),
   campaign: new Campaign(),
-  campaigns: []
+  campaigns: [],
 };
 
 const reducer = (
@@ -23,6 +23,8 @@ const reducer = (
       return newState;
     case Actions.UserActions.LoginChange:
       newState.loginUser = action.payload as User;
+      return newState;
+    case Actions.UserActions.RegisterUser:
       return newState;
     case Actions.CampaignActions.GetCampaigns:
       newState.campaigns = action.payload as Campaign[];

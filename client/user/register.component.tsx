@@ -1,36 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Platform,
-  Button,
   TextInput,
   Text,
   View,
-  TouchableNativeFeedback,
   TouchableOpacity,
-  TouchableHighlight,
   StyleSheet,
 } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 
-import { getUser, loginAction } from '../store/actions';
+import { registerAction } from '../store/actions';
 import userService from './user.service';
 import { UserState } from '../store/store';
 
-interface LoginProp {
+interface RegisterProp {
   navigation: any;
 }
 
-function LoginComponent({ navigation }: LoginProp) {
-  const userSelector = (state: UserState) => {
-    console.log(state);
-    return state.user;
-  };
+function RegisterComponent({ navigation }: RegisterProp) {
+  const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
 
   function submitForm() {
-    userService.login(user).then((user) => {
-      dispatch(getUser(user));
+    userService.register(user).then((user) => {
+      dispatch(registerAction(user));
 
       if (user) {
         navigation.navigate('Home');
@@ -49,7 +43,7 @@ function LoginComponent({ navigation }: LoginProp) {
           placeholder='Username...'
           placeholderTextColor='#003f5c'
           onChangeText={(value) =>
-            dispatch(loginAction({ ...user, name: value }))
+            dispatch(registerAction({ ...user, name: value }))
           }
           value={user.name}
         />
@@ -61,16 +55,26 @@ function LoginComponent({ navigation }: LoginProp) {
           placeholderTextColor='#003f5c'
           secureTextEntry
           onChangeText={(value) =>
-            dispatch(loginAction({ ...user, password: value }))
+            dispatch(registerAction({ ...user, password: value }))
           }
           value={user.password}
         />
       </View>
+      <View style={styles.inputView}>
+        <RNPickerSelect
+          placeholder={{ label: 'Select a role', value: null }}
+          useNativeAndroidPickerStyle={false}
+          onValueChange={(value) =>
+            dispatch(registerAction({ ...user, role: value }))
+          }
+          items={[
+            { label: 'Player', value: 'player' },
+            { label: 'Master', value: 'master' },
+          ]}
+        />
+      </View>
       <TouchableOpacity style={styles.loginBtn} onPress={submitForm}>
-        <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-        <Text style={styles.loginText}>Register</Text>
+        <Text style={styles.loginText}>REGISTER</Text>
       </TouchableOpacity>
     </View>
   );
@@ -117,4 +121,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginComponent;
+export default RegisterComponent;
