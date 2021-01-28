@@ -136,7 +136,8 @@ const styles = StyleSheet.create({
   },
   boxOfThree:{
     flexDirection:'column',
-    flex:1
+    flex:1,
+    justifyContent:'space-evenly'
   },
   borderedBoxRow:{
     borderWidth:1,

@@ -35,8 +35,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-var response_1 = require("../../response");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var response_1 = __importDefault(require("../../response"));
 exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
     var Client, client, q, response;
     return __generator(this, function (_a) {
@@ -46,15 +49,15 @@ exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, fu
                 client = new Client();
                 client.connect();
                 console.log(event.race);
-                q = "\n    INSERT INTO character(playerid,strength, dexterity,constitution,intelligence,wisdom,charisma,race,class,alignment,faith,lifestyle,name) \n    VALUES (" + event.playerID + ", " + event.strength + ", " + event.dexterity + ", " + event.constitution + ", " + event.intelligence + ", " + event.wisdom + ", " + event.charisma + ", '" + event.race + "', '" + event["class"] + "', '" + event.alignment + "', '" + event.faith + "', '" + event.lifestyle + "', '" + event.name + "')";
+                q = "\n    INSERT INTO character(playerid,strength, dexterity,constitution,intelligence,wisdom,charisma,race,class,alignment,faith,lifestyle,name) \n    VALUES (" + event.playerID + ", " + event.strength + ", " + event.dexterity + ", " + event.constitution + ", " + event.intelligence + ", " + event.wisdom + ", " + event.charisma + ", '" + event.race + "', '" + event.class + "', '" + event.alignment + "', '" + event.faith + "', '" + event.lifestyle + "', '" + event.name + "')";
                 return [4 /*yield*/, client.query(q)];
             case 1:
                 response = _a.sent();
                 if (response) {
-                    return [2 /*return*/, response_1["default"]('', 204)];
+                    return [2 /*return*/, response_1.default('', 204)];
                 }
                 else {
-                    return [2 /*return*/, response_1["default"]('', 400)];
+                    return [2 /*return*/, response_1.default('', 400)];
                 }
                 client.end();
                 return [2 /*return*/];

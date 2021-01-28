@@ -6,11 +6,11 @@ class CharacterService{
     private URI: string;
   constructor() {
     this.URI =
-      'https://awti071wrk.execute-api.us-east-1.amazonaws.com/default/users';
+      'https://46k03urfmi.execute-api.us-east-1.amazonaws.com/default/createCharacter';
   }
 
   createCharacter(char:Character):Promise<null>{
-      return axios.post(this.URI, char).then(result => null);
+      return axios.post(this.URI, char,{ withCredentials: true }).then(result => null);
   }
 
 

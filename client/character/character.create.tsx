@@ -16,6 +16,7 @@ import styles from '../global-styles';
 import { changeCharacter, CharacterActions } from '../store/actions';
 import { CharacterState } from '../store/store';
 import { Character } from './character';
+import characterService from './character.service';
 
 
 interface CreateProp {
@@ -29,6 +30,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
     const dndAPI = 'https://www.dnd5eapi.co/api/';
 
     function submitForm() {
+        char.playerID = 2;
         let race = char.race.toLowerCase();
         let api = dndAPI + 'races/' + race;
         //change stats based on race
@@ -65,6 +67,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 
             })
             console.log(char)
+            characterService.createCharacter(char);
         })
 
         
