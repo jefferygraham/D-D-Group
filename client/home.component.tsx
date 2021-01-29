@@ -1,8 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import style from './global-styles';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,7 +34,7 @@ export default function App() {
   }
 
   return (
-    <View style={style.container}>
+    <View style={styles.container}>
       <Text>Home Page</Text>
       <StatusBar style='auto' />
       {user.role === 'master' && (
@@ -56,8 +53,6 @@ export default function App() {
   );
 }
 
-<<<<<<< HEAD
-=======
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -77,4 +72,3 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
->>>>>>> fd131e8938d440d915d81190fd7fb32b1100eb05
