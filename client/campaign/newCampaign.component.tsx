@@ -21,7 +21,9 @@ function AddCampaignComponent() {
         //create a campaign with the data entered and the user's username
         let newC = new Campaign();
         newC.campaignName = data.campaignName;
-        newC.DM = user.id;
+        if (user.id) {
+            newC.DM = user.id;
+        }
         campaignService.addCampaign(newC).then(() => {
             nav.navigate('Home');
         });
@@ -29,8 +31,8 @@ function AddCampaignComponent() {
 
     return (
         <View style={styles.container}>
-            <form style={{width: 750, alignItems: 'center'}} onSubmit={onSubmit}>
-                <label style={{ color: "white", fontFamily: "Calibri"}}>Campaign Name:</label><br /><br />
+            <form style={{ width: 750, alignItems: 'center' }} onSubmit={onSubmit}>
+                <label style={{ color: "white", fontFamily: "Calibri" }}>Campaign Name:</label><br /><br />
                 <input style={{
                     width: '80%',
                     backgroundColor: '#465881',
