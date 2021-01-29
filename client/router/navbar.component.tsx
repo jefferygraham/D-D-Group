@@ -17,20 +17,30 @@ function NavBarComponent() {
   // } else {
   //   header = <Text>Not logged in</Text>;
   // }
-  return (
-    <View>
-      {user.id ? (
-        <Button
-          onPress={() => {
-            nav.navigate('CharacterCreation');
-          }}
-          title='Create Character '
-        />
-       ) : ('')} 
+  if (user) {
+    return (
+      <View>
+        {user.id ? (
+          <Button
+            onPress={() => {
+              nav.navigate('CharacterCreation');
+            }}
+            title='Create Character '
+          />
+        ) : ('')}
 
-      {header}
+        {header}
 
-    </View>)
+      </View>)
+
+  } else {
+    return (
+      <View>
+        {header}
+      </View>
+    )
+  }
+
 }
 
 export default NavBarComponent;
