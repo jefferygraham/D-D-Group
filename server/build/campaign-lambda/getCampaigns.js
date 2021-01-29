@@ -36,32 +36,42 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var Client, client, res, response;
+    var Client, client, body, q, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 Client = require('pg').Client;
                 client = new Client();
-                return [4 /*yield*/, client.connect()];
+                client.connect();
+                body = JSON.parse(event.body);
+                console.log(body);
+                q = "select * from campaigns where DM=" + body.DM;
+                return [4 /*yield*/, client.query(q)];
             case 1:
-                _a.sent();
-                return [4 /*yield*/, client.query('select * from campaigns')];
-            case 2:
-                res = _a.sent();
-                return [4 /*yield*/, client.end()];
-            case 3:
-                _a.sent();
-                response = {
-                    statusCode: 200,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*',
-                        'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
-                    },
-                    body: JSON.stringify(res.rows),
-                };
-                console.log('response: ' + JSON.stringify(response));
-                return [2 /*return*/, response];
+                response = _a.sent();
+                if (response.rows.length > 0) {
+                    return [2 /*return*/, {
+                            statusCode: 200,
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Access-Control-Allow-Origin': '*',
+                                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+                            },
+                            body: JSON.stringify(response.rows),
+                        }];
+                }
+                else {
+                    return [2 /*return*/, {
+                            statusCode: 400,
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Access-Control-Allow-Origin': '*',
+                                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+                            },
+                        }];
+                }
+                client.end();
+                return [2 /*return*/];
         }
     });
 }); };

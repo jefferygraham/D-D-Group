@@ -1,20 +1,32 @@
 exports.handler = async (event: any) => {
     const { Client } = require('pg'); //  Needs the nodePostgres Lambda Layer.
     const client = new Client();
-    await client.connect();
+    client.connect();
 
-    const res = await client.query('select * from campaigns');
-    await client.end();
+    const body = JSON.parse(event.body);
 
-    let response = {
-        statusCode: 200,
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
-        },
-        body: JSON.stringify(res.rows),
-    };
-    console.log('response: ' + JSON.stringify(response));
-    return response;
+    const q = `select * from campaigns where DM=${body.DM}`;
+    const response = await client.query(q);
+
+    if (response.rows.length > 0) {
+        return {
+            statusCode: 200,
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+            },
+            body: JSON.stringify(response.rows),
+        };
+    } else {
+        return {
+            statusCode: 400,
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+            },
+        };
+    }
+    client.end();
 }

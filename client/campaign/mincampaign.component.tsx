@@ -23,3 +23,5 @@ function MinCampaignComponent({data}: CampaignProps) {
         </View>
     )
 }
+
+export default MinCampaignComponent;
