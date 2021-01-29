@@ -14,6 +14,7 @@ exports.handler = async (event) => {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+      'Access-Control-Allow-Headers':'*',
     },
     body: JSON.stringify(res.rows),
   };

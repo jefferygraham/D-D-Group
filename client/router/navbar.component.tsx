@@ -17,17 +17,16 @@ function NavBarComponent() {
   // } else {
   //   header = <Text>Not logged in</Text>;
   // }
-console.log(user)
   return (
     <View>
-      {/* {user.id ? ( */}
+      {user.id ? (
         <Button
           onPress={() => {
             nav.navigate('CharacterCreation');
           }}
           title='Create Character '
         />
-      {/* ) : ('')}  */}
+       ) : ('')} 
 
       {header}
 

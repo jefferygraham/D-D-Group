@@ -17,6 +17,7 @@ import { changeCharacter, CharacterActions } from '../store/actions';
 import { CharacterState, UserState } from '../store/store';
 import { Character } from './character';
 import characterService from './character.service';
+import { useNavigation } from '@react-navigation/native';
 
 
 interface CreateProp {
@@ -31,6 +32,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 
     const dispatch = useDispatch();
     const dndAPI = 'https://www.dnd5eapi.co/api/';
+    const nav = useNavigation();
 
     function submitForm() {
         if(user.id){
@@ -40,10 +42,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
         let api = dndAPI + 'races/' + race;
         //change stats based on race
         fetch(api).then((response) => response.json()).then((json) => {
-            console.log(json)
             json.ability_bonuses.forEach((element: any) => {
-                console.log(element.ability_score.index)
-                
                 let stat: string = element.ability_score.index;
                 switch (stat) {
                     case 'str':
@@ -71,8 +70,8 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 
 
             })
-            console.log(char)
             characterService.createCharacter(char);
+            nav.navigate('Home');
         })
 
         
@@ -163,11 +162,11 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                         <Text style={styles.radioText}>Human</Text>
                     </TouchableOpacity >
                     <TouchableOpacity onPress={() => {
-                        char.race = 'Lightfoot Halfling'
+                        char.race = 'Halfling'
                         dispatch(changeCharacter(char))
                     }} style={styles.radio} >
                         {RadioButton('test')}
-                        <Text style={styles.radioText}>Lightfoot Halfling</Text>
+                        <Text style={styles.radioText}>Halfling</Text>
                     </TouchableOpacity >
                     <TouchableOpacity onPress={() => {
                         char.race = 'Tiefling'

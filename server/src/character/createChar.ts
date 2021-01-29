@@ -1,5 +1,7 @@
 import createResponse from "../response";
 
+
+
 exports.handler = async (event:any) =>{
     const {Client} = require("pg");
     const client = new Client();
@@ -15,8 +17,9 @@ exports.handler = async (event:any) =>{
     
 
     const response = await client.query(q);
+
     if(response){
-        return createResponse('', 204, response.rows[0]);
+        return createResponse('', 204,);
     }else{
         return createResponse('', 400);
     }
