@@ -3,10 +3,19 @@ exports.handler = async (event: any) => {
     const client = new Client();
     client.connect();
 
-    const body = JSON.parse(event.body);
+    const body = event.pathParameters.id;
 
-    const q = `select * from campaigns where DM=${body.DM}`;
-    const response = await client.query(q);
+    const p = `select * from(select c.campaignid, c.campaignname, c.dm, pc.user_id from campaigns c inner join player_campaigns 
+        pc on pc.campaign_id = c.campaignid) as j where user_id = ${body.id};`
+    const q = `select * from campaigns where DM=${body.id}`;
+    const u = `select u.role from users u where id = ${body.id}`;
+    let response;
+
+    if(u == 'player'){
+        response = await client.query(p);
+    } else {
+        response = await client.query(q);
+    }
 
     if (response.rows.length > 0) {
         return {

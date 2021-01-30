@@ -8,7 +8,7 @@ import { UserState } from "../store/store";
 import { useSelector } from "react-redux";
 
 type Name = {
-    campaignName: string;
+    campaignname: string;
 }
 
 function AddCampaignComponent() {
@@ -20,8 +20,10 @@ function AddCampaignComponent() {
     const onSubmit = handleSubmit((data) => {
         //create a campaign with the data entered and the user's username
         let newC = new Campaign();
-        newC.campaignName = data.campaignName;
-        newC.DM = user.id;
+        newC.campaignname = data.campaignname;
+        if(user.id){
+            newC.dm = user.id;
+        }
         campaignService.addCampaign(newC).then(() => {
             nav.navigate('Home');
         });
@@ -42,7 +44,7 @@ function AddCampaignComponent() {
                     padding: 20,
                     color: 'white',
                 }} type="text" name='campaignName' ref={register({ required: true })} />
-                {errors.campaignName && <div style={{ color: "red", fontFamily: "Calibri" }} className="error">Enter a campaign name.</div>}
+                {errors.campaignname && <div style={{ color: "red", fontFamily: "Calibri" }} className="error">Enter a campaign name.</div>}
                 <button style={{
                     width: '50%',
                     backgroundColor: '#fb5b5a',

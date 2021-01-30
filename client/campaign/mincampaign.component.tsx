@@ -9,6 +9,7 @@ interface CampaignProps {
 
 function MinCampaignComponent({data}: CampaignProps) {
     const nav = useNavigation();
+    console.log(data.campaignname);
 
     function goToCampaign(){
         nav.navigate('CampaignComponent', data);
@@ -16,10 +17,9 @@ function MinCampaignComponent({data}: CampaignProps) {
 
     return (
         <View>
-            <Text>{data.campaignID}: {data.campaignName}</Text>
-            <Text>Dungeon Master{data.DM}</Text>
-            <Text># of Players: {data.players.length}</Text>
-            <Button title='campaign' onPress={goToCampaign}/>
+            <Text>{data.campaignid}: {data.campaignname}</Text>
+            <Text>Dungeon Master:{data.dm}</Text>
+            <Button title='go to campaign' onPress={goToCampaign}></Button>
         </View>
     )
 }

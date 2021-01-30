@@ -19,8 +19,8 @@ class CampaignService {
         return axios.delete(this.URI+'/'+id).then(result => null); 
     }
 
-    getCampaignsByID(u: number): Promise<Campaign[]> {
-        return axios.get(this.URI +'/' + u).then((results) => {
+    getCampaignsByID(id: number): Promise<Campaign[]> {
+        return axios.get(this.URI +'/' + id).then((results) => {
             return results.data as Campaign[];
         })
     }

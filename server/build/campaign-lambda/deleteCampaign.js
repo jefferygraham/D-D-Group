@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var Client, client, body, p, q, u, response;
+    var Client, client, body, q, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -44,28 +44,19 @@ exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, fu
                 client = new Client();
                 client.connect();
                 body = event.pathParameters.id;
-                p = "select * from(select c.campaignid, c.campaignname, c.dm, pc.user_id from campaigns c inner join player_campaigns \n        pc on pc.campaign_id = c.campaignid) as j where user_id = " + body.id + ";";
-                q = "select * from campaigns where DM=" + body.id;
-                u = "select u.role from users u where id = " + body.id;
-                if (!(u == 'player')) return [3 /*break*/, 2];
-                return [4 /*yield*/, client.query(p)];
+                q = "delete from campaigns where campaignID=" + body.id + " returning *";
+                return [4 /*yield*/, client.query(q)];
             case 1:
                 response = _a.sent();
-                return [3 /*break*/, 4];
-            case 2: return [4 /*yield*/, client.query(q)];
-            case 3:
-                response = _a.sent();
-                _a.label = 4;
-            case 4:
-                if (response.rows.length > 0) {
+                if (response.rows.length == 1) {
                     return [2 /*return*/, {
                             statusCode: 200,
                             headers: {
                                 'Content-Type': 'application/json',
                                 'Access-Control-Allow-Origin': '*',
-                                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+                                'Access-Control-Allow-Methods': 'OPTIONS,DELETE',
                             },
-                            body: JSON.stringify(response.rows),
+                            body: JSON.stringify(response.rows[0]),
                         }];
                 }
                 else {
@@ -74,7 +65,7 @@ exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, fu
                             headers: {
                                 'Content-Type': 'application/json',
                                 'Access-Control-Allow-Origin': '*',
-                                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+                                'Access-Control-Allow-Methods': 'OPTIONS,DELETE',
                             },
                         }];
                 }

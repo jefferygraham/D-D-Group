@@ -19,14 +19,14 @@ export default function App() {
 
   useEffect(() => {
     //get campaigns by user as player or get campaigns by user as DM
-    if (user.role === 'DM') {
+    if (user.role === 'master') {
       if (user.id) {
         campaignService.getCampaignsByID(user.id).then((results) => {
           dispatch(getCampaigns(results));
         })
       }
     }
-  })
+  },[dispatch])
 
 
   function goToAdd() {
@@ -35,10 +35,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Home Page</Text>
+      <Text style={styles.text}>Home Page</Text>
       <StatusBar style='auto' />
       {user.role === 'master' && (
-        <View>
+        <View style={styles.container}>
+          <Text style={styles.text}>Your Campaigns:</Text>
           <View>
             {campaigns.map((req: Campaign, index: number) =>
               <MinCampaignComponent key={'req-' + index} data={req}></MinCampaignComponent>
@@ -56,10 +57,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#003f5c',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+    color: 'white',
+},
   loginBtn: {
     width: '70%',
     backgroundColor: '#fb5b5a',
@@ -71,4 +73,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginBottom: 10,
   },
+    text: {
+      color: 'white'
+    }
 });
