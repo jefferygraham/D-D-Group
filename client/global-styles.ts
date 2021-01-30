@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
   loginText: {
     color: 'white',
   },
+  /* Things for creatChar */
   charInputText: {
     color: 'white',
     fontSize: 20,
