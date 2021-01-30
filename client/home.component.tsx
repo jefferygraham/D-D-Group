@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Campaign } from './campaign/campaign';
 import campaignService from './campaign/campaign.service';
@@ -28,11 +28,10 @@ export default function App() {
     }
   },[dispatch])
 
-
-  function goToAdd() {
+  function goToAdd(){
     nav.navigate('AddCampaign');
   }
-
+  
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Page</Text>
@@ -63,15 +62,15 @@ const styles = StyleSheet.create({
     color: 'white',
 },
   loginBtn: {
-    width: '70%',
+    width: '80%',
     backgroundColor: '#fb5b5a',
-    color: 'white',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 40,
     marginBottom: 10,
+    color: 'white'
   },
     text: {
       color: 'white'

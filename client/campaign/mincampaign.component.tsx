@@ -17,9 +17,8 @@ function MinCampaignComponent({data}: CampaignProps) {
 
     return (
         <View>
-            <Text>{data.campaignid}: {data.campaignname}</Text>
-            <Text>Dungeon Master:{data.dm}</Text>
-            <Button title='go to campaign' onPress={goToCampaign}></Button>
+            <Text>{data.campaignid}: {data.campaignname}</Text><br/>
+            <Button title='go to campaign' onPress={goToCampaign}></Button><br/>
         </View>
     )
 }

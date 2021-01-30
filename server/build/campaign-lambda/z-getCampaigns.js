@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var Client, client, user, q, response, res, p, camps, d, camps;
+    var Client, client, camp, q, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -45,18 +45,12 @@ exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, fu
                 return [4 /*yield*/, client.connect()];
             case 1:
                 _a.sent();
-                user = event.path.substring(event.path.lastIndexOf('/') + 1, event.path.length);
-                q = "select u.role from users u where id=" + user;
+                camp = event.path.substring(event.path.lastIndexOf('/') + 1, event.path.length);
+                q = client.query("select * from campaigns where DM=" + camp);
                 return [4 /*yield*/, client.query(q)];
             case 2:
                 response = _a.sent();
-                res = JSON.stringify(response.rows[0]);
-                if (!(res == "{\"role\":\"player\"}")) return [3 /*break*/, 4];
-                p = "select * from(select c.campaignid, c.campaignname, c.dm, pc.user_id from campaigns c inner join player_campaigns pc on pc.campaign_id = c.campaignid) as j where user_id =" + user;
-                return [4 /*yield*/, client.query(p)];
-            case 3:
-                camps = _a.sent();
-                if (camps.rows.length > 0) {
+                if (response.rows.length > 0) {
                     return [2 /*return*/, {
                             statusCode: 200,
                             headers: {
@@ -64,7 +58,7 @@ exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, fu
                                 'Access-Control-Allow-Origin': '*',
                                 'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
                             },
-                            body: JSON.stringify(camps.rows),
+                            body: JSON.stringify(response.rows),
                         }];
                 }
                 else {
@@ -72,41 +66,11 @@ exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, fu
                             statusCode: 400,
                             headers: {
                                 'Content-Type': 'application/json',
-                                'Access-Control-Allow-Origin': '*',
-                                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+                                'Access-Control-Allow-Origin': '',
+                                'Access-Control-Allow-Methods': 'OPTIONS,POST',
                             },
                         }];
                 }
-                return [3 /*break*/, 6];
-            case 4:
-                if (!(res == "{\"role\":\"master\"}")) return [3 /*break*/, 6];
-                d = "select * from campaigns where DM=" + user;
-                return [4 /*yield*/, client.query(d)];
-            case 5:
-                camps = _a.sent();
-                if (camps.rows.length > 0) {
-                    return [2 /*return*/, {
-                            statusCode: 200,
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Access-Control-Allow-Origin': '*',
-                                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
-                            },
-                            body: JSON.stringify(camps.rows),
-                        }];
-                }
-                else {
-                    return [2 /*return*/, {
-                            statusCode: 400,
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Access-Control-Allow-Origin': '*',
-                                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
-                            },
-                        }];
-                }
-                _a.label = 6;
-            case 6:
                 client.end();
                 return [2 /*return*/];
         }

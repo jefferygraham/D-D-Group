@@ -11,6 +11,7 @@ class UserService {
 
   getLogin(): Promise<User> {
     return axios.get(this.URI).then((result) => {
+      console.log(result);
       return result.data;
     });
   }
