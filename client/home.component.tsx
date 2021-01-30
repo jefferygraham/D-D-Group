@@ -19,35 +19,31 @@ export default function App() {
 
   useEffect(() => {
     //get campaigns by user as player or get campaigns by user as DM
-    if (user.role === 'master') {
-      if (user.id) {
-        campaignService.getCampaignsByID(user.id).then((results) => {
-          dispatch(getCampaigns(results));
-        })
-      }
+    if (user.id) {
+      campaignService.getCampaignsByID(user.id).then((results) => {
+        dispatch(getCampaigns(results));
+      })
     }
-  },[dispatch])
+  }, [dispatch])
 
-  function goToAdd(){
+  function goToAdd() {
     nav.navigate('AddCampaign');
   }
-  
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Page</Text>
       <StatusBar style='auto' />
-      {user.role === 'master' && (
-        <View style={styles.container}>
-          <Text style={styles.text}>Your Campaigns:</Text>
-          <View>
-            {campaigns.map((req: Campaign, index: number) =>
-              <MinCampaignComponent key={'req-' + index} data={req}></MinCampaignComponent>
-            )}
-          </View>
-          <TouchableOpacity style={styles.loginBtn} onPress={goToAdd}>
-            <Text>Add Campaign</Text>
-          </TouchableOpacity>
-        </View>
+      <Text style={styles.text}>Your Campaigns:</Text>
+      <View>
+        {campaigns.map((req: Campaign, index: number) =>
+          <MinCampaignComponent key={'req-' + index} data={req}></MinCampaignComponent>
+        )}
+      </View>
+      {user.role == 'master' && (
+        <TouchableOpacity style={styles.loginBtn} onPress={goToAdd}>
+          <Text>Add Campaign</Text>
+        </TouchableOpacity>
       )}
     </View>
   );
@@ -60,7 +56,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     color: 'white',
-},
+  },
   loginBtn: {
     width: '80%',
     backgroundColor: '#fb5b5a',
@@ -72,7 +68,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: 'white'
   },
-    text: {
-      color: 'white'
-    }
+  text: {
+    color: 'white'
+  }
 });
