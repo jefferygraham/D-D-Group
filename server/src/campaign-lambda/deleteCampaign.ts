@@ -3,10 +3,12 @@ exports.handler = async (event: any) => {
     const client = new Client();
     client.connect();
 
-    const body = event.pathParameters.id;
+    const body = event.path.substring(event.path.lastIndexOf('/') + 1, event.path.length);
 
     const q = `delete from campaigns where campaignID=${body.id} returning *`;
+    console.log(q);
     const response = await client.query(q);
+    console.log(response);
 
     if(response.rows.length == 1) {
         return {

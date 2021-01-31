@@ -43,11 +43,13 @@ exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, fu
                 Client = require('pg').Client;
                 client = new Client();
                 client.connect();
-                body = event.pathParameters.id;
+                body = event.path.substring(event.path.lastIndexOf('/') + 1, event.path.length);
                 q = "delete from campaigns where campaignID=" + body.id + " returning *";
+                console.log(q);
                 return [4 /*yield*/, client.query(q)];
             case 1:
                 response = _a.sent();
+                console.log(response);
                 if (response.rows.length == 1) {
                     return [2 /*return*/, {
                             statusCode: 200,

@@ -1,22 +1,17 @@
 import React from 'react';
 import { Campaign } from './campaign';
-import { View, Text, Button } from 'react-native';
-import { CampaignState, UserState } from '../store/store';
-import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text } from 'react-native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
-import userService from '../user/user.service';
+import { StackParams } from '../router/router.component';
 
-interface CampaignProps {
-    data: Campaign;
+interface Props {
+    route: RouteProp<StackParams, 'Campaign'>;
 }
 
-function CampaignComponent({ data }: CampaignProps) {
-    const userSelector = (state: UserState) => state.user;
-    const user = useSelector(userSelector);
-    const campaignSelector = (state: CampaignState) => state.campaign;
-    const campaign = useSelector(campaignSelector);
+function CampaignComponent(data: Props) {
     const nav = useNavigation();
+    const campaign = data.route.params;
 
     //function to access all notes for the campaign,
     //should route to a notes component
@@ -38,8 +33,8 @@ function CampaignComponent({ data }: CampaignProps) {
 
     return (
         <View>
-            <Text>{data.campaignname}</Text>
-            <Text>Dungeon Master{data.dm}</Text>
+            <Text>{campaign.campaignname}</Text>
+            <Text>Dungeon Master: {campaign.dm}</Text>
         </View>
     )
 }

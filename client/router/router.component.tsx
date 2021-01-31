@@ -11,13 +11,14 @@ import UnauthorizedComponent from '../unauthorized.component';
 import { AppState } from '../store/store';
 import AddCampaignComponent from '../campaign/newCampaign.component';
 import CampaignComponent from '../campaign/campaign.component';
+import { Campaign } from '../campaign/campaign';
 
 export type StackParams = {
   Login: undefined;
   Home: undefined;
   Unauthorized: undefined;
   AddCampaign: undefined;
-  Campaign: undefined;
+  Campaign: Campaign;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -28,6 +29,7 @@ const headerOptions: StackHeaderOptions = {
 };
 
 function RouterComponent(props: any) {
+  const campaign = useSelector((state:AppState) => state.campaign);
   return (
     <Stack.Navigator initialRouteName='Login'>
       <Stack.Screen
@@ -49,6 +51,7 @@ function RouterComponent(props: any) {
         name='Campaign'
         component={CampaignComponent}
         options={headerOptions}
+        initialParams={campaign}
       />
       <Stack.Screen
         name='Unauthorized'
