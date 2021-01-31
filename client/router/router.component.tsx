@@ -59,11 +59,6 @@ function RouterComponent(props: any) {
         component={UnauthorizedComponent}
         options={headerOptions}
       />
-      <Stack.Screen 
-        name='AddCampaign'
-        component={AddCampaignComponent}
-        options={headerOptions}
-      />
       <Stack.Screen
         name='CharacterCreation'
         component={CharacterCreationComponent}

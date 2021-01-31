@@ -22,7 +22,6 @@ interface LoginProp {
 
 function LoginComponent({ navigation }: LoginProp) {
   const userSelector = (state: UserState) => {
-    console.log(state);
     return state.loginUser;
   };
   const user = useSelector(userSelector);
@@ -31,7 +30,6 @@ function LoginComponent({ navigation }: LoginProp) {
   function submitForm() {
     userService.login(user).then((user) => {
       dispatch(getUser(user));
-      console.log(user)
 
       if (user) {
         navigation.navigate('Home');
