@@ -2,12 +2,16 @@ import * as Actions from './actions';
 import { User } from './../user/user';
 import { AppState } from './store';
 import { Campaign } from '../campaign/campaign';
+import {Character} from './../character/character'
 
 export const initialState: AppState = {
   user: new User(),
   loginUser: new User(),
   campaign: new Campaign(),
-  campaigns: []
+  campaigns: [],
+  character: new Character(),
+  characters: [],
+
 };
 
 const reducer = (
@@ -29,6 +33,9 @@ const reducer = (
       return newState;
     case Actions.CampaignActions.ChangeCampaign:
       newState.campaign = action.payload as Campaign;
+      return newState;
+    case Actions.CharacterActions.ChangeCharacter:
+      newState.character = action.payload as Character;
       return newState;
     default:
       return state;

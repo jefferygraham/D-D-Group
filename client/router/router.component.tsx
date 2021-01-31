@@ -3,15 +3,15 @@ import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
-
 import LoginComponent from '../user/login.component';
 import HomeComponent from '../home.component';
 import NavBarComponent from './navbar.component';
 import UnauthorizedComponent from '../unauthorized.component';
 import { AppState } from '../store/store';
+import CharacterCreationComponent from '../character/character.create';
 import AddCampaignComponent from '../campaign/newCampaign.component';
-import CampaignComponent from '../campaign/campaign.component';
 import { Campaign } from '../campaign/campaign';
+import CampaignComponent from '../campaign/campaign.component';
 
 export type StackParams = {
   Login: undefined;
@@ -19,6 +19,7 @@ export type StackParams = {
   Unauthorized: undefined;
   AddCampaign: undefined;
   Campaign: Campaign;
+  CharacterCreation: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -56,6 +57,16 @@ function RouterComponent(props: any) {
       <Stack.Screen
         name='Unauthorized'
         component={UnauthorizedComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen 
+        name='AddCampaign'
+        component={AddCampaignComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='CharacterCreation'
+        component={CharacterCreationComponent}
         options={headerOptions}
       />
     </Stack.Navigator>
