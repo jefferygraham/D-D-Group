@@ -43,3 +43,5 @@ function CampaignComponent({ data }: CampaignProps) {
         </View>
     )
 }
+
+export default CampaignComponent;

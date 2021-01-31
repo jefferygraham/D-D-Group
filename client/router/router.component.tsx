@@ -10,12 +10,14 @@ import NavBarComponent from './navbar.component';
 import UnauthorizedComponent from '../unauthorized.component';
 import { AppState } from '../store/store';
 import AddCampaignComponent from '../campaign/newCampaign.component';
+import CampaignComponent from '../campaign/campaign.component';
 
 export type StackParams = {
   Login: undefined;
   Home: undefined;
   Unauthorized: undefined;
   AddCampaign: undefined;
+  Campaign: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -41,6 +43,11 @@ function RouterComponent(props: any) {
       <Stack.Screen 
         name='AddCampaign'
         component={AddCampaignComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='Campaign'
+        component={CampaignComponent}
         options={headerOptions}
       />
       <Stack.Screen

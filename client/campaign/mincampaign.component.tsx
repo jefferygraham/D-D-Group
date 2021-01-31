@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Campaign } from './campaign';
 import { View, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
+import { CampaignState } from '../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeCampaign } from '../store/actions';
+import campaignService from './campaign.service';
 
 interface CampaignProps {
     data: Campaign;
@@ -9,10 +13,9 @@ interface CampaignProps {
 
 function MinCampaignComponent({data}: CampaignProps) {
     const nav = useNavigation();
-    console.log(data.campaignname);
 
     function goToCampaign(){
-        nav.navigate('CampaignComponent', data);
+        nav.navigate('Campaign', data);
     }
 
     return (
