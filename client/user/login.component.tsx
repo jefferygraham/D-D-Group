@@ -34,7 +34,7 @@ function LoginComponent({ navigation }: LoginProp) {
       console.log(user);
 
       if (user) {
-        navigation.navigate('AddNote');
+        navigation.navigate('Home');
       } else {
         navigation.navigate('Unauthorized');
       }

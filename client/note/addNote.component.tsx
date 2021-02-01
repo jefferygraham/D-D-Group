@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { customAlphabet } from 'nanoid';
 
-import { UserState } from '../store/store';
+import { UserState, CampaignState } from '../store/store';
 import noteService from '../note/note.service';
 
 interface AddNoteProp {
@@ -22,12 +22,15 @@ function AddNoteComponent({ navigation }: AddNoteProp) {
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
 
+  const campaignSelector = (state: CampaignState) => state.campaign;
+  const campaign = useSelector(campaignSelector);
+
   const [message, setMessage] = useState('');
 
   function submitForm() {
     const note = {
       noteId: nanoid(),
-      campaignId: 1233,
+      campaignId: Number(campaign.campaignid),
       userId: Number(user.id),
       role: user.role,
       username: user.name,
@@ -37,7 +40,7 @@ function AddNoteComponent({ navigation }: AddNoteProp) {
     console.log(note);
 
     noteService.addNote(note).then((note) => {
-      navigation.navigate('Home');
+      navigation.navigate('Campaign');
     });
   }
 

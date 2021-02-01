@@ -11,6 +11,7 @@ function NavBarComponent() {
   const dispatch = useDispatch();
   let header = <Text></Text>;
 
+
   // if (user.name) {
   //   header = <Text>{user.name}</Text>;
   // } else {
@@ -26,14 +27,20 @@ function NavBarComponent() {
             }}
             title='Create Character '
           />
-        ) : null}
+        ) : ('')}
 
         {header}
-      </View>
-    );
+
+      </View>)
+
   } else {
-    return <View>{header}</View>;
+    return (
+      <View>
+        {header}
+      </View>
+    )
   }
+
 }
 
 export default NavBarComponent;
