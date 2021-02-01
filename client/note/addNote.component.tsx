@@ -12,13 +12,13 @@ import { customAlphabet } from 'nanoid';
 import { UserState } from '../store/store';
 import noteService from '../note/note.service';
 
-interface RegisterProp {
+interface AddNoteProp {
   navigation: any;
 }
 
 const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', 5);
 
-function AddNoteComponent({ navigation }: RegisterProp) {
+function AddNoteComponent({ navigation }: AddNoteProp) {
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
 
