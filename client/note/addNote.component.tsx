@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import { customAlphabet } from 'nanoid';
 
 import { UserState } from '../store/store';
 import noteService from '../note/note.service';
@@ -14,6 +15,8 @@ import noteService from '../note/note.service';
 interface RegisterProp {
   navigation: any;
 }
+
+const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', 5);
 
 function AddNoteComponent({ navigation }: RegisterProp) {
   const userSelector = (state: UserState) => state.user;
@@ -23,7 +26,7 @@ function AddNoteComponent({ navigation }: RegisterProp) {
 
   function submitForm() {
     const note = {
-      noteId: 'rntest',
+      noteId: nanoid(),
       campaignId: 1233,
       userId: Number(user.id),
       role: user.role,
