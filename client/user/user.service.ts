@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Character } from '../character/character';
 import { User } from './user';
 
 class UserService {
@@ -15,6 +16,7 @@ class UserService {
       return result.data;
     });
   }
+
 
   login(user: User): Promise<User> {
     return axios

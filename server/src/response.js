@@ -6,7 +6,7 @@ function createResponse(body, statusCode, headers) {
     if (headers === void 0) { headers = {}; }
     var baseHeader = {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '',
+        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
     };
     Object.keys(headers).forEach(function (key) {

@@ -37,6 +37,9 @@ const reducer = (
     case Actions.CharacterActions.ChangeCharacter:
       newState.character = action.payload as Character;
       return newState;
+    case Actions.CharacterActions.GetCharacters:
+      newState.characters = action.payload as Character[];
+      return newState;
     default:
       return state;
   }

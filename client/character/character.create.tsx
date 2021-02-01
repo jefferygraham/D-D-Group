@@ -1,21 +1,14 @@
 import React from 'react';
 import {
-    Platform,
-    Button,
     TextInput,
     Text,
     View,
-    TouchableNativeFeedback,
     TouchableOpacity,
-    TouchableHighlight,
-    StyleSheet,
 } from 'react-native';
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../global-styles';
-import { changeCharacter, CharacterActions } from '../store/actions';
+import { changeCharacter} from '../store/actions';
 import { CharacterState, UserState } from '../store/store';
-import { Character } from './character';
 import characterService from './character.service';
 import { useNavigation } from '@react-navigation/native';
 

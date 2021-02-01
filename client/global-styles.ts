@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   charContainer: {
+    width:'100%',
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
@@ -135,10 +136,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
 
   },
+  displayBox: {
+    flexDirection: 'row',
+    width: '100%',
+    backgroundColor: '#465881',
+    borderRadius: 25,
+    padding: 10,
+    margin: 10,
+    justifyContent: 'space-evenly',
+
+  },
   boxOfThree:{
     flexDirection:'column',
     flex:1,
-    justifyContent:'space-evenly'
+    justifyContent:'space-evenly',
   },
   borderedBoxRow:{
     borderWidth:1,
@@ -151,6 +162,13 @@ const styles = StyleSheet.create({
     color:'white',
     fontSize:20,
     margin:5
+
+  },
+  leftText:{
+    alignSelf:'flex-start',
+    color:'white',
+    margin: 5,
+    fontSize:17,
 
   },
   looksLabel: {

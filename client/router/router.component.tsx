@@ -3,7 +3,6 @@ import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
-
 import LoginComponent from '../user/login.component';
 import HomeComponent from '../home.component';
 import NavBarComponent from './navbar.component';
@@ -11,6 +10,9 @@ import UnauthorizedComponent from '../unauthorized.component';
 import { AppState } from '../store/store';
 import CharacterCreationComponent from '../character/character.create';
 import AddCampaignComponent from '../campaign/newCampaign.component';
+import CharacterDetailComponent from '../character/character.detail.component';
+import { Character } from '../character/character';
+
 
 export type StackParams = {
   Login: undefined;
@@ -18,6 +20,7 @@ export type StackParams = {
   Unauthorized: undefined;
   CharacterCreation: undefined;
   AddCampaign: undefined;
+  CharacterDetail: Character;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -28,6 +31,7 @@ const headerOptions: StackHeaderOptions = {
 };
 
 function RouterComponent(props: any) {
+  const char = useSelector((state:AppState)=>state.character);
   return (
     <Stack.Navigator initialRouteName='Login'>
       <Stack.Screen
@@ -54,6 +58,12 @@ function RouterComponent(props: any) {
         name='CharacterCreation'
         component={CharacterCreationComponent}
         options={headerOptions}
+      />
+      <Stack.Screen
+        name='CharacterDetail'
+        component={CharacterDetailComponent}
+        options={headerOptions}
+        initialParams={char}
       />
     </Stack.Navigator>
   );
