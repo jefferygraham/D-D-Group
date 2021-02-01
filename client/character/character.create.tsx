@@ -29,7 +29,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 
     function submitForm() {
         if(user.id){
-            char.playerID = user.id
+            char.playerid = user.id
         }
         let race = char.race.toLowerCase();
         let api = dndAPI + 'races/' + race;
@@ -456,7 +456,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                         <Text style={styles.leftLabel}>Faith </Text>
                         <TextInput
                             style={styles.charInputTextLong}
-                            placeholder='Traits ...'
+                            placeholder='Faith ...'
                             placeholderTextColor='white'
                             multiline={true}
                             numberOfLines={5}
@@ -483,7 +483,10 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                             placeholderTextColor='white'
                             multiline={true}
                             numberOfLines={5}
-                        /* value={char.name} */
+                            onChangeText={(value) =>
+                                dispatch(changeCharacter({ ...char, personalityTraits: value }))
+                            }
+                            value={char.personalityTraits}
                         />
                     </View>
 
@@ -492,37 +495,28 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                         <Text style={styles.characteristicsLabel}>Ideals: </Text>
                         <TextInput
                             style={styles.charInputTextLong}
-                            placeholder='Enter Ideals Here'
+                            placeholder='Ideals...'
                             placeholderTextColor='white'
                             multiline={true}
                             numberOfLines={5}
-                        /* value={char.name} */
+                            onChangeText={(value) =>
+                                dispatch(changeCharacter({ ...char, ideals: value }))
+                            }
+                            value={char.ideals}
                         />
                     </View>
-
-
-                    <View style={styles.charInputLabel}>
-                        <Text style={styles.characteristicsLabel}>Bonds: </Text>
-                        <TextInput
-                            style={styles.charInputTextLong}
-                            placeholder='Traits ...'
-                            placeholderTextColor='white'
-                            multiline={true}
-                            numberOfLines={5}
-                        /* value={char.name} */
-                        />
-                    </View>
-
-
                     <View style={styles.charInputLabel}>
                         <Text style={styles.characteristicsLabel}>Flaws: </Text>
                         <TextInput
                             style={styles.charInputTextLong}
-                            placeholder='Traits ...'
+                            placeholder='Flaws ...'
                             placeholderTextColor='white'
                             multiline={true}
                             numberOfLines={5}
-                        /* value={char.name} */
+                        onChangeText={(value) =>
+                            dispatch(changeCharacter({ ...char, ideals: value }))
+                        }
+                        value={char.ideals}
                         />
                     </View>
                 </View>

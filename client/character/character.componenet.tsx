@@ -20,7 +20,7 @@ function CharacterComponent({ data }: CharacterProps) {
     }
 
     return (
-        <View style={styles.radioContainer}>
+        <View style={styles.center}>
             <View style={styles.displayBox}>
                 <View style={styles.boxOfThree}>
                     <Text style={styles.leftText}> Character Name: {data.name}</Text>
@@ -32,11 +32,13 @@ function CharacterComponent({ data }: CharacterProps) {
                     <Text style={styles.leftText}> Strength: {data.strength}</Text>
                     <Text style={styles.leftText}> Dexterity: {data.dexterity}</Text>
                     <Text style={styles.leftText}> Constitution: {data.constitution}</Text>
-                    <Text style={styles.leftText}> Intelligence: {data.intelligence}</Text>
+                    <Text> </Text>
                 </View>
                 <View style={styles.boxOfThree}>
+                    <Text style={styles.leftText}> Intelligence: {data.intelligence}</Text>
                     <Text style={styles.leftText}> Wisdom: {data.wisdom}</Text>
                     <Text style={styles.leftText}> Charisma: {data.charisma}</Text>
+                    <Text> </Text>
                 </View>
 
             </View>

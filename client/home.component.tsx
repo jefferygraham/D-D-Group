@@ -61,6 +61,10 @@ export default function App() {
           <Text>Add Campaign</Text>
         </TouchableOpacity>
       )}
+      <FlatList
+            data={characters}
+            renderItem={({item}) => (<CharacterComponent data={item}></CharacterComponent>)}
+            keyExtractor={(item)=>item.name}/>
 
     </View>
   );

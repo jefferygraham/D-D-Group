@@ -36,7 +36,11 @@ const headerOptions: StackHeaderOptions = {
 };
 
 function RouterComponent(props: any) {
+<<<<<<< HEAD
   const char = useSelector((state: AppState) => state.character);
+=======
+  const char = useSelector((state:AppState)=>state.character);
+>>>>>>> ede8d51de0c255cb7354925fd36a3fad41fc4765
   const campaign = useSelector((state: AppState) => state.campaign);
   return (
     <Stack.Navigator initialRouteName='Login'>
@@ -76,8 +80,13 @@ function RouterComponent(props: any) {
         component={CharacterDetailComponent}
         options={headerOptions}
         initialParams={char}
+<<<<<<< HEAD
       />
       <Stack.Screen
+=======
+        />
+        <Stack.Screen
+>>>>>>> ede8d51de0c255cb7354925fd36a3fad41fc4765
         name='AddNote'
         component={AddNoteComponent}
         options={headerOptions}

@@ -119,6 +119,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '80%',
   },
+  displayContainer:{
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '80%',
+    backgroundColor: '#465881',
+    borderRadius: 25,
+    padding: 10,
+    margin: 10,
+
+  },
   radioText: {
     alignSelf: 'center',
     color: 'white',
@@ -138,12 +148,12 @@ const styles = StyleSheet.create({
   },
   displayBox: {
     flexDirection: 'row',
+    alignItems: 'center',
     width: '100%',
     backgroundColor: '#465881',
     borderRadius: 25,
     padding: 10,
     margin: 10,
-    justifyContent: 'space-evenly',
 
   },
   boxOfThree:{
@@ -152,9 +162,17 @@ const styles = StyleSheet.create({
     justifyContent:'space-evenly',
   },
   borderedBoxRow:{
+    width:'100%',
     borderWidth:1,
     borderColor:'white',
     flexDirection:'row',
+    flex:1
+  },
+  borderedBoxColumn:{
+    width:'100%',
+    borderWidth:1,
+    borderColor:'white',
+    flexDirection:'column',
     flex:1
   },
   leftLabel:{
@@ -193,6 +211,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin:10
   },
+  center:{
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 
 });
 
