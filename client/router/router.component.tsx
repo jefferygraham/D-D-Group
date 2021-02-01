@@ -12,6 +12,7 @@ import CharacterCreationComponent from '../character/character.create';
 import AddCampaignComponent from '../campaign/newCampaign.component';
 import { Campaign } from '../campaign/campaign';
 import CampaignComponent from '../campaign/campaign.component';
+import AddNoteComponent from '../note/addNote.component';
 
 export type StackParams = {
   Login: undefined;
@@ -20,6 +21,7 @@ export type StackParams = {
   AddCampaign: undefined;
   Campaign: Campaign;
   CharacterCreation: undefined;
+  AddNote: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -30,7 +32,7 @@ const headerOptions: StackHeaderOptions = {
 };
 
 function RouterComponent(props: any) {
-  const campaign = useSelector((state:AppState) => state.campaign);
+  const campaign = useSelector((state: AppState) => state.campaign);
   return (
     <Stack.Navigator initialRouteName='Login'>
       <Stack.Screen
@@ -43,7 +45,7 @@ function RouterComponent(props: any) {
         component={HomeComponent}
         options={headerOptions}
       />
-      <Stack.Screen 
+      <Stack.Screen
         name='AddCampaign'
         component={AddCampaignComponent}
         options={headerOptions}
@@ -62,6 +64,11 @@ function RouterComponent(props: any) {
       <Stack.Screen
         name='CharacterCreation'
         component={CharacterCreationComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='AddNote'
+        component={AddNoteComponent}
         options={headerOptions}
       />
     </Stack.Navigator>
