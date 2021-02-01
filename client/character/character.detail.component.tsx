@@ -18,6 +18,7 @@ export default function CharacterDetailComponent(props: Props){
 
     return(
         <View style = {styles.charContainer}>
+            <Text>Test</Text>
 
         </View>
     )

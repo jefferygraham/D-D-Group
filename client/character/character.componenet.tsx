@@ -16,7 +16,7 @@ function CharacterComponent({ data }: CharacterProps) {
     const nav = useNavigation();
 
     function goToChar() {
-        nav.navigate('CharDetail', data);
+        nav.navigate('CharacterDetail', data);
     }
 
     return (
