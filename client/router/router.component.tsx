@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 
 import LoginComponent from '../user/login.component';
+import AddNoteComponent from '../note/addNote.component';
 import HomeComponent from '../home.component';
 import NavBarComponent from './navbar.component';
 import UnauthorizedComponent from '../unauthorized.component';
@@ -18,6 +19,7 @@ export type StackParams = {
   Unauthorized: undefined;
   CharacterCreation: undefined;
   AddCampaign: undefined;
+  AddNote: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -45,7 +47,7 @@ function RouterComponent(props: any) {
         component={UnauthorizedComponent}
         options={headerOptions}
       />
-      <Stack.Screen 
+      <Stack.Screen
         name='AddCampaign'
         component={AddCampaignComponent}
         options={headerOptions}
@@ -53,6 +55,11 @@ function RouterComponent(props: any) {
       <Stack.Screen
         name='CharacterCreation'
         component={CharacterCreationComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='AddNote'
+        component={AddNoteComponent}
         options={headerOptions}
       />
     </Stack.Navigator>

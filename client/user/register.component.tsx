@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
-import { registerAction } from '../store/actions';
 import userService from './user.service';
 import { UserState } from '../store/store';
 
@@ -35,13 +34,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
     console.log(user);
 
     userService.register(user).then((user) => {
-      // dispatch(registerAction(user));
-
-      // if (user) {
       navigation.navigate('Login');
-      // } else {
-      //   navigation.navigate('Unauthorized');
-      // }
     });
   }
 
