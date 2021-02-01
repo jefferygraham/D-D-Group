@@ -5,7 +5,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Campaign } from './campaign/campaign';
 import campaignService from './campaign/campaign.service';
-//import MinCampaignComponent from './campaign/mincampaign.component';
+import MinCampaignComponent from './campaign/mincampaign.component';
 import { getCampaigns } from './store/actions';
 import { CampaignState, UserState } from './store/store';
 
@@ -19,15 +19,12 @@ export default function App() {
 
   useEffect(() => {
     //get campaigns by user as player or get campaigns by user as DM
-    // if (user.role === 'DM') {
-    //   if (user.id) {
-    //     campaignService.getCampaignsByID(user.id).then((results) => {
-    //       dispatch(getCampaigns(results));
-    //     })
-    //   }
-    // }
-  })
-
+    if (user.id) {
+      campaignService.getCampaignsByID(user.id).then((results) => {
+        dispatch(getCampaigns(results));
+      })
+    }
+  }, [dispatch])
 
   function goToAdd() {
     nav.navigate('AddCampaign');
@@ -35,19 +32,18 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Home Page</Text>
+      <Text style={styles.text}>Home Page</Text>
       <StatusBar style='auto' />
-      {user.role === 'master' && (
-        <View>
-          <View>
-            {/* {campaigns.map((req: Campaign, index: number) =>
-              <MinCampaignComponent key={'req-' + index} data={req}></MinCampaignComponent>
-            )} */}
-          </View>
-          <TouchableOpacity style={styles.loginBtn} onPress={goToAdd}>
-            <Text>Add Campaign</Text>
-          </TouchableOpacity>
-        </View>
+      <Text style={styles.text}>Your Campaigns:</Text>
+      <View>
+        {campaigns.map((req: Campaign, index: number) =>
+          <MinCampaignComponent key={'req-' + index} data={req}></MinCampaignComponent>
+        )}
+      </View>
+      {user.role == 'master' && (
+        <TouchableOpacity style={styles.loginBtn} onPress={goToAdd}>
+          <Text>Add Campaign</Text>
+        </TouchableOpacity>
       )}
     </View>
   );
@@ -56,19 +52,23 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#003f5c',
     alignItems: 'center',
     justifyContent: 'center',
+    color: 'white',
   },
   loginBtn: {
-    width: '70%',
+    width: '80%',
     backgroundColor: '#fb5b5a',
-    color: 'white',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 40,
     marginBottom: 10,
+    color: 'white'
   },
+  text: {
+    color: 'white'
+  }
 });
