@@ -9,6 +9,7 @@ import campaignService from './campaign/campaign.service';
 import CharacterComponent from './character/character.componenet';
 import styles from './global-styles';
 //import MinCampaignComponent from './campaign/mincampaign.component';
+import MinCampaignComponent from './campaign/mincampaign.component';
 import { getCampaigns } from './store/actions';
 import { CampaignState, CharacterState, UserState } from './store/store';
 
@@ -29,8 +30,14 @@ export default function App() {
     //     })
     //   }
     // }
-  },)
+  
 
+    if (user.id) {
+      campaignService.getCampaignsByID(user.id).then((results) => {
+        dispatch(getCampaigns(results));
+      })
+    }
+  }, [dispatch])
 
   function goToAdd() {
     nav.navigate('AddCampaign');
@@ -40,26 +47,19 @@ export default function App() {
   console.log(characters)
 
   return (
-    
-    <View style={styles.charContainer}>
+    <View style={styles.container}>
       <Text style={styles.logo}>Home Page</Text>
-      {/* <StatusBar style='auto' /> */}
-      {user.role === 'master' && (
-        <View style={styles.charContainer}>
-          <View>
-            {/* {campaigns.map((req: Campaign, index: number) =>
-              <MinCampaignComponent key={'req-' + index} data={req}></MinCampaignComponent>
-            )} */}
-          </View>
-          <TouchableOpacity style={styles.loginBtn} onPress={goToAdd}>
-            <Text>Add Campaign</Text>
-          </TouchableOpacity>
-          <FlatList
-            data={characters}
-            renderItem={({item}) => (<CharacterComponent data={item}></CharacterComponent>)}
-            keyExtractor={(item)=>item.name}/>
-        
-        </View>
+      <StatusBar style='auto' />
+      <Text style={styles.logo}>Your Campaigns:</Text>
+      <View>
+        {campaigns.map((req: Campaign, index: number) =>
+          <MinCampaignComponent key={'req-' + index} data={req}></MinCampaignComponent>
+        )}
+      </View>
+      {user.role == 'master' && (
+        <TouchableOpacity style={styles.loginBtn} onPress={goToAdd}>
+          <Text>Add Campaign</Text>
+        </TouchableOpacity>
       )}
 
     </View>

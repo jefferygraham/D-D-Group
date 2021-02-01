@@ -1,8 +1,6 @@
 export class Campaign {
-    campaignID: string = '';
-    campaignName: string = '';
-    DM: number = -1;
-    players: number[] = [];
-    notes: number[] = [];
+    campaignid: string = '';
+    campaignname: string = '';
+    dm: number = -1;
     constructor(){};
 }
