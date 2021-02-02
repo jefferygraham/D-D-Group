@@ -47,8 +47,8 @@ exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, fu
                 client.connect();
                 char = JSON.parse(event.body);
                 console.log(char);
-                q = "\n    INSERT INTO character(playerid,strength, dexterity,constitution,intelligence,wisdom,charisma,race,class,alignment,faith,lifestyle,name,gender,age,haircolor,skincolor,eyecolor,height,weight,organizations,allies,enemies,other,personalitytraits,ideals,flaws) \n    VALUES (" + char.playerID + ", " + char.strength + ", " + char.dexterity + ", " + char.constitution + ", " + char.intelligence + ", " + char.wisdom + ", " + char.charisma + ", '" + char.race + "', '" + char["class"] + "', '" +
-                    char.alignment + "', '" + char.faith + "', '" + char.lifestyle + "', '" + char.name + "', '" + char.gender + "', " + char.age + ", '" + char.haircolor + "', '" + char.skincolor + "', '" + char.eyecolor + "', '" + char.height +
+                q = "\n    INSERT INTO character(playerid,strength, dexterity,constitution,intelligence,wisdom,charisma,race,class,alignment,faith,lifestyle,name,gender,age,haircolor,skincolor,eyecolor,height,weight,organizations,allies,enemies,other,personalitytraits,ideals,flaws) \n    VALUES (" + char.playerid + ", " + char.strength + ", " + char.dexterity + ", " + char.constitution + ", " + char.intelligence + ", " + char.wisdom + ", " + char.charisma + ", '" + char.race + "', '" + char["class"] + "', '" +
+                    char.alignment + "', '" + char.faith + "', '" + char.lifestyle + "', '" + char.name + "', '" + char.gender + "', " + char.age + ", '" + char.hairColor + "', '" + char.skinColor + "', '" + char.eyeColor + "', '" + char.height +
                     "', '" + char.weight + "', '" + char.organizations + "', '" + char.allies + "', '" + char.enemies + "', '" + char.otherInfo + "', '" + char.personalityTraits + "', '" + char.ideals + "', '" + char.flaws + "') RETURNING *";
                 return [4 /*yield*/, client.query(q)];
             case 1:

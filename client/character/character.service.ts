@@ -7,7 +7,7 @@ class CharacterService{
     private URI: string;
   constructor() {
     this.URI =
-      '  https://46k03urfmi.execute-api.us-east-1.amazonaws.com/Beta/createCharacter';
+      'https://46k03urfmi.execute-api.us-east-1.amazonaws.com/Beta/createCharacter';
   }
 
   createCharacter(char:Character):Promise<null>{

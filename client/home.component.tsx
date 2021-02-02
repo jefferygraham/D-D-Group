@@ -39,9 +39,7 @@ export default function App() {
     }
   }, [dispatch])
 
-  function goToAdd() {
-    nav.navigate('AddCampaign');
-  }
+
   const selectCharacters = (state:CharacterState)=> state.characters;
   const characters = useSelector(selectCharacters);
   console.log(characters)
@@ -56,15 +54,7 @@ export default function App() {
           <MinCampaignComponent key={'req-' + index} data={req}></MinCampaignComponent>
         )}
       </View>
-      {user.role == 'master' && (
-        <TouchableOpacity style={styles.loginBtn} onPress={goToAdd}>
-          <Text>Add Campaign</Text>
-        </TouchableOpacity>
-      )}
-      <FlatList
-            data={characters}
-            renderItem={({item}) => (<CharacterComponent data={item}></CharacterComponent>)}
-            keyExtractor={(item)=>item.name}/>
+     
 
     </View>
   );

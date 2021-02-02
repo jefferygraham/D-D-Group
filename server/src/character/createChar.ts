@@ -12,8 +12,8 @@ exports.handler = async (event: any) => {
     console.log(char);
     const q = `
     INSERT INTO character(playerid,strength, dexterity,constitution,intelligence,wisdom,charisma,race,class,alignment,faith,lifestyle,name,gender,age,haircolor,skincolor,eyecolor,height,weight,organizations,allies,enemies,other,personalitytraits,ideals,flaws) 
-    VALUES (`+ char.playerID + ", " + char.strength + ", " + char.dexterity + ", " + char.constitution + ", " + char.intelligence + ", " + char.wisdom + ", " + char.charisma + ", '" + char.race + "', '" + char.class + "', '" + 
-    char.alignment + "', '" + char.faith + "', '" + char.lifestyle + "', '" + char.name + "', '" + char.gender + "', " + char.age + ", '" + char.haircolor + "', '" + char.skincolor + "', '" + char.eyecolor + "', '" + char.height +
+    VALUES (`+ char.playerid + ", " + char.strength + ", " + char.dexterity + ", " + char.constitution + ", " + char.intelligence + ", " + char.wisdom + ", " + char.charisma + ", '" + char.race + "', '" + char.class + "', '" + 
+    char.alignment + "', '" + char.faith + "', '" + char.lifestyle + "', '" + char.name + "', '" + char.gender + "', " + char.age + ", '" + char.hairColor + "', '" + char.skinColor + "', '" + char.eyeColor + "', '" + char.height +
     "', '" + char.weight +"', '" + char.organizations + "', '" + char.allies + "', '" + char.enemies +   "', '" + char.otherInfo + "', '" + char.personalityTraits +"', '" + char.ideals + "', '" + char.flaws +  "') RETURNING *";
 
 
