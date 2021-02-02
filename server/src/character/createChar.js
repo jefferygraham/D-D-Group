@@ -47,17 +47,19 @@ exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, fu
                 client.connect();
                 char = JSON.parse(event.body);
                 console.log(char);
-                q = "\n    INSERT INTO character(playerid,strength, dexterity,constitution,intelligence,wisdom,charisma,race,class,alignment,faith,lifestyle,name) \n    VALUES (" + char.playerID + ", " + char.strength + ", " + char.dexterity + ", " + char.constitution + ", " + char.intelligence + ", " + char.wisdom + ", " + char.charisma + ", '" + char.race + "', '" + char["class"] + "', '" + char.alignment + "', '" + char.faith + "', '" + char.lifestyle + "', '" + char.name + "') RETURNING *";
+                q = "\n    INSERT INTO character(playerid,strength, dexterity,constitution,intelligence,wisdom,charisma,race,class,alignment,faith,lifestyle,name,gender,age,haircolor,skincolor,eyecolor,height,weight,organizations,allies,enemies,other,personalitytraits,ideals,flaws) \n    VALUES (" + char.playerID + ", " + char.strength + ", " + char.dexterity + ", " + char.constitution + ", " + char.intelligence + ", " + char.wisdom + ", " + char.charisma + ", '" + char.race + "', '" + char["class"] + "', '" +
+                    char.alignment + "', '" + char.faith + "', '" + char.lifestyle + "', '" + char.name + "', '" + char.gender + "', " + char.age + ", '" + char.haircolor + "', '" + char.skincolor + "', '" + char.eyecolor + "', '" + char.height +
+                    "', '" + char.weight + "', '" + char.organizations + "', '" + char.allies + "', '" + char.enemies + "', '" + char.otherInfo + "', '" + char.personalityTraits + "', '" + char.ideals + "', '" + char.flaws + "') RETURNING *";
                 return [4 /*yield*/, client.query(q)];
             case 1:
                 response = _a.sent();
+                client.end();
                 if (response) {
-                    return [2 /*return*/, response_1["default"]('', 204, response.rows[0])];
+                    return [2 /*return*/, response_1["default"]('', 204)];
                 }
                 else {
                     return [2 /*return*/, response_1["default"]('', 400)];
                 }
-                client.end();
                 return [2 /*return*/];
         }
     });
