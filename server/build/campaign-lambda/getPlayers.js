@@ -35,59 +35,43 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var response_1 = __importDefault(require("../response"));
 exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var Client, client, char, response;
+    var Client, client, campaign, q, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                Client = require("pg").Client;
+                Client = require('pg').Client;
                 client = new Client();
-                client.connect();
-                char = JSON.parse(event.body);
-                console.log(char);
-                return [4 /*yield*/, client.query("insert into character(playerid,strength, dexterity,constitution,intelligence,wisdom,charisma,race,class,alignment,\n        faith,lifestyle,name,gender,age,haircolor,skincolor,eyecolor,height,weight,organizations,allies,enemies,other,personalitytraits,ideals,flaws) \n        values ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27)", [
-                        char.playerid,
-                        char.strength,
-                        char.dexterity,
-                        char.constitution,
-                        char.intelligence,
-                        char.wisdom,
-                        char.charisma,
-                        char.race,
-                        char.class,
-                        char.alignment,
-                        char.faith,
-                        char.lifestyle,
-                        char.name,
-                        char.gender,
-                        char.age,
-                        char.hairColor,
-                        char.skinColor,
-                        char.eyeColor,
-                        char.height,
-                        char.weight,
-                        char.organizations,
-                        char.allies,
-                        char.enemies,
-                        char.otherInfo,
-                        char.personalityTraits,
-                        char.ideals,
-                        char.flaws
-                    ])];
+                return [4 /*yield*/, client.connect()];
             case 1:
+                _a.sent();
+                campaign = event.path.substring(event.path.lastIndexOf('campaign/' + 8), event.path.lastIndexOf('/') - 1);
+                q = "select j.name, j.id from(select * from users u inner join player_campaigns pc on pc.user_id = u.id) as j where campaign_id = " + campaign;
+                return [4 /*yield*/, client.query(q)];
+            case 2:
                 response = _a.sent();
-                client.end();
-                if (response) {
-                    return [2 /*return*/, response_1.default('', 204)];
+                if (response.rows.length > 0) {
+                    return [2 /*return*/, {
+                            statusCode: 200,
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Access-Control-Allow-Origin': '*',
+                                'Access-Control-Allow-Methods': 'OPTIONS,GET',
+                            },
+                            body: JSON.stringify(response.rows),
+                        }];
                 }
                 else {
-                    return [2 /*return*/, response_1.default('', 400)];
+                    return [2 /*return*/, {
+                            statusCode: 400,
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Access-Control-Allow-Origin': '*',
+                                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+                            },
+                        }];
                 }
+                client.end();
                 return [2 /*return*/];
         }
     });

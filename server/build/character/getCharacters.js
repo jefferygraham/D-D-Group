@@ -41,53 +41,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var response_1 = __importDefault(require("../response"));
 exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var Client, client, char, response;
+    var Client, client, user, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 Client = require("pg").Client;
                 client = new Client();
                 client.connect();
-                char = JSON.parse(event.body);
-                console.log(char);
-                return [4 /*yield*/, client.query("insert into character(playerid,strength, dexterity,constitution,intelligence,wisdom,charisma,race,class,alignment,\n        faith,lifestyle,name,gender,age,haircolor,skincolor,eyecolor,height,weight,organizations,allies,enemies,other,personalitytraits,ideals,flaws) \n        values ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27)", [
-                        char.playerid,
-                        char.strength,
-                        char.dexterity,
-                        char.constitution,
-                        char.intelligence,
-                        char.wisdom,
-                        char.charisma,
-                        char.race,
-                        char.class,
-                        char.alignment,
-                        char.faith,
-                        char.lifestyle,
-                        char.name,
-                        char.gender,
-                        char.age,
-                        char.hairColor,
-                        char.skinColor,
-                        char.eyeColor,
-                        char.height,
-                        char.weight,
-                        char.organizations,
-                        char.allies,
-                        char.enemies,
-                        char.otherInfo,
-                        char.personalityTraits,
-                        char.ideals,
-                        char.flaws
-                    ])];
+                user = event.path.substring(event.path.lastIndexOf('/') + 1, event.path.length);
+                console.log(user);
+                console.log(isNaN(user));
+                if (!isNaN(user)) return [3 /*break*/, 2];
+                return [4 /*yield*/, client.query("select * from character where playerid = (select id from users where name = '" + user + "')")];
             case 1:
                 response = _a.sent();
-                client.end();
                 if (response) {
-                    return [2 /*return*/, response_1.default('', 204)];
+                    return [2 /*return*/, response_1.default(JSON.stringify(response.rows), 200)];
                 }
                 else {
                     return [2 /*return*/, response_1.default('', 400)];
                 }
+                return [3 /*break*/, 4];
+            case 2: return [4 /*yield*/, client.query("select * from character where charid = '" + user + "'")];
+            case 3:
+                response = _a.sent();
+                if (response) {
+                    return [2 /*return*/, response_1.default(JSON.stringify(response.rows), 200)];
+                }
+                else {
+                    return [2 /*return*/, response_1.default('', 400)];
+                }
+                _a.label = 4;
+            case 4:
+                client.end();
                 return [2 /*return*/];
         }
     });
