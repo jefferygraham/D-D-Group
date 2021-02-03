@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Campaign } from './campaign';
 import { View, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
@@ -10,7 +10,7 @@ interface CampaignProps {
 
 function MinCampaignComponent({data}: CampaignProps) {
     const nav = useNavigation();
-
+    
     function goToCampaign(){
         nav.navigate('Campaign', data);
     }
