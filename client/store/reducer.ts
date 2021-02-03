@@ -2,16 +2,19 @@ import * as Actions from './actions';
 import { User } from './../user/user';
 import { AppState } from './store';
 import { Campaign } from '../campaign/campaign';
-import {Character} from './../character/character'
+import { Character } from './../character/character';
+import { Note } from './../note/note';
 
 export const initialState: AppState = {
   user: new User(),
   loginUser: new User(),
+  players: [],
   campaign: new Campaign(),
   campaigns: [],
   character: new Character(),
   characters: [],
-
+  note: new Note(),
+  notes: [],
 };
 
 const reducer = (
@@ -36,6 +39,11 @@ const reducer = (
       return newState;
     case Actions.CharacterActions.ChangeCharacter:
       newState.character = action.payload as Character;
+      return newState;
+    case Actions.UserActions.GetPlayers:
+      newState.players = action.payload as User[];
+    case Actions.NoteActions.GetNotes:
+      newState.notes = action.payload as Note[];
       return newState;
     default:
       return state;

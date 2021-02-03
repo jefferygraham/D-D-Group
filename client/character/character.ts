@@ -1,6 +1,6 @@
 export class Character{
-    playerID = 0;
-    charID = 0;
+    playerid = 0;
+    charid = 0;
     name = '';
     strength = 10;
     dexterity = 10;
@@ -24,4 +24,7 @@ export class Character{
     allies = '';
     enemies = '';
     otherInfo = '';
+    personalityTraits='';
+    ideals ='';
+    flaws='';
 }

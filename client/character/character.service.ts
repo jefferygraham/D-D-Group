@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { User } from '../user/user';
 import {Character} from './character'
 
 
@@ -16,6 +17,15 @@ class CharacterService{
   deleteCharacter(id: string): Promise<null> {
     return axios.delete(this.URI + '/' + id).then(result => null);
   }
+  getCharactersByUser(user:User): Promise<Character []>{
+    return axios.get(this.URI +'/' +user.name).then(result => result.data)
+  }
+
+  getCharacterByID(id: Number): Promise<Character>{
+    return axios.get(this.URI +'/'+id).then(result => result.data)
+  }
+
+
 }
     
 

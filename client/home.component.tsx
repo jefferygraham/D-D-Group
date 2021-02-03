@@ -1,13 +1,20 @@
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Campaign } from './campaign/campaign';
-import campaignService from './campaign/campaign.service';
 import MinCampaignComponent from './campaign/mincampaign.component';
+import styles from './global-styles';
 import { getCampaigns } from './store/actions';
-import { CampaignState, UserState } from './store/store';
+import {
+  CampaignState,
+  CharacterState,
+  UserState,
+  NoteState,
+} from './store/store';
+import userService from './user/user.service';
+import { thunkGetNotes } from './store/thunks';
 
 export default function App() {
   const userSelector = (state: UserState) => state.user;
@@ -18,57 +25,33 @@ export default function App() {
   const nav = useNavigation();
 
   useEffect(() => {
-    //get campaigns by user as player or get campaigns by user as DM
-    if (user.id) {
-      campaignService.getCampaignsByID(user.id).then((results) => {
-        dispatch(getCampaigns(results));
-      })
-    }
-  }, [dispatch])
+    dispatch(thunkGetNotes());
+  }, [dispatch]);
 
-  function goToAdd() {
-    nav.navigate('AddCampaign');
-  }
+  useEffect(() => {
+    if (user.id) {
+      userService.getCampaignsByID(user.id).then((results) => {
+        dispatch(getCampaigns(results));
+      });
+    }
+  }, [dispatch]);
+
+  const selectCharacters = (state: CharacterState) => state.characters;
+  const characters = useSelector(selectCharacters);
+  console.log(characters);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Home Page</Text>
+      <Text style={styles.logo}>Home Page</Text>
       <StatusBar style='auto' />
-      <Text style={styles.text}>Your Campaigns:</Text>
+      <Text style={styles.logo}>Your Campaigns:</Text>
       <View>
-        {campaigns.map((req: Campaign, index: number) =>
-          <MinCampaignComponent key={'req-' + index} data={req}></MinCampaignComponent>
-        )}
+        {campaigns.map((req: Campaign, index: number) => (
+          <MinCampaignComponent
+            key={'req-' + index}
+            data={req}></MinCampaignComponent>
+        ))}
       </View>
-      {user.role == 'master' && (
-        <TouchableOpacity style={styles.loginBtn} onPress={goToAdd}>
-          <Text>Add Campaign</Text>
-        </TouchableOpacity>
-      )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#003f5c',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-  },
-  loginBtn: {
-    width: '80%',
-    backgroundColor: '#fb5b5a',
-    borderRadius: 25,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 40,
-    marginBottom: 10,
-    color: 'white'
-  },
-  text: {
-    color: 'white'
-  }
-});

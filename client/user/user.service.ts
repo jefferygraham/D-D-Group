@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Campaign } from '../campaign/campaign';
 import { User } from './user';
 
 class UserService {
@@ -16,6 +17,7 @@ class UserService {
     });
   }
 
+
   login(user: User): Promise<User> {
     return axios
       .post(`${this.URI}/login`, user )
@@ -27,6 +29,17 @@ class UserService {
     return axios
       .delete(this.URI)
       .then((result) => null);
+  }
+
+  getUser(id: number): Promise<User> {
+    return axios.get(this.URI + '/' + id)
+    .then((user) => user.data.body);
+  }
+  
+  getCampaignsByID(id: number): Promise<Campaign[]> {
+    return axios.get(this.URI +'/campaigns/' + id).then((results) => {
+        return results.data as Campaign[];
+    })
   }
 }
 
