@@ -4,7 +4,7 @@ import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
 import { StackParams } from '../router/router.component';
 import styles from '../global-styles';
-import { CharacterState, UserState } from '../store/store';
+import { CharacterState, NoteState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeCampaign, getCampaigns, getCharacters } from '../store/actions';
 import userService from '../user/user.service';
@@ -23,6 +23,10 @@ function CampaignComponent(data: Props) {
     const user = useSelector(userSelector);
     const charSelector = (state: CharacterState) => state.characters;
     const characters = useSelector(charSelector);
+    const notesSelector = (state: NoteState) => {
+        console.log(state);
+        return state.notes;
+    };
     const dispatch = useDispatch();
     let players: User[];
 
@@ -31,12 +35,13 @@ function CampaignComponent(data: Props) {
             dispatch(getCharacters(results));
         })
     }, [dispatch])
+    const notes = useSelector(notesSelector);
 
     //function to access all notes for the campaign,
     //should route to a notes component
-    function getNotes() {
-
-    }
+    const campaignNotes = notes.filter(
+        (note) => note.campaignId === campaign.campaignid
+    );
 
     //will target a character and take you to the character sheet
     function goToCharacter() {
@@ -66,21 +71,40 @@ function CampaignComponent(data: Props) {
         });
     }
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.loginText}>{campaign.campaignname}</Text>
-            <Text style={styles.loginText}>Dungeon Master: {campaign.dm}</Text>
-            {characters.map((req: Character, index: number) =>
-                <MinCharacterComponent key={'req-' + index} data={req}></MinCharacterComponent>
-            )}
-            {user.role == 'master' && (
-                <View>
-                    <Button title='manage players' onPress={viewPlayers}></Button>
-                    <Button title='delete campaign' onPress={removeCampaign}></Button>
-                </View>
-            )}
-        </View>
-    )
+
+return (
+    <View style={styles.container}>
+        <Text style={styles.loginText}>{campaign.campaignname}</Text>
+        <Text style={styles.loginText}>Dungeon Master: {campaign.dm}</Text>
+        {characters.map((req: Character, index: number) =>
+            <MinCharacterComponent key={'req-' + index} data={req}></MinCharacterComponent>
+        )}
+        <Text style={styles.loginText}>Notes:</Text>
+        {campaignNotes.length > 0 &&
+            campaignNotes.map((campaign) => {
+                return (
+                    <View
+                        key={`${campaign.userId}-${campaign.timestamp}`}
+                        style={{ borderColor: 'white', borderWidth: 1 }}>
+                        <Text style={styles.loginText}>{campaign.message}</Text>
+                        <Text style={styles.loginText}>
+                            -{campaign.username},
+                {new Date(campaign.timestamp).toLocaleString()}
+                        </Text>
+                    </View>
+                );
+            })}
+        {user.role == 'master' && (
+            <Button title='delete campaign' onPress={removeCampaign}></Button>
+        ) && <Button title='manage players' onPress={viewPlayers}></Button>}
+        <Button
+            title='add note'
+            onPress={() => nav.navigate('AddNote', { campaign })}></Button>
+        <Button
+            title='view all notes'
+            onPress={() => nav.navigate('NoteList', { campaign })}></Button>
+    </View>
+);
 }
 
 export default CampaignComponent;

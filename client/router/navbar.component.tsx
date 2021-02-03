@@ -1,10 +1,8 @@
 import React from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { AppState, UserState } from '../store/store';
-import { CardStyleInterpolators } from '@react-navigation/stack';
+import { AppState } from '../store/store';
 import { getCampaigns, getCharacters, getUser } from '../store/actions';
 import { User } from '../user/user';
 import { Character } from '../character/character';

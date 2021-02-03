@@ -1,7 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
-import React, { useEffect } from "react";
-import { View, Text } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { View} from "react-native";
 import { StackParams } from "../router/router.component";
 import styles from '../global-styles';
 import { User } from "../user/user";
