@@ -91,6 +91,5 @@ export function getPlayers(players: User[]): UserAction<User> {
     type: UserActions.GetPlayers,
     payload: players
   };
-  console.log('action: '+players);
   return action;
 }
