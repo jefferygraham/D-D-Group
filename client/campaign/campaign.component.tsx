@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
