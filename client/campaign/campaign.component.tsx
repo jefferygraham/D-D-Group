@@ -71,7 +71,14 @@ function CampaignComponent(data: Props) {
           return (
             <View
               key={`${campaign.userId}-${campaign.timestamp}`}
-              style={{ borderColor: 'white', borderWidth: 1 }}>
+              style={{
+                alignItems: 'center',
+                borderColor: 'white',
+                borderWidth: 1,
+                borderRadius: 5,
+                padding: 15,
+                margin: 15,
+              }}>
               <Text style={styles.loginText}>{campaign.message}</Text>
               <Text style={styles.loginText}>
                 -{campaign.username},

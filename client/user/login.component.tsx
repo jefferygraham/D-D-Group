@@ -26,15 +26,12 @@ function LoginComponent({ navigation }: LoginProp) {
   function submitForm() {
     userService.login(user).then((user) => {
       dispatch(getUser(user));
-      console.log(user)
 
       if (user) {
-        characterService.getCharactersByUser(user).then((char)=>{
-          console.log(char);
+        characterService.getCharactersByUser(user).then((char) => {
           dispatch(getCharacters(char));
           navigation.navigate('Home');
-        })
-        
+        });
       } else {
         navigation.navigate('Unauthorized');
       }
