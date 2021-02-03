@@ -10,6 +10,7 @@ import reducer from './reducer';
 export interface UserState {
   user: User;
   loginUser: User;
+  players: User[];
 }
 
 export interface CampaignState {

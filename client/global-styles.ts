@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   charContainer: {
+    width:'100%',
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
@@ -118,6 +119,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '80%',
   },
+  displayContainer:{
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '80%',
+    backgroundColor: '#465881',
+    borderRadius: 25,
+    padding: 10,
+    margin: 10,
+
+  },
   radioText: {
     alignSelf: 'center',
     color: 'white',
@@ -135,15 +146,33 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
 
   },
+  displayBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#465881',
+    borderRadius: 25,
+    padding: 10,
+    margin: 10,
+
+  },
   boxOfThree:{
     flexDirection:'column',
     flex:1,
-    justifyContent:'space-evenly'
+    justifyContent:'space-evenly',
   },
   borderedBoxRow:{
+    width:'100%',
     borderWidth:1,
     borderColor:'white',
     flexDirection:'row',
+    flex:1
+  },
+  borderedBoxColumn:{
+    width:'100%',
+    borderWidth:1,
+    borderColor:'white',
+    flexDirection:'column',
     flex:1
   },
   leftLabel:{
@@ -151,6 +180,13 @@ const styles = StyleSheet.create({
     color:'white',
     fontSize:20,
     margin:5
+
+  },
+  leftText:{
+    alignSelf:'flex-start',
+    color:'white',
+    margin: 5,
+    fontSize:17,
 
   },
   looksLabel: {
@@ -175,6 +211,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin:10
   },
+  center:{
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 
 });
 

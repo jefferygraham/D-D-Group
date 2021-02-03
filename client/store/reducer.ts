@@ -7,6 +7,7 @@ import {Character} from './../character/character'
 export const initialState: AppState = {
   user: new User(),
   loginUser: new User(),
+  players: [],
   campaign: new Campaign(),
   campaigns: [],
   character: new Character(),
@@ -37,6 +38,8 @@ const reducer = (
     case Actions.CharacterActions.ChangeCharacter:
       newState.character = action.payload as Character;
       return newState;
+    case Actions.UserActions.GetPlayers:
+      newState.players = action.payload as User[];
     default:
       return state;
   }

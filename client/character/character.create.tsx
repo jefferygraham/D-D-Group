@@ -1,21 +1,14 @@
 import React from 'react';
 import {
-    Platform,
-    Button,
     TextInput,
     Text,
     View,
-    TouchableNativeFeedback,
     TouchableOpacity,
-    TouchableHighlight,
-    StyleSheet,
 } from 'react-native';
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../global-styles';
-import { changeCharacter, CharacterActions } from '../store/actions';
+import { changeCharacter} from '../store/actions';
 import { CharacterState, UserState } from '../store/store';
-import { Character } from './character';
 import characterService from './character.service';
 import { useNavigation } from '@react-navigation/native';
 
@@ -36,7 +29,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 
     function submitForm() {
         if(user.id){
-            char.playerID = user.id
+            char.playerid = user.id
         }
         let race = char.race.toLowerCase();
         let api = dndAPI + 'races/' + race;
@@ -70,6 +63,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 
 
             })
+            console.log(char)
             characterService.createCharacter(char);
             nav.navigate('Home');
         })
@@ -463,7 +457,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                         <Text style={styles.leftLabel}>Faith </Text>
                         <TextInput
                             style={styles.charInputTextLong}
-                            placeholder='Traits ...'
+                            placeholder='Faith ...'
                             placeholderTextColor='white'
                             multiline={true}
                             numberOfLines={5}
@@ -490,7 +484,10 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                             placeholderTextColor='white'
                             multiline={true}
                             numberOfLines={5}
-                        /* value={char.name} */
+                            onChangeText={(value) =>
+                                dispatch(changeCharacter({ ...char, personalityTraits: value }))
+                            }
+                            value={char.personalityTraits}
                         />
                     </View>
 
@@ -499,37 +496,28 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                         <Text style={styles.characteristicsLabel}>Ideals: </Text>
                         <TextInput
                             style={styles.charInputTextLong}
-                            placeholder='Enter Ideals Here'
+                            placeholder='Ideals...'
                             placeholderTextColor='white'
                             multiline={true}
                             numberOfLines={5}
-                        /* value={char.name} */
+                            onChangeText={(value) =>
+                                dispatch(changeCharacter({ ...char, ideals: value }))
+                            }
+                            value={char.ideals}
                         />
                     </View>
-
-
-                    <View style={styles.charInputLabel}>
-                        <Text style={styles.characteristicsLabel}>Bonds: </Text>
-                        <TextInput
-                            style={styles.charInputTextLong}
-                            placeholder='Traits ...'
-                            placeholderTextColor='white'
-                            multiline={true}
-                            numberOfLines={5}
-                        /* value={char.name} */
-                        />
-                    </View>
-
-
                     <View style={styles.charInputLabel}>
                         <Text style={styles.characteristicsLabel}>Flaws: </Text>
                         <TextInput
                             style={styles.charInputTextLong}
-                            placeholder='Traits ...'
+                            placeholder='Flaws ...'
                             placeholderTextColor='white'
                             multiline={true}
                             numberOfLines={5}
-                        /* value={char.name} */
+                        onChangeText={(value) =>
+                            dispatch(changeCharacter({ ...char, flaws: value }))
+                        }
+                        value={char.flaws}
                         />
                     </View>
                 </View>
@@ -543,7 +531,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                         <Text style={styles.characteristicsLabel}>Organizations: </Text>
                         <TextInput
                             style={styles.charInputTextLong}
-                            placeholder='Traits ...'
+                            placeholder='Organizations ...'
                             placeholderTextColor='white'
                             multiline={true}
                             numberOfLines={5}
@@ -557,7 +545,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                         <Text style={styles.characteristicsLabel}>Allies: </Text>
                         <TextInput
                             style={styles.charInputTextLong}
-                            placeholder='Traits ...'
+                            placeholder='Allies ...'
                             placeholderTextColor='white'
                             multiline={true}
                             numberOfLines={5}
@@ -571,7 +559,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                         <Text style={styles.characteristicsLabel}>Enemies: </Text>
                         <TextInput
                             style={styles.charInputTextLong}
-                            placeholder='Traits ...'
+                            placeholder='Enemies ...'
                             placeholderTextColor='white'
                             multiline={true}
                             numberOfLines={5}
@@ -585,7 +573,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                         <Text style={styles.characteristicsLabel}>Other Information: </Text>
                         <TextInput
                             style={styles.charInputTextLong}
-                            placeholder='Traits ...'
+                            placeholder='Other Information ...'
                             placeholderTextColor='white'
                             multiline={true}
                             numberOfLines={5}

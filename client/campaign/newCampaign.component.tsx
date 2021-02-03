@@ -21,7 +21,7 @@ function AddCampaignComponent() {
         //create a campaign with the data entered and the user's username
         let newC = new Campaign();
         newC.campaignname = data.campaignname;
-        if(user.id){
+        if (user.id) {
             newC.dm = user.id;
         }
         campaignService.addCampaign(newC).then(() => {

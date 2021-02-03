@@ -5,6 +5,7 @@ import {Character} from './../character/character'
 export enum UserActions {
   GetUser = 'GET_USER',
   LoginChange = 'CHANGE_LOGIN',
+  GetPlayers = 'GET_PLAYERS',
 }
 
 export enum CampaignActions {
@@ -14,6 +15,7 @@ export enum CampaignActions {
 
 export enum CharacterActions{
   ChangeCharacter = 'CHANGE_CHARACTER',
+  GetCharacters = "GET_CHARACTERS"
 }
 
 export interface AppAction {
@@ -21,9 +23,9 @@ export interface AppAction {
   payload: any;
 }
 
-export interface UserAction<P> extends AppAction {
+export interface UserAction<User> extends AppAction {
   type: UserActions;
-  payload: P;
+  payload: User | User[];
 }
 
 export interface CampaignAction extends AppAction {
@@ -40,6 +42,14 @@ export function changeCharacter(char: Character):CharacterAction{
   const action: CharacterAction = {
     type: CharacterActions.ChangeCharacter,
     payload:char
+  }
+  return action;
+
+}
+export function getCharacters(chars: Character[]):CharacterAction{
+  const action: CharacterAction = {
+    type: CharacterActions.GetCharacters,
+    payload:chars
   }
   return action;
 
@@ -74,4 +84,13 @@ export function changeCampaign(campaign: Campaign): CampaignAction {
     payload: campaign,
   };
   return action
+}
+
+export function getPlayers(players: User[]): UserAction<User> {
+  const action: UserAction<User> = {
+    type: UserActions.GetPlayers,
+    payload: players
+  };
+  console.log('action: '+players);
+  return action;
 }
