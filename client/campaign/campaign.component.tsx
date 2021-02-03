@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
 import { StackParams } from '../router/router.component';
 import styles from '../global-styles';
-import { UserState } from '../store/store';
+import { CharacterState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeCampaign, getCampaigns, getPlayers } from '../store/actions';
+import { changeCampaign, getCampaigns, getCharacters } from '../store/actions';
 import userService from '../user/user.service';
 import { User } from '../user/user';
+import { Character } from '../character/character';
+import MinCharacterComponent from './minchar.component';
 
 interface Props {
-  route: RouteProp<StackParams, 'Campaign'>;
+    route: RouteProp<StackParams, 'Campaign'>;
 }
 
 function CampaignComponent(data: Props) {
@@ -19,10 +21,16 @@ function CampaignComponent(data: Props) {
     const campaign = data.route.params;
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
+    const charSelector = (state: CharacterState) => state.characters;
+    const characters = useSelector(charSelector);
     const dispatch = useDispatch();
-    let players: User[]; 
+    let players: User[];
 
-    
+    useEffect(() => {
+        campaignService.getCharacters(campaign.campaignid).then((results) => {
+            dispatch(getCharacters(results));
+        })
+    }, [dispatch])
 
     //function to access all notes for the campaign,
     //should route to a notes component
@@ -36,12 +44,10 @@ function CampaignComponent(data: Props) {
     }
 
     //routes to playerpage for that campaign
-    function viewPlayers(){
+    function viewPlayers() {
         dispatch(changeCampaign(campaign));
         campaignService.getPlayers(campaign.campaignid).then((results) => {
             players = results;
-            dispatch(getPlayers(players));
-            console.log(players);
             nav.navigate('Players', players);
         })
     }
@@ -64,10 +70,14 @@ function CampaignComponent(data: Props) {
         <View style={styles.container}>
             <Text style={styles.loginText}>{campaign.campaignname}</Text>
             <Text style={styles.loginText}>Dungeon Master: {campaign.dm}</Text>
+            {characters.map((req: Character, index: number) =>
+                <MinCharacterComponent key={'req-' + index} data={req}></MinCharacterComponent>
+            )}
             {user.role == 'master' && (
-                <Button title='delete campaign' onPress={removeCampaign}></Button>
-            ) && (
-                <Button title='manage players' onPress={viewPlayers}></Button>
+                <View>
+                    <Button title='manage players' onPress={viewPlayers}></Button>
+                    <Button title='delete campaign' onPress={removeCampaign}></Button>
+                </View>
             )}
         </View>
     )

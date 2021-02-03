@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Character } from '../character/character';
 import { User } from '../user/user';
 import { Campaign } from './campaign';
 
@@ -33,6 +34,11 @@ class CampaignService {
     getPlayers(id: number): Promise<User[]>{
         return axios.get(this.URI+'/'+id+'/players').then((results) => {
             return results.data as User[];
+        })
+    }
+    getCharacters(id: number): Promise<Character[]>{
+        return axios.get(this.URI+'/'+id+'/characters').then((results) => {
+            return results.data as Character[];
         })
     }
 }

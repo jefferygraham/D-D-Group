@@ -5,7 +5,7 @@ exports.handler = async (event: any) => {
 
     const user = event.path.substring(event.path.lastIndexOf('/') + 1, event.path.length);
     //update 
-    const campaign = event.path.substring(event.path.lastIndexOf('campaign/'+8), event.path.lastIndexOf('/') - 1);
+    const campaign = event.path.substring(event.path.lastIndexOf(('campaign/')+9), event.path.lastIndexOf('/players')-1);
 
     const q = `delete from player_campaigns where user_id=${user} and campaign_id=${campaign} returning *`;
     const response = await client.query(q);

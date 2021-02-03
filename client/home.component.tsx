@@ -1,8 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { AppState, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Campaign } from './campaign/campaign';
 import MinCampaignComponent from './campaign/mincampaign.component';
@@ -17,8 +16,6 @@ export default function App() {
   const campaignSelector = (state: CampaignState) => state.campaigns;
   const campaigns = useSelector(campaignSelector);
   const dispatch = useDispatch();
-  const selectCharacters = (state:CharacterState)=> state.characters;
-  const characters = useSelector(selectCharacters);
   const nav = useNavigation();
 
   useEffect(() => {
