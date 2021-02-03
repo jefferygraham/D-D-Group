@@ -28,16 +28,18 @@ export function JoinCampaign() {
                 console.log('success!');
                 nav.navigate('Home');
             }).catch((err) => {
+                console.log('testing')
                 console.log(err);
                 setCharID('');
                 setCampaignID('');
-                Alert.alert('Error', 'Campaign does not exist');
+                alert('Campaign does not exist ');
 
             });
         } else {
-            Alert.alert('Error', 'Character does not exists or does not belong to you');
+            alert('Character does not exists or does not belong to you');
             setCharID('');
             setCampaignID('');
+            console.log('why')
         }
 
 
