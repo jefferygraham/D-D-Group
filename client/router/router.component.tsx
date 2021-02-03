@@ -18,6 +18,7 @@ import CampaignPlayers from '../campaign/campaignplayers.component';
 import { User } from '../user/user';
 import AddNoteComponent from '../note/addNote.component';
 import { JoinCampaign } from '../campaign/campaign.join';
+import { EditCampaign } from '../campaign/campaign.edit';
 import NoteListComponent from '../note/NoteList.component';
 
 export type StackParams = {
@@ -30,6 +31,7 @@ export type StackParams = {
   Players: User[];
   CharacterCreation: undefined;
   AddNote: undefined;
+  EditCampaign:undefined;
   JoinCampaign: undefined;
   NoteList: undefined;
 };
@@ -99,8 +101,14 @@ function RouterComponent(props: any) {
         options={headerOptions}
       />
       <Stack.Screen
+        
         name='NoteList'
         component={NoteListComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='EditCampaign'
+        component={EditCampaign}
         options={headerOptions}
       />
     </Stack.Navigator>
