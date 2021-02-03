@@ -61,24 +61,24 @@ function CampaignComponent(data: Props) {
     }
 
     function editCampaign(){
-        nav.navigate('EditCampaign');
+        nav.navigate('EditCampaign', campaign);
 
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.loginText}>{campaign.campaignname}</Text>
-            <Text style={styles.loginText}>Dungeon Master: {campaign.dm}</Text>
+            <Text style={styles.logo}>{campaign.campaignname}</Text>
+            <Text style={styles.logo}>Dungeon Master: {campaign.dm}</Text>
             {user.role == 'master' && (
-                <View>
+                <View style={styles.radio}>
                      <TouchableOpacity style={styles.button} onPress={editCampaign}>
-                        <Text >Edit Campaign</Text>
+                        <Text style ={styles.radioText}>Edit Campaign</Text>
                     </TouchableOpacity>
                      <TouchableOpacity style={styles.button} onPress={removeCampaign}>
-                        <Text >Delete Campaign</Text>
+                        <Text style ={styles.radioText}>Delete Campaign</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={viewPlayers}>
-                        <Text >Manage Players</Text>
+                        <Text style ={styles.radioText}>Manage Players</Text>
                     </TouchableOpacity>
                     
                 </View>

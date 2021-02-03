@@ -1,27 +1,35 @@
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCampaigns } from '../store/actions';
+import { StackParams } from '../router/router.component';
+import { changeCampaign, getCampaigns } from '../store/actions';
 import { CampaignState, UserState } from '../store/store';
 import userService from '../user/user.service';
 import campaignService from './campaign.service';
 
-export function EditCampaign() {
-    const campaignSelector = (state: CampaignState) => state.campaign;
-    const campaign = useSelector(campaignSelector);
+interface Props {
+    route: RouteProp<StackParams, 'Campaign'>;
+}
+
+export function EditCampaign(data:Props) {
+    const campaign = data.route.params;
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
-    const [name,setName]=React.useState('');
     const dispatch = useDispatch();
     const nav = useNavigation();
+    const [campaignName, setCampaignName] = React.useState(campaign.campaignname);
 
     function submitForm(){
-        campaignService.updateCampaign(campaign.campaignid,name).then(()=>{
+        campaignService.updateCampaign(campaign.campaignid,campaignName).then(()=>{
             if(user.id){
                 userService.getCampaignsByID(user.id).then((results)=>{
-                    dispatch(getCampaigns(results));
+                    let sorted = results.sort(function (a,b){
+                        return a.campaignid - b.campaignid
+
+                    });
+                    dispatch(getCampaigns(sorted));
                     nav.navigate('Home');
 
                 })
@@ -32,11 +40,11 @@ export function EditCampaign() {
     }
 
     return (
-        <View>
+        <View style={styles.displayBox}>
             <Text style={styles.title}>Edit Campaign</Text>
-            <View style={styles.displayBox}>
+            <View style={styles.container}>
                 <View style={styles.inputBox}>
-                    <Text> Campaign ID: </Text>
+                    <Text style={styles.btnLabel}> Campaign ID: </Text>
                     <TextInput
                         style={styles.inputText}
                         editable = {false}
@@ -44,11 +52,11 @@ export function EditCampaign() {
                     />
                 </View>
                 <View style={styles.inputBox}>
-                    <Text> Campaign Name: </Text>
+                    <Text style={styles.btnLabel}> Campaign Name: </Text>
                     <TextInput
                         style={styles.inputText}
-                        onChangeText={text => setName(text)}
-                        value={campaign.campaignname}
+                        onChangeText={text => setCampaignName(text)}
+                        value={campaignName}
                     />
                 </View>
                 <TouchableOpacity style={styles.button} onPress={submitForm}>
@@ -69,7 +77,7 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10,
         backgroundColor: '#465881',
-        width: '80%'
+        flex:1,
 
     },
     button: {
@@ -93,6 +101,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 25,
         color: '#fb5b5a',
+        alignSelf:'center',
     },
     inputText: {
         flex: 2,
@@ -100,6 +109,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
         borderColor: 'white',
         borderWidth: 1,
+    },
+    container:{
+        width:'80%',
+        backgroundColor: '#465881',
+        borderRadius: 25,
+        padding: 20,
+
     },
     inputBox: {
         flexDirection: 'row',
