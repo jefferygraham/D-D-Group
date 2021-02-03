@@ -12,9 +12,10 @@ import CharacterCreationComponent from '../character/character.create';
 import AddCampaignComponent from '../campaign/newCampaign.component';
 import CharacterDetailComponent from '../character/character.detail.component';
 import { Character } from '../character/character';
-
 import { Campaign } from '../campaign/campaign';
 import CampaignComponent from '../campaign/campaign.component';
+import CampaignPlayers from '../campaign/campaignplayers.component';
+import { User } from '../user/user';
 import AddNoteComponent from '../note/addNote.component';
 import { JoinCampaign } from '../campaign/campaign.join';
 
@@ -25,6 +26,7 @@ export type StackParams = {
   AddCampaign: undefined;
   CharacterDetail: Character;
   Campaign: Campaign;
+  Players: User[];
   CharacterCreation: undefined;
   AddNote: undefined;
   JoinCampaign:undefined;
@@ -62,6 +64,11 @@ function RouterComponent(props: any) {
         component={CampaignComponent}
         options={headerOptions}
         initialParams={campaign}
+      />
+      <Stack.Screen
+        name='Players'
+        component={CampaignPlayers}
+        options={headerOptions}
       />
       <Stack.Screen
         name='Unauthorized'

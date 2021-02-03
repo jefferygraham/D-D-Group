@@ -23,13 +23,16 @@ class CampaignService {
         return axios.post(this.URI + '/' + id +'/players', data).then(result=>null);
     }
 
-    deleteCampaign(id: string): Promise<null> {
+    deleteCampaign(id: number): Promise<null> {
         return axios.delete(this.URI+'/'+id).then(result => null); 
     }
 
-    getCampaignsByID(id: number): Promise<Campaign[]> {
-        return axios.get(this.URI +'/' + id).then((results) => {
-            return results.data as Campaign[];
+    removePlayer(cid: number,uid: number): Promise<null> {
+        return axios.delete(this.URI +'/'+cid+'/players/'+uid).then(result => null);
+    }
+    getPlayers(id: number): Promise<User[]>{
+        return axios.get(this.URI+'/'+id+'/players').then((results) => {
+            return results.data as User[];
         })
     }
 }
