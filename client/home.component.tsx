@@ -7,8 +7,14 @@ import { Campaign } from './campaign/campaign';
 import MinCampaignComponent from './campaign/mincampaign.component';
 import styles from './global-styles';
 import { getCampaigns } from './store/actions';
-import { CampaignState, CharacterState, UserState } from './store/store';
+import {
+  CampaignState,
+  CharacterState,
+  UserState,
+  NoteState,
+} from './store/store';
 import userService from './user/user.service';
+import { thunkGetNotes } from './store/thunks';
 
 export default function App() {
   const userSelector = (state: UserState) => state.user;
@@ -19,17 +25,20 @@ export default function App() {
   const nav = useNavigation();
 
   useEffect(() => {
+    dispatch(thunkGetNotes());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (user.id) {
       userService.getCampaignsByID(user.id).then((results) => {
         dispatch(getCampaigns(results));
-      })
+      });
     }
-  }, [dispatch])
+  }, [dispatch]);
 
-
-  const selectCharacters = (state:CharacterState)=> state.characters;
+  const selectCharacters = (state: CharacterState) => state.characters;
   const characters = useSelector(selectCharacters);
-  console.log(characters)
+  console.log(characters);
 
   return (
     <View style={styles.container}>

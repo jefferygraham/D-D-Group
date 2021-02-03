@@ -1,6 +1,7 @@
 import { AppState } from './store';
-import { AppAction } from './actions';
+import { AppAction, getNotes } from './actions';
 import { ThunkAction } from 'redux-thunk';
+import noteService from '../note/note.service';
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -8,3 +9,9 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   AppAction
 >;
+
+export const thunkGetNotes = (): AppThunk => async (dispatch) => {
+  const asyncResp = await noteService.getNotes();
+  console.log('before thunk dispatch');
+  dispatch(getNotes(asyncResp));
+};
