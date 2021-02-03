@@ -7,7 +7,9 @@ import { thunkGetNotes } from '../store/thunks';
 
 const Item = (props: any) => (
   <View>
-    <Text>{props.title}</Text>
+    <Text>{props.username} wrote:</Text>
+    <Text>{props.message}</Text>
+    <Text>{props.timestamp}</Text>
   </View>
 );
 
@@ -24,14 +26,20 @@ const NoteListComponent = () => {
     dispatch(thunkGetNotes());
   }, [dispatch]);
 
-  const renderItem = ({ item }) => <Item title={item.NoteId} />;
+  const renderItem = ({ item }) => (
+    <Item
+      username={item.username}
+      message={item.message}
+      timestamp={item.timestamp}
+    />
+  );
 
   return (
     <SafeAreaView>
       <FlatList
         data={notes}
         renderItem={renderItem}
-        keyExtractor={(item) => item.NoteId}
+        keyExtractor={(item) => item.noteId}
       />
     </SafeAreaView>
   );

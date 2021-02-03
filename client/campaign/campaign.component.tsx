@@ -30,10 +30,8 @@ function CampaignComponent(data: Props) {
   //function to access all notes for the campaign,
   //should route to a notes component
   const campaignNotes = notes.filter(
-    (note) => note.CampaignId === campaign.campaignid
+    (note) => note.campaignId === campaign.campaignid
   );
-  console.log(campaign);
-  console.log('C', campaignNotes);
 
   //will target a character and take you to the character sheet
   function goToCharacter() {}
@@ -67,12 +65,29 @@ function CampaignComponent(data: Props) {
     <View style={styles.container}>
       <Text style={styles.loginText}>{campaign.campaignname}</Text>
       <Text style={styles.loginText}>Dungeon Master: {campaign.dm}</Text>
+      <Text style={styles.loginText}>Notes:</Text>
+      {campaignNotes.length > 0 &&
+        campaignNotes.map((campaign) => {
+          return (
+            <View
+              key={`${campaign.userId}-${campaign.timestamp}`}
+              style={{ borderColor: 'white', borderWidth: 1 }}>
+              <Text style={styles.loginText}>{campaign.message}</Text>
+              <Text style={styles.loginText}>
+                -{campaign.username}, {campaign.timestamp}
+              </Text>
+            </View>
+          );
+        })}
       {user.role == 'master' && (
           <Button title='delete campaign' onPress={removeCampaign}></Button>
         ) && <Button title='manage players' onPress={viewPlayers}></Button>}
       <Button
         title='add note'
         onPress={() => nav.navigate('AddNote', { campaign })}></Button>
+      <Button
+        title='view all notes'
+        onPress={() => nav.navigate('NoteList', { campaign })}></Button>
     </View>
   );
 }
