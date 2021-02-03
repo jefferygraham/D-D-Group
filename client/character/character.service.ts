@@ -14,7 +14,7 @@ class CharacterService{
       return axios.post(this.URI, char).then(result => null);
   }
 
-  deleteCharacter(id: string): Promise<null> {
+  deleteCharacter(id: Number): Promise<null> {
     return axios.delete(this.URI + '/' + id).then(result => null);
   }
   getCharactersByUser(user:User): Promise<Character []>{
