@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { User } from '../user/user';
 import { Campaign } from './campaign';
 
 class CampaignService {
@@ -12,6 +13,14 @@ class CampaignService {
         return axios.post(`${this.URI}`, c)
         .then(result => result.data.body)
         .catch((err) => err);
+    }
+
+    joinCampaign(id:Number,user:User, characterId:Number): Promise<null>{
+        let data={
+            user: user.id,
+            char: characterId
+        }
+        return axios.post(this.URI + '/' + id +'/players', data).then(result=>null);
     }
 
     deleteCampaign(id: string): Promise<null> {
