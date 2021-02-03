@@ -17,6 +17,8 @@ import CampaignComponent from '../campaign/campaign.component';
 import { User } from '../user/user';
 import AddNoteComponent from '../note/addNote.component';
 import { JoinCampaign } from '../campaign/campaign.join';
+import { EditCampaign } from '../campaign/campaign.edit';
+import NoteListComponent from '../note/NoteList.component';
 import CampaignPlayers from '../campaign/campaignplayers.component';
 
 export type StackParams = {
@@ -29,7 +31,9 @@ export type StackParams = {
   Players: User[];
   CharacterCreation: undefined;
   AddNote: undefined;
-  JoinCampaign:undefined;
+  EditCampaign:undefined;
+  JoinCampaign: undefined;
+  NoteList: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -94,6 +98,17 @@ function RouterComponent(props: any) {
       <Stack.Screen
         name='JoinCampaign'
         component={JoinCampaign}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        
+        name='NoteList'
+        component={NoteListComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='EditCampaign'
+        component={EditCampaign}
         options={headerOptions}
       />
     </Stack.Navigator>

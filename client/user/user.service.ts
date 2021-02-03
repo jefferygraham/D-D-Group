@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Campaign } from '../campaign/campaign';
-import { Character } from '../character/character';
 import { User } from './user';
 
 class UserService {

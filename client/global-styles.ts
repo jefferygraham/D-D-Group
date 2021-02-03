@@ -166,14 +166,22 @@ const styles = StyleSheet.create({
     borderWidth:1,
     borderColor:'white',
     flexDirection:'row',
-    flex:1
+    flex:1,
+    flexWrap: 'wrap',
+    padding:10,
+    justifyContent: 'space-evenly',
+    
   },
+
   borderedBoxColumn:{
     width:'100%',
     borderWidth:1,
     borderColor:'white',
     flexDirection:'column',
-    flex:1
+    flex:1,
+    alignContent:'flex-start',
+    alignItems:'flex-start',
+    padding:10
   },
   leftLabel:{
     alignSelf:'flex-start',
@@ -202,6 +210,11 @@ const styles = StyleSheet.create({
     margin:5,
 
   },
+  backgroundInfoContainer2:{
+    flex:2,
+    margin:5,
+
+  },
   createBtn:{
     width: '80%',
     backgroundColor: '#fb5b5a',
@@ -214,6 +227,39 @@ const styles = StyleSheet.create({
   center:{
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  button:{
+    margin: 5,
+    padding: 10,
+    justifyContent: 'center',
+    borderRadius: 25,
+    backgroundColor: '#fb5b5a'
+  },
+  radioButtonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent:'center',
+    marginRight: 45
+  },
+  radioButton: {
+    height: 12,
+    width: 12,
+    backgroundColor: "#F8F8F8",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#E6E6E6",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  radioButtonIcon: {
+    height: 14,
+    width: 14,
+    borderRadius: 7,
+    backgroundColor: "#98CFB6"
+  },
+  radioButtonText: {
+    fontSize: 16,
+    marginLeft: 16
   }
 
 });

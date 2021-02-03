@@ -8,29 +8,31 @@ import {
   StyleSheet,
 } from 'react-native';
 import { customAlphabet } from 'nanoid';
+import { RouteProp, useNavigation } from '@react-navigation/native';
 
 import { UserState, CampaignState } from '../store/store';
+import { StackParams } from '../router/router.component';
+
 import noteService from '../note/note.service';
 
-interface AddNoteProp {
-  navigation: any;
+interface Props {
+  route: RouteProp<StackParams, 'AddNote'>;
 }
-
 const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', 5);
 
-function AddNoteComponent({ navigation }: AddNoteProp) {
+function AddNoteComponent({ route, navigation }: any) {
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
 
-  const campaignSelector = (state: CampaignState) => state.campaign;
-  const campaign = useSelector(campaignSelector);
-
   const [message, setMessage] = useState('');
+
+  const { campaign } = route.params;
+  console.log(campaign);
 
   function submitForm() {
     const note = {
       noteId: nanoid(),
-      campaignId: Number(campaign.campaignid),
+      campaignId: campaign.campaignid,
       userId: Number(user.id),
       role: user.role,
       username: user.name,

@@ -28,6 +28,11 @@ class CampaignService {
         return axios.delete(this.URI+'/'+id).then(result => null); 
     }
 
+    updateCampaign(id:number, name:string):Promise<null>{
+        let data = {campaign: name}
+        return axios.put(this.URI+'/'+id,data).then(result =>null);
+    }
+
     removePlayer(cid: number,uid: number): Promise<null> {
         return axios.delete(this.URI +'/'+cid+'/players/'+uid).then(result => null);
     }
