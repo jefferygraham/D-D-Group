@@ -11,7 +11,7 @@ import userService from '../user/user.service';
 import { User } from '../user/user';
 
 interface Props {
-    route: RouteProp<StackParams, 'Campaign'>;
+  route: RouteProp<StackParams, 'Campaign'>;
 }
 
 function CampaignComponent(data: Props) {

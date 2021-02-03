@@ -15,6 +15,7 @@ export enum CampaignActions {
 
 export enum CharacterActions{
   ChangeCharacter = 'CHANGE_CHARACTER',
+  GetCharacters = "GET_CHARACTERS"
 }
 
 export interface AppAction {
@@ -41,6 +42,14 @@ export function changeCharacter(char: Character):CharacterAction{
   const action: CharacterAction = {
     type: CharacterActions.ChangeCharacter,
     payload:char
+  }
+  return action;
+
+}
+export function getCharacters(chars: Character[]):CharacterAction{
+  const action: CharacterAction = {
+    type: CharacterActions.GetCharacters,
+    payload:chars
   }
   return action;
 

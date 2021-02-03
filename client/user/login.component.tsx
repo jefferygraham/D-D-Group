@@ -12,9 +12,10 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import { getUser, loginAction } from '../store/actions';
+import { changeCharacter, getCharacters, getUser, loginAction } from '../store/actions';
 import userService from './user.service';
 import { UserState } from '../store/store';
+import characterService from '../character/character.service';
 
 interface LoginProp {
   navigation: any;
@@ -33,7 +34,12 @@ function LoginComponent({ navigation }: LoginProp) {
       console.log(user)
 
       if (user) {
-        navigation.navigate('Home');
+        characterService.getCharactersByUser(user).then((char)=>{
+          console.log(char);
+          dispatch(getCharacters(char));
+          navigation.navigate('Home');
+        })
+        
       } else {
         navigation.navigate('Unauthorized');
       }
