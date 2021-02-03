@@ -72,11 +72,7 @@ const styles = StyleSheet.create({
     displayBox: {
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 25,
-        padding: 10,
-        margin: 10,
-        backgroundColor: '#465881',
+        backgroundColor: '#003f5c',
         flex:1,
 
     },
@@ -100,6 +96,7 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: 'bold',
         fontSize: 25,
+        margin:10,
         color: '#fb5b5a',
         alignSelf:'center',
     },
@@ -111,7 +108,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     container:{
-        width:'80%',
+        width:'50%',
         backgroundColor: '#465881',
         borderRadius: 25,
         padding: 20,
