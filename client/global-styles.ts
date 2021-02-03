@@ -214,6 +214,13 @@ const styles = StyleSheet.create({
   center:{
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  button:{
+    margin: 5,
+    padding: 10,
+    justifyContent: 'center',
+    borderRadius: 25,
+    backgroundColor: '#fb5b5a'
   }
 
 });

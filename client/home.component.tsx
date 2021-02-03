@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { Text, View } from 'react-native';
+import {  Text, View, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Campaign } from './campaign/campaign';
 import MinCampaignComponent from './campaign/mincampaign.component';
@@ -44,14 +44,31 @@ export default function App() {
     <View style={styles.container}>
       <Text style={styles.logo}>Home Page</Text>
       <StatusBar style='auto' />
-      <Text style={styles.logo}>Your Campaigns:</Text>
-      <View>
-        {campaigns.map((req: Campaign, index: number) => (
-          <MinCampaignComponent
-            key={'req-' + index}
-            data={req}></MinCampaignComponent>
-        ))}
+      <View style={styles.radioContainer}>
+      <Text style={styles.radioLabel}>Your Campaigns</Text>
+      <View style = {homeStyles.campaignContainer}>
+        {campaigns.map((req: Campaign, index: number) =>
+          <MinCampaignComponent key={'req-' + index} data={req}></MinCampaignComponent>
+        )}
       </View>
+      </View>
+     
+
     </View>
   );
 }
+
+const homeStyles = StyleSheet.create({
+  campaignContainer:{
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    backgroundColor: '#465881',
+    borderRadius: 25,
+    padding: 10,
+    margin: 10,
+    justifyContent: 'space-evenly',
+
+  }
+  })
+
+
