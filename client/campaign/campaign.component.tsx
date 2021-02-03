@@ -4,7 +4,7 @@ import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
 import { StackParams } from '../router/router.component';
 import styles from '../global-styles';
-import { UserState } from '../store/store';
+import { UserState, NoteState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeCampaign, getCampaigns, getPlayers } from '../store/actions';
 import userService from '../user/user.service';
@@ -19,12 +19,21 @@ function CampaignComponent(data: Props) {
   const campaign = data.route.params;
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
+  const notesSelector = (state: NoteState) => {
+    console.log(state);
+    return state.notes;
+  };
+  const notes = useSelector(notesSelector);
   const dispatch = useDispatch();
   let players: User[];
 
   //function to access all notes for the campaign,
   //should route to a notes component
-  function getNotes() {}
+  const campaignNotes = notes.filter(
+    (note) => note.CampaignId === campaign.campaignid
+  );
+  console.log(campaign);
+  console.log('C', campaignNotes);
 
   //will target a character and take you to the character sheet
   function goToCharacter() {}
