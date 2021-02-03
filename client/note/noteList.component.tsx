@@ -26,7 +26,7 @@ const NoteListComponent = () => {
     dispatch(thunkGetNotes());
   }, [dispatch]);
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: any) => (
     <Item
       username={item.username}
       message={item.message}
