@@ -1,18 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaView, View, FlatList, Text } from 'react-native';
 
 import { NoteState } from '../store/store';
-
-const notesSelector = (state: NoteState) => {
-  console.log(state);
-  return state.notes;
-};
-const notes = useSelector(notesSelector);
+import { thunkGetNotes } from '../store/thunks';
 
 const Item = (props: any) => (
   <View>
-    <Text>{props.NoteId.S}</Text>
+    <Text>{props.NoteId}</Text>
   </View>
 );
 
@@ -23,14 +18,20 @@ const NoteListComponent = () => {
   };
   const notes = useSelector(notesSelector);
 
-  const renderItem = (note: any) => <Item title={note.NoteId.S} />;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(thunkGetNotes());
+  }, [dispatch]);
+
+  const renderItem = (note: any) => <Item title={note.NoteId} />;
 
   return (
     <SafeAreaView>
       <FlatList
         data={notes}
         renderItem={renderItem}
-        keyExtractor={(item) => item.noteId}
+        keyExtractor={(item) => item.NoteId.S}
       />
     </SafeAreaView>
   );
