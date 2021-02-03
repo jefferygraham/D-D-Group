@@ -18,17 +18,11 @@ export function JoinCampaign() {
     const [campaignID, setCampaignID] = React.useState('');
     const [charID, setCharID] = React.useState('');
 
-    //TODO: Check if campaign exists
     function submitForm() {
-        console.log(user);
-        console.log(campaigns);
-        console.log(characters);
         if (characters.some(char => char.charid == Number(charID))) {
             campaignService.joinCampaign(Number(campaignID), user, Number(charID)).then(() => {
-                console.log('success!');
                 nav.navigate('Home');
             }).catch((err) => {
-                console.log('testing')
                 console.log(err);
                 setCharID('');
                 setCampaignID('');
@@ -39,7 +33,6 @@ export function JoinCampaign() {
             alert('Character does not exists or does not belong to you');
             setCharID('');
             setCampaignID('');
-            console.log('why')
         }
 
 

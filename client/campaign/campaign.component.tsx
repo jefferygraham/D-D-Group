@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
 import { StackParams } from '../router/router.component';
@@ -11,7 +11,7 @@ import userService from '../user/user.service';
 import { User } from '../user/user';
 
 interface Props {
-  route: RouteProp<StackParams, 'Campaign'>;
+    route: RouteProp<StackParams, 'Campaign'>;
 }
 
 function CampaignComponent(data: Props) {
@@ -20,9 +20,9 @@ function CampaignComponent(data: Props) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
-    let players: User[]; 
+    let players: User[];
 
-    
+
 
     //function to access all notes for the campaign,
     //should route to a notes component
@@ -36,7 +36,7 @@ function CampaignComponent(data: Props) {
     }
 
     //routes to playerpage for that campaign
-    function viewPlayers(){
+    function viewPlayers() {
         dispatch(changeCampaign(campaign));
         campaignService.getPlayers(campaign.campaignid).then((results) => {
             players = results;
@@ -60,14 +60,29 @@ function CampaignComponent(data: Props) {
         });
     }
 
+    function editCampaign(){
+        nav.navigate('EditCampaign');
+
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.loginText}>{campaign.campaignname}</Text>
             <Text style={styles.loginText}>Dungeon Master: {campaign.dm}</Text>
             {user.role == 'master' && (
-                <Button title='delete campaign' onPress={removeCampaign}></Button>
-            ) && (
-                <Button title='manage players' onPress={viewPlayers}></Button>
+                <View>
+                     <TouchableOpacity style={styles.button} onPress={editCampaign}>
+                        <Text >Edit Campaign</Text>
+                    </TouchableOpacity>
+                     <TouchableOpacity style={styles.button} onPress={removeCampaign}>
+                        <Text >Delete Campaign</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={viewPlayers}>
+                        <Text >Manage Players</Text>
+                    </TouchableOpacity>
+                    
+                </View>
+
             )}
         </View>
     )
