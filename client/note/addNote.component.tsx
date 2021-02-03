@@ -20,7 +20,7 @@ interface Props {
 }
 const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', 5);
 
-function AddNoteComponent({ route, navigation }) {
+function AddNoteComponent({ route, navigation }: any) {
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
 

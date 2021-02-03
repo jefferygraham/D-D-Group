@@ -13,12 +13,18 @@ const Item = (props: any) => (
   </View>
 );
 
-const NoteListComponent = () => {
+const NoteListComponent = ({ route, navigation }: any) => {
+  const { campaign } = route.params;
+
   const notesSelector = (state: NoteState) => {
     console.log(state);
     return state.notes;
   };
   const notes = useSelector(notesSelector);
+
+  const campaignNotes = notes.filter(
+    (note) => note.campaignId === campaign.campaignid
+  );
 
   const dispatch = useDispatch();
 
@@ -37,7 +43,7 @@ const NoteListComponent = () => {
   return (
     <SafeAreaView>
       <FlatList
-        data={notes}
+        data={campaignNotes}
         renderItem={renderItem}
         keyExtractor={(item) => item.noteId}
       />
