@@ -1,5 +1,4 @@
 import React from 'react';
-import { Character } from "./character";
 import styles from '../global-styles';
 import {Text,View,} from 'react-native';
 import { RouteProp } from '@react-navigation/native';
