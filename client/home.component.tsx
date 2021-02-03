@@ -4,10 +4,10 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Campaign } from './campaign/campaign';
-import campaignService from './campaign/campaign.service';
 import MinCampaignComponent from './campaign/mincampaign.component';
 import { getCampaigns } from './store/actions';
 import { CampaignState, UserState } from './store/store';
+import userService from './user/user.service';
 
 export default function App() {
   const userSelector = (state: UserState) => state.user;
@@ -20,7 +20,7 @@ export default function App() {
   useEffect(() => {
     //get campaigns by user as player or get campaigns by user as DM
     if (user.id) {
-      campaignService.getCampaignsByID(user.id).then((results) => {
+      userService.getCampaignsByID(user.id).then((results) => {
         dispatch(getCampaigns(results));
       })
     }

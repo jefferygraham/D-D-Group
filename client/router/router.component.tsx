@@ -12,6 +12,8 @@ import CharacterCreationComponent from '../character/character.create';
 import AddCampaignComponent from '../campaign/newCampaign.component';
 import { Campaign } from '../campaign/campaign';
 import CampaignComponent from '../campaign/campaign.component';
+import CampaignPlayers from '../campaign/campaignplayers.component';
+import { User } from '../user/user';
 
 export type StackParams = {
   Login: undefined;
@@ -19,6 +21,7 @@ export type StackParams = {
   Unauthorized: undefined;
   AddCampaign: undefined;
   Campaign: Campaign;
+  Players: User[];
   CharacterCreation: undefined;
 };
 
@@ -53,6 +56,11 @@ function RouterComponent(props: any) {
         component={CampaignComponent}
         options={headerOptions}
         initialParams={campaign}
+      />
+      <Stack.Screen
+        name='Players'
+        component={CampaignPlayers}
+        options={headerOptions}
       />
       <Stack.Screen
         name='Unauthorized'

@@ -20,9 +20,9 @@ function AddCampaignComponent() {
     const onSubmit = handleSubmit((data) => {
         //create a campaign with the data entered and the user's username
         let newC = new Campaign();
-        newC.campaignName = data.campaignName;
+        newC.campaignname = data.campaignName;
         if (user.id) {
-            newC.DM = user.id;
+            newC.dm = user.id;
         }
         campaignService.addCampaign(newC).then(() => {
             nav.navigate('Home');

@@ -1,5 +1,5 @@
 export class Campaign {
-    campaignid: string = '';
+    campaignid: number = -1;
     campaignname: string = '';
     dm: number = -1;
     constructor(){};
