@@ -7,7 +7,11 @@ import { Campaign } from './campaign/campaign';
 import campaignService from './campaign/campaign.service';
 import MinCampaignComponent from './campaign/mincampaign.component';
 import { getCampaigns } from './store/actions';
-import { CampaignState, UserState } from './store/store';
+import { getNotes } from './store/actions';
+import noteService from './note/note.service';
+import { thunkGetNotes } from './store/thunks';
+
+import { CampaignState, UserState, NoteState } from './store/store';
 
 export default function App() {
   const userSelector = (state: UserState) => state.user;
@@ -18,13 +22,17 @@ export default function App() {
   const nav = useNavigation();
 
   useEffect(() => {
+    dispatch(thunkGetNotes());
+  }, [dispatch]);
+
+  useEffect(() => {
     //get campaigns by user as player or get campaigns by user as DM
     if (user.id) {
       campaignService.getCampaignsByID(user.id).then((results) => {
         dispatch(getCampaigns(results));
-      })
+      });
     }
-  }, [dispatch])
+  }, [dispatch]);
 
   function goToAdd() {
     nav.navigate('AddCampaign');
@@ -36,9 +44,11 @@ export default function App() {
       <StatusBar style='auto' />
       <Text style={styles.text}>Your Campaigns:</Text>
       <View>
-        {campaigns.map((req: Campaign, index: number) =>
-          <MinCampaignComponent key={'req-' + index} data={req}></MinCampaignComponent>
-        )}
+        {campaigns.map((req: Campaign, index: number) => (
+          <MinCampaignComponent
+            key={'req-' + index}
+            data={req}></MinCampaignComponent>
+        ))}
       </View>
       {user.role == 'master' && (
         <TouchableOpacity style={styles.loginBtn} onPress={goToAdd}>
@@ -66,9 +76,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 40,
     marginBottom: 10,
-    color: 'white'
+    color: 'white',
   },
   text: {
-    color: 'white'
-  }
+    color: 'white',
+  },
 });

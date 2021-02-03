@@ -4,7 +4,7 @@ import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
 import { StackParams } from '../router/router.component';
 import styles from '../global-styles';
-import { UserState } from '../store/store';
+import { NoteState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCampaigns } from '../store/actions';
 
@@ -18,6 +18,13 @@ function CampaignComponent(data: Props) {
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
+
+  const notesSelector = (state: NoteState) => {
+    console.log(state);
+    return state.notes;
+  };
+  const notes = useSelector(notesSelector);
+
   //function to access all notes for the campaign,
   //should route to a notes component
   function getNotes() {}

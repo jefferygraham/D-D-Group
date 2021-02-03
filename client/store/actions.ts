@@ -1,6 +1,7 @@
 import { Campaign } from '../campaign/campaign';
 import { User } from './../user/user';
-import {Character} from './../character/character'
+import { Character } from './../character/character';
+import { Note } from './../note/note';
 
 export enum UserActions {
   GetUser = 'GET_USER',
@@ -9,11 +10,15 @@ export enum UserActions {
 
 export enum CampaignActions {
   GetCampaigns = 'GET_CAMPAIGNS',
-  ChangeCampaign = 'CHANGE_CAMPAIGN'
+  ChangeCampaign = 'CHANGE_CAMPAIGN',
 }
 
-export enum CharacterActions{
+export enum CharacterActions {
   ChangeCharacter = 'CHANGE_CHARACTER',
+}
+
+export enum NoteActions {
+  GetNotes = 'GET_NOTES',
 }
 
 export interface AppAction {
@@ -31,18 +36,22 @@ export interface CampaignAction extends AppAction {
   payload: Campaign | Campaign[];
 }
 
-export interface CharacterAction extends AppAction{
+export interface CharacterAction extends AppAction {
   type: CharacterActions;
-  payload:Character | Character[];
+  payload: Character | Character[];
 }
 
-export function changeCharacter(char: Character):CharacterAction{
+export interface NoteAction extends AppAction {
+  type: NoteActions;
+  payload: Note | Note[];
+}
+
+export function changeCharacter(char: Character): CharacterAction {
   const action: CharacterAction = {
     type: CharacterActions.ChangeCharacter,
-    payload:char
-  }
+    payload: char,
+  };
   return action;
-
 }
 export function getUser(user: User): UserAction<User> {
   const action: UserAction<User> = {
@@ -73,5 +82,13 @@ export function changeCampaign(campaign: Campaign): CampaignAction {
     type: CampaignActions.ChangeCampaign,
     payload: campaign,
   };
-  return action
+  return action;
+}
+
+export function getNotes(notes: Note[]): NoteAction {
+  const action: NoteAction = {
+    type: NoteActions.GetNotes,
+    payload: notes,
+  };
+  return action;
 }
