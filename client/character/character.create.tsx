@@ -29,12 +29,6 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
   const char = useSelector(charSelector);
   const user = useSelector(userSelector);
 
-  const notesSelector = (state: NoteState) => {
-    console.log(state);
-    return state.notes;
-  };
-  const notes = useSelector(notesSelector);
-
   const dispatch = useDispatch();
   const dndAPI = 'https://www.dnd5eapi.co/api/';
   const nav = useNavigation();

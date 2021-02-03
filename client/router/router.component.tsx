@@ -13,6 +13,7 @@ import AddCampaignComponent from '../campaign/newCampaign.component';
 import { Campaign } from '../campaign/campaign';
 import CampaignComponent from '../campaign/campaign.component';
 import AddNoteComponent from '../note/addNote.component';
+import NoteListComponent from '../note/NoteList.component';
 
 export type StackParams = {
   Login: undefined;
@@ -22,6 +23,7 @@ export type StackParams = {
   Campaign: Campaign;
   CharacterCreation: undefined;
   AddNote: undefined;
+  NoteList: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -69,6 +71,11 @@ function RouterComponent(props: any) {
       <Stack.Screen
         name='AddNote'
         component={AddNoteComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='NoteList'
+        component={NoteListComponent}
         options={headerOptions}
       />
     </Stack.Navigator>
