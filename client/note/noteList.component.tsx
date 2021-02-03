@@ -9,7 +9,7 @@ const Item = (props: any) => (
   <View>
     <Text>{props.username} wrote:</Text>
     <Text>{props.message}</Text>
-    <Text>{props.timestamp}</Text>
+    <Text>{new Date(props.timestamp).toLocaleString()}</Text>
   </View>
 );
 
