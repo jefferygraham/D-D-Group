@@ -11,6 +11,7 @@ import { changeCharacter} from '../store/actions';
 import { CharacterState, UserState } from '../store/store';
 import characterService from './character.service';
 import { useNavigation } from '@react-navigation/native';
+import { Character } from './character';
 
 
 interface CreateProp {
@@ -65,6 +66,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
             })
             console.log(char)
             characterService.createCharacter(char);
+            dispatch(changeCharacter(new Character()));
             nav.navigate('Home');
         })
 
