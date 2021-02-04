@@ -2,6 +2,7 @@ import { Campaign } from '../campaign/campaign';
 import { User } from './../user/user';
 import { Character } from './../character/character';
 import { Note } from './../note/note';
+import { Encounter } from '../encounters/encounter';
 
 export enum UserActions {
   GetUser = 'GET_USER',
@@ -21,6 +22,10 @@ export enum CharacterActions {
 
 export enum NoteActions {
   GetNotes = 'GET_NOTES',
+}
+
+export enum EncounterActions {
+  GetEncounters = 'GET_ENCOUNTERS'
 }
 
 export interface AppAction {
@@ -46,6 +51,11 @@ export interface CharacterAction extends AppAction {
 export interface NoteAction extends AppAction {
   type: NoteActions;
   payload: Note | Note[];
+}
+
+export interface EncounterAction extends AppAction {
+  type: EncounterActions;
+  payload: Encounter[];
 }
 
 export function changeCharacter(char: Character): CharacterAction {
@@ -106,6 +116,14 @@ export function getNotes(notes: Note[]): NoteAction {
   const action: NoteAction = {
     type: NoteActions.GetNotes,
     payload: notes,
+  };
+  return action;
+}
+
+export function getEncounters(encounters: Encounter[]): EncounterAction {
+  const action: EncounterAction = {
+    type: EncounterActions.GetEncounters,
+    payload: encounters,
   };
   return action;
 }

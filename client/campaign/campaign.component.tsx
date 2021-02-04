@@ -87,6 +87,12 @@ function CampaignComponent(data: Props) {
         }
     }
 
+    function addEncounter(){
+        campaignService.addEncounter(campaign.campaignid).then(() => {
+            nav.navigate('Campaign',campaign);
+        })
+    }
+
 
     return (
         <View style={styles.container}>
@@ -111,7 +117,10 @@ function CampaignComponent(data: Props) {
                     );
                 })}
             {user.role == 'master' && (
-                <View style={styles.radio}>
+                <View style={styles.radio}>                    
+                    <TouchableOpacity style={styles.button} onPress={addEncounter}>
+                        <Text style={styles.radioText}>Add Encounter</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={editCampaign}>
                         <Text style={styles.radioText}>Edit Campaign</Text>
                     </TouchableOpacity>
@@ -121,7 +130,6 @@ function CampaignComponent(data: Props) {
                     <TouchableOpacity style={styles.button} onPress={viewPlayers}>
                         <Text style={styles.radioText}>Manage Players</Text>
                     </TouchableOpacity>
-
                 </View>
 
             )}

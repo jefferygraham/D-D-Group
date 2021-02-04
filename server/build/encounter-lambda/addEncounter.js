@@ -35,35 +35,41 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var response_1 = __importDefault(require("../response"));
 exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var Client, client, ids, campaign, response;
+    var Client, client, campaign, q, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                Client = require("pg").Client;
+                Client = require('pg').Client;
                 client = new Client();
                 client.connect();
-                ids = JSON.parse(event.body);
-                campaign = event.path.substring(event.path.lastIndexOf('/') + 10, event.path.length - 10);
-                return [4 /*yield*/, client.query("insert into player_campaigns(campaign_id,user_id,character_id)\n    values($1,$2,$3)", [
-                        campaign,
-                        ids.user,
-                        ids.char
-                    ])];
+                campaign = event.path.substring((event.path.lastIndexOf('campaign/') + 9), event.path.lastIndexOf('/') - 1);
+                q = "insert into encounters(campaignid) values (" + campaign + ") returning *";
+                return [4 /*yield*/, client.query(q)];
             case 1:
                 response = _a.sent();
-                client.end();
-                if (response) {
-                    return [2 /*return*/, response_1.default('', 204)];
+                if (response.rows.length > 0) {
+                    return [2 /*return*/, {
+                            statusCode: 200,
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Access-Control-Allow-Origin': '*',
+                                'Access-Control-Allow-Methods': 'OPTIONS,GET',
+                            },
+                            body: JSON.stringify(response.rows),
+                        }];
                 }
                 else {
-                    return [2 /*return*/, response_1.default('', 400)];
+                    return [2 /*return*/, {
+                            statusCode: 400,
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Access-Control-Allow-Origin': '*',
+                                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+                            },
+                        }];
                 }
+                client.end();
                 return [2 /*return*/];
         }
     });

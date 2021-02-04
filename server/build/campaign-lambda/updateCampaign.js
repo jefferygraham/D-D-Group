@@ -41,25 +41,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var response_1 = __importDefault(require("../response"));
 exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var Client, client, ids, campaign, response;
+    var Client, client, campaignID, campaignName, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 Client = require("pg").Client;
                 client = new Client();
                 client.connect();
-                ids = JSON.parse(event.body);
-                campaign = event.path.substring(event.path.lastIndexOf('/') + 10, event.path.length - 10);
-                return [4 /*yield*/, client.query("insert into player_campaigns(campaign_id,user_id,character_id)\n    values($1,$2,$3)", [
-                        campaign,
-                        ids.user,
-                        ids.char
+                campaignID = event.path.substring(event.path.lastIndexOf('/') + 1, event.path.length);
+                campaignName = JSON.parse(event.body);
+                return [4 /*yield*/, client.query("update campaigns set \"campaignname\" = $1 where \"campaignid\" = $2", [
+                        campaignName.campaign,
+                        campaignID
                     ])];
             case 1:
                 response = _a.sent();
                 client.end();
                 if (response) {
-                    return [2 /*return*/, response_1.default('', 204)];
+                    return [2 /*return*/, response_1.default('', 200)];
                 }
                 else {
                     return [2 /*return*/, response_1.default('', 400)];

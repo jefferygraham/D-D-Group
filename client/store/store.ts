@@ -2,6 +2,7 @@ import { applyMiddleware, createStore, Store } from 'redux';
 import thunk from 'redux-thunk';
 import { Campaign } from '../campaign/campaign';
 import { Character } from '../character/character';
+import { Encounter } from '../encounters/encounter';
 import { Note } from '../note/note';
 import { User } from '../user/user';
 import { AppAction } from './actions';
@@ -28,11 +29,16 @@ export interface NoteState {
   notes: Note[];
 }
 
+export interface EncounterState {
+  encounters: Encounter[];
+}
+
 export interface AppState
   extends UserState,
     CampaignState,
     CharacterState,
-    NoteState {}
+    NoteState,
+    EncounterState{}
 
 const store: Store<AppState, AppAction> = createStore(
   reducer,
