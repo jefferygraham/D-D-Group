@@ -45,7 +45,8 @@ function ProfileComponent() {
                     <FlatList
                         data={characters}
                         renderItem={({ item }) => (<CharacterComponent data={item}></CharacterComponent>)}
-                        keyExtractor={(item) => item.name} />
+                        keyExtractor={(item) => item.name}
+                        numColumns={2} />
                 </View>
             </View>
             <View style={styles.infoBoxLarge}>
@@ -54,7 +55,8 @@ function ProfileComponent() {
                     <FlatList
                         data={campaigns}
                         renderItem={({ item }) => (<MinCampaignComponent data={item}></MinCampaignComponent>)}
-                        keyExtractor={(item) => item.campaignname} />
+                        keyExtractor={(item) => item.campaignname} 
+                        numColumns={2} />
                 </View>
             </View>
         </View>
