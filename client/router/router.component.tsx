@@ -31,7 +31,7 @@ export type StackParams = {
   Players: User[];
   CharacterCreation: undefined;
   AddNote: undefined;
-  EditCampaign:undefined;
+  EditCampaign: undefined;
   JoinCampaign: undefined;
   NoteList: undefined;
 };
@@ -101,7 +101,6 @@ function RouterComponent(props: any) {
         options={headerOptions}
       />
       <Stack.Screen
-        
         name='NoteList'
         component={NoteListComponent}
         options={headerOptions}

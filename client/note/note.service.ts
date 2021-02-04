@@ -21,6 +21,13 @@ class NoteService {
       .then((result) => result.data.Items)
       .catch((err) => err);
   }
+
+  deleteNote(note: Note): Promise<null> {
+    return axios
+      .delete(`${this.URI}/${note.noteId}`)
+      .then((result) => result.data.body)
+      .catch((err) => err);
+  }
 }
 
 export default new NoteService();
