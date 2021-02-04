@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeCampaign, getCampaigns, getPlayers } from '../store/actions';
 import userService from '../user/user.service';
 import { User } from '../user/user';
+import { Note } from '../note/note';
 
 interface Props {
   route: RouteProp<StackParams, 'Campaign'>;
@@ -27,9 +28,10 @@ function CampaignComponent(data: Props) {
 
   //function to access all notes for the campaign,
   //should route to a notes component
-  const campaignNotes =
-    notes.length > 0 &&
-    notes.filter((note) => note.campaignId === campaign.campaignid);
+  const campaignNotes: Note[] =
+    notes.length > 0
+      ? notes.filter((note) => note.campaignId === campaign.campaignid)
+      : [];
 
   //will target a character and take you to the character sheet
   function goToCharacter() {}
