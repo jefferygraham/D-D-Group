@@ -22,9 +22,9 @@ function MinCampaignComponent({ data }: CampaignProps) {
     return (
         <View style={styles.displayBox}>
             {(user.role == 'master') && (
-                <Text style={styles.btnLabel}>Campagin ID: {data.campaignid}</Text>
+                <Text style={styles.btnLabel}>Campaign ID: {data.campaignid}</Text>
             )}
-            <Text style={styles.btnLabel}>Campagin Name: {data.campaignname}</Text>
+            <Text style={styles.btnLabel}>Campaign Name: {data.campaignname}</Text>
             <TouchableOpacity style={styles.button} onPress={goToCampaign}>
                 <Text style={styles.btnLabel}>Go To Campaign</Text>
             </TouchableOpacity>
