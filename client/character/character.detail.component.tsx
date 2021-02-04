@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from '../global-styles';
-import {Text,View,} from 'react-native';
-import { RouteProp } from '@react-navigation/native';
+import { Text, TouchableOpacity, View, } from 'react-native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
 import { StackParams } from '../router/router.component';
+import { EditCampaign } from '../campaign/campaign.edit';
 
 interface Props {
     route: RouteProp<StackParams, 'CharacterDetail'>;
@@ -11,6 +12,12 @@ interface Props {
 export default function CharacterDetailComponent(props: Props) {
     const char = props.route.params;
     console.log(char)
+    const nav = useNavigation();
+
+    function goToEdit(){
+        nav.navigate('EditCharacter');
+
+    }
 
     return (
         <View style={styles.charContainer}>
@@ -61,6 +68,9 @@ export default function CharacterDetailComponent(props: Props) {
                     <Text style={styles.leftText}>Enemies: {char.enemies}</Text>
                     <Text style={styles.leftText}>Other Information: {char.otherInfo}</Text>
                 </View>
+                <TouchableOpacity style={styles.createBtn} onPress={goToEdit}>
+                    <Text style={styles.looksLabel}>Edit Character</Text>
+                </TouchableOpacity>
             </View>
 
         </View>

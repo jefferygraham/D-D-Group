@@ -58,6 +58,8 @@ const styles = StyleSheet.create({
     },
     btnLabel: {
         alignSelf: 'center',
+        alignContent:'center',
+        justifyContent:'center',
         color: 'white',
         fontSize: 20,
         marginRight: 10,

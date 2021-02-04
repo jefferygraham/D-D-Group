@@ -66,6 +66,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#465881',
         flexDirection: 'column',
         width:'100%',
+        flex:1,
+        margin:10
     },
     displayBox:{
         flexDirection:'column',

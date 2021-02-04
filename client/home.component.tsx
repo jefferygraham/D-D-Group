@@ -67,6 +67,7 @@ const homeStyles = StyleSheet.create({
     padding: 10,
     margin: 10,
     justifyContent: 'space-evenly',
+    width:'100%',
 
   }
   })

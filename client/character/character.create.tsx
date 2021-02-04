@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../global-styles';
-import { changeCharacter } from '../store/actions';
+import { changeCharacter, getCharacters } from '../store/actions';
 import { CharacterState, UserState } from '../store/store';
 import characterService from './character.service';
 import { useNavigation } from '@react-navigation/native';
@@ -29,27 +29,27 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
     const nav = useNavigation();
 
     const [race, setRace] = React.useState([
-        { id: 1, value: 'Dragonborn', name: 'Dragonborn', selected: false },
-        { id: 2, value: 'Elf', name: 'Elf', selected: false },
-        { id: 3, value: 'Half-Elf', name: 'Half-Elf', selected: false },
-        { id: 4, value: 'Half-Orc', name: 'Half-Orc', selected: false },
-        { id: 5, value: 'Human', name: 'Human', selected: false },
-        { id: 6, value: 'Halfling', name: 'Halfling', selected: false },
-        { id: 7, value: 'Tiefling', name: 'Tiefling', selected: false },
+        { id: 1, value: 'dragonborn', name: 'Dragonborn', selected: true },
+        { id: 2, value: 'elf', name: 'Elf', selected: false },
+        { id: 3, value: 'half-elf', name: 'Half-Elf', selected: false },
+        { id: 4, value: 'half-orc', name: 'Half-Orc', selected: false },
+        { id: 5, value: 'human', name: 'Human', selected: false },
+        { id: 6, value: 'galfling', name: 'Halfling', selected: false },
+        { id: 7, value: 'tiefling', name: 'Tiefling', selected: false },
     ]);
 
     const [charClass, setCharClass] = React.useState([
-        { id: 1, value: 'Bard', name: 'Bard', selected: false },
-        { id: 2, value: 'Cleric', name: 'Cleric', selected: false },
-        { id: 3, value: 'Fighter', name: 'Fighter', selected: false },
-        { id: 4, value: 'Paladin', name: 'Paladin', selected: false },
-        { id: 5, value: 'Ranger', name: 'Ranger', selected: false },
-        { id: 6, value: 'Rouge', name: 'Rouge', selected: false },
-        { id: 7, value: 'Warlock', name: 'Warlock', selected: false },
+        { id: 1, value: 'bard', name: 'Bard', selected: true },
+        { id: 2, value: 'cleric', name: 'Cleric', selected: false },
+        { id: 3, value: 'fighter', name: 'Fighter', selected: false },
+        { id: 4, value: 'paladin', name: 'Paladin', selected: false },
+        { id: 5, value: 'ranger', name: 'Ranger', selected: false },
+        { id: 6, value: 'rouge', name: 'Rouge', selected: false },
+        { id: 7, value: 'warlock', name: 'Warlock', selected: false },
 
     ]);
     const [lifestyle, setLifestyle] = React.useState([
-        { id: 1, value: 'Wretched', name: 'Wretched', selected: false },
+        { id: 1, value: 'Wretched', name: 'Wretched', selected: true },
         { id: 2, value: 'Squalid', name: 'Squalid', selected: false },
         { id: 3, value: 'Poor', name: 'Poor', selected: false },
         { id: 4, value: 'Modest', name: 'Modest', selected: false },
@@ -60,7 +60,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
     ]);
 
     const [alignment, setAlignment] = React.useState([
-        { id: 1, value: 'Lawful Good', name: 'Lawful Good', selected: false },
+        { id: 1, value: 'Lawful Good', name: 'Lawful Good', selected: true },
         { id: 2, value: 'Neutral Good', name: 'Neutral Good', selected: false },
         { id: 3, value: 'Chaotic Good', name: 'Chaotic Good', selected: false },
         { id: 4, value: 'Lawful Neutral', name: 'Lawful Neutral', selected: false },
@@ -76,6 +76,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
         if (user.id) {
             char.playerid = user.id
         }
+        console.log(char)
         let race = char.race.toLowerCase();
         let api = dndAPI + 'races/' + race;
         //change stats based on race
@@ -109,9 +110,16 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 
             })
             console.log(char)
-            characterService.createCharacter(char);
-            dispatch(changeCharacter(new Character()));
-            nav.navigate('Home');
+            characterService.createCharacter(char).then(()=>{
+                characterService.getCharactersByUser(user).then((results) => {
+                console.log(results);
+                dispatch(getCharacters(results));
+                dispatch(changeCharacter(new Character()));
+                nav.navigate('Home');
+            })
+            });
+            
+
         })
 
 
