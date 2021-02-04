@@ -25,7 +25,7 @@ class NoteService {
   deleteNote(note: Note): Promise<null> {
     return axios
       .delete(`${this.URI}/${note.noteId}`)
-      .then((result) => null)
+      .then((result) => result.data.body)
       .catch((err) => err);
   }
 }
