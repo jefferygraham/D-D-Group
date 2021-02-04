@@ -29,6 +29,8 @@ const NoteListComponent = ({ route, navigation }: any) => {
     (note) => note.campaignId === campaign.campaignid
   );
 
+  const sortedNotes = campaignNotes.sort((a, b) => b.timestamp - a.timestamp);
+
   const dispatch = useDispatch();
 
   const handleDeleteNote = (note: any) => {
@@ -68,9 +70,9 @@ const NoteListComponent = ({ route, navigation }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.logo}>Notes for {campaign.campaignname}</Text>
-      {campaignNotes.length > 0 && (
+      {sortedNotes.length > 0 && (
         <FlatList
-          data={campaignNotes}
+          data={sortedNotes}
           renderItem={renderItem}
           keyExtractor={(item) => item.noteId}
         />

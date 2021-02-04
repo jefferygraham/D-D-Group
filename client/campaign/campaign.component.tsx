@@ -33,6 +33,8 @@ function CampaignComponent(data: Props) {
       ? notes.filter((note) => note.campaignId === campaign.campaignid)
       : [];
 
+  const sortedNotes = campaignNotes.sort((a, b) => b.timestamp - a.timestamp);
+
   //will target a character and take you to the character sheet
   function goToCharacter() {}
 
@@ -66,11 +68,11 @@ function CampaignComponent(data: Props) {
       <Text style={styles.loginText}>{campaign.campaignname}</Text>
       <Text style={styles.loginText}>Dungeon Master: {campaign.dm}</Text>
       <Text style={styles.loginText}>Notes:</Text>
-      {campaignNotes.length > 0 &&
-        campaignNotes.splice(0, 3).map((campaign) => {
+      {sortedNotes.length > 0 &&
+        sortedNotes.splice(0, 3).map((campaign) => {
           return (
             <View
-              key={`${campaign.userId}-${campaign.timestamp}`}
+              key={`${campaign.noteId}`}
               style={{
                 alignItems: 'center',
                 borderColor: 'white',
