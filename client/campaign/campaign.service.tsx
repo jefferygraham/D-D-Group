@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { Character } from '../character/character';
+import { User } from '../user/user';
 import { Campaign } from './campaign';
 
 class CampaignService {
@@ -14,13 +16,34 @@ class CampaignService {
         .catch((err) => err);
     }
 
-    deleteCampaign(id: string): Promise<null> {
+    joinCampaign(id:Number,user:User, characterId:Number): Promise<null>{
+        let data={
+            user: user.id,
+            char: characterId
+        }
+        return axios.post(this.URI + '/' + id +'/players', data).then(result=>null);
+    }
+
+    deleteCampaign(id: number): Promise<null> {
         return axios.delete(this.URI+'/'+id).then(result => null); 
     }
 
-    getCampaignsByID(id: number): Promise<Campaign[]> {
-        return axios.get(this.URI +'/' + id).then((results) => {
-            return results.data as Campaign[];
+    updateCampaign(id:number, name:string):Promise<null>{
+        let data = {campaign: name}
+        return axios.put(this.URI+'/'+id,data).then(result =>null);
+    }
+
+    removePlayer(cid: number,uid: number): Promise<null> {
+        return axios.delete(this.URI +'/'+cid+'/players/'+uid).then(result => null);
+    }
+    getPlayers(id: number): Promise<User[]>{
+        return axios.get(this.URI+'/'+id+'/players').then((results) => {
+            return results.data as User[];
+        })
+    }
+    getCharacters(id: number): Promise<Character[]>{
+        return axios.get(this.URI+'/'+id+'/characters').then((results) => {
+            return results.data as Character[];
         })
     }
 }
