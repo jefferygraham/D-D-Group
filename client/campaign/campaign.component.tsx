@@ -65,7 +65,7 @@ function CampaignComponent(data: Props) {
       <Text style={styles.loginText}>Dungeon Master: {campaign.dm}</Text>
       <Text style={styles.loginText}>Notes:</Text>
       {campaignNotes.length > 0 &&
-        campaignNotes.map((campaign) => {
+        campaignNotes.splice(0, 3).map((campaign) => {
           return (
             <View
               key={`${campaign.userId}-${campaign.timestamp}`}
