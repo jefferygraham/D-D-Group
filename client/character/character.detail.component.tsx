@@ -6,6 +6,8 @@ import { StackParams } from '../router/router.component';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserState } from '../store/store';
 import characterService from './character.service';
+import { changeCharacter, getCharacters } from '../store/actions';
+import { Character } from './character';
 
 
 
@@ -19,10 +21,19 @@ export default function CharacterDetailComponent(props: Props) {
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const nav = useNavigation();
+    const dispatch = useDispatch();
+
+
+    const rest = props.route.params;
 
     function removeCharacter() {
         characterService.deleteCharacter(char.charid).then(() => {
-            nav.navigate('Home')
+            if (user.name) {
+                characterService.getCharactersByUser(user).then((result) => {
+                    dispatch(getCharacters(result))
+                    nav.navigate('Home');
+                });
+            }
         })
     }
 
@@ -79,7 +90,7 @@ export default function CharacterDetailComponent(props: Props) {
             {user.id == char.playerid && (
                 <View style={styles.radio}>
                     <TouchableOpacity style={styles.button} onPress={removeCharacter}>
-                        <Text style={styles.radioText}>Delete Campaign</Text>
+                        <Text style={styles.radioText}>Delete Character</Text>
                     </TouchableOpacity>
                 </View>
 
