@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaView, View, FlatList, Text, Button } from 'react-native';
 
 import { NoteState, UserState } from '../store/store';
+import noteService from '../note/note.service';
 import { deleteNote } from '../store/actions';
 import { thunkGetNotes } from '../store/thunks';
 import styles from '../global-styles';
@@ -23,7 +24,9 @@ const NoteListComponent = ({ route, navigation }: any) => {
   const dispatch = useDispatch();
 
   const handleDeleteNote = (note) => {
-    dispatch(deleteNote(note));
+    noteService.deleteNote(note).then(() => {
+      dispatch(deleteNote(note));
+    });
   };
 
   useEffect(() => {
