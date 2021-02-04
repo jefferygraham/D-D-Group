@@ -9,8 +9,6 @@ import characterService from './character.service';
 import { changeCharacter, getCharacters } from '../store/actions';
 import { Character } from './character';
 
-
-
 interface Props {
     route: RouteProp<StackParams, 'CharacterDetail'>;
 }

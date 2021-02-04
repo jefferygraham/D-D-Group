@@ -1,18 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Platform,
-  Button,
   TextInput,
   Text,
   View,
-  TouchableNativeFeedback,
   TouchableOpacity,
-  TouchableHighlight,
   StyleSheet,
 } from 'react-native';
-
-import { changeCharacter, getCharacters, getUser, loginAction } from '../store/actions';
+import { getCharacters, getUser, loginAction } from '../store/actions';
 import userService from './user.service';
 import { UserState } from '../store/store';
 import characterService from '../character/character.service';
@@ -23,7 +18,6 @@ interface LoginProp {
 
 function LoginComponent({ navigation }: LoginProp) {
   const userSelector = (state: UserState) => {
-    console.log(state);
     return state.loginUser;
   };
   const user = useSelector(userSelector);

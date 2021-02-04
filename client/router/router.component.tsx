@@ -12,10 +12,14 @@ import CharacterCreationComponent from '../character/character.create';
 import AddCampaignComponent from '../campaign/newCampaign.component';
 import CharacterDetailComponent from '../character/character.detail.component';
 import { Character } from '../character/character';
-
 import { Campaign } from '../campaign/campaign';
 import CampaignComponent from '../campaign/campaign.component';
+import CampaignPlayers from '../campaign/campaignplayers.component';
+import { User } from '../user/user';
 import AddNoteComponent from '../note/addNote.component';
+import { JoinCampaign } from '../campaign/campaign.join';
+import { EditCampaign } from '../campaign/campaign.edit';
+import NoteListComponent from '../note/NoteList.component';
 
 export type StackParams = {
   Login: undefined;
@@ -24,8 +28,12 @@ export type StackParams = {
   AddCampaign: undefined;
   CharacterDetail: Character;
   Campaign: Campaign;
+  Players: User[];
   CharacterCreation: undefined;
   AddNote: undefined;
+  EditCampaign:undefined;
+  JoinCampaign: undefined;
+  NoteList: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -36,7 +44,7 @@ const headerOptions: StackHeaderOptions = {
 };
 
 function RouterComponent(props: any) {
-  const char = useSelector((state:AppState)=>state.character);
+  const char = useSelector((state: AppState) => state.character);
   const campaign = useSelector((state: AppState) => state.campaign);
   return (
     <Stack.Navigator initialRouteName='Login'>
@@ -62,6 +70,11 @@ function RouterComponent(props: any) {
         initialParams={campaign}
       />
       <Stack.Screen
+        name='Players'
+        component={CampaignPlayers}
+        options={headerOptions}
+      />
+      <Stack.Screen
         name='Unauthorized'
         component={UnauthorizedComponent}
         options={headerOptions}
@@ -76,10 +89,26 @@ function RouterComponent(props: any) {
         component={CharacterDetailComponent}
         options={headerOptions}
         initialParams={char}
-        />
-        <Stack.Screen
+      />
+      <Stack.Screen
         name='AddNote'
         component={AddNoteComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='JoinCampaign'
+        component={JoinCampaign}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        
+        name='NoteList'
+        component={NoteListComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='EditCampaign'
+        component={EditCampaign}
         options={headerOptions}
       />
     </Stack.Navigator>

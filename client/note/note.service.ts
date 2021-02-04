@@ -14,6 +14,13 @@ class NoteService {
       .then((result) => result.data.body)
       .catch((err) => err);
   }
+
+  getNotes(): Promise<Note[]> {
+    return axios
+      .get(`${this.URI}`)
+      .then((result) => result.data.Items)
+      .catch((err) => err);
+  }
 }
 
 export default new NoteService();

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Character } from '../character/character';
+import { Campaign } from '../campaign/campaign';
 import { User } from './user';
 
 class UserService {
@@ -29,6 +29,17 @@ class UserService {
     return axios
       .delete(this.URI)
       .then((result) => null);
+  }
+
+  getUser(id: number): Promise<User> {
+    return axios.get(this.URI + '/' + id)
+    .then((user) => user.data.body);
+  }
+  
+  getCampaignsByID(id: number): Promise<Campaign[]> {
+    return axios.get(this.URI +'/campaigns/' + id).then((results) => {
+        return results.data as Campaign[];
+    })
   }
 }
 
