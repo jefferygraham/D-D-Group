@@ -79,9 +79,9 @@ function CampaignComponent(data: Props) {
                 padding: 15,
                 margin: 15,
               }}>
+              <Text style={styles.loginText}>{campaign.username} wrote:</Text>
               <Text style={styles.loginText}>{campaign.message}</Text>
               <Text style={styles.loginText}>
-                -{campaign.username},
                 {new Date(campaign.timestamp).toLocaleString()}
               </Text>
             </View>

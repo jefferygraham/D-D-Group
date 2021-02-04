@@ -45,6 +45,11 @@ const reducer = (
     case Actions.NoteActions.GetNotes:
       newState.notes = action.payload as Note[];
       return newState;
+    case Actions.NoteActions.DeleteNote:
+      newState.notes = state.notes.filter(
+        (note) => note.noteId !== action.payload.noteId
+      );
+      return newState;
     default:
       return state;
   }

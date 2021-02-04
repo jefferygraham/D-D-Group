@@ -21,6 +21,7 @@ export enum CharacterActions {
 
 export enum NoteActions {
   GetNotes = 'GET_NOTES',
+  DeleteNote = 'DELETE_NOTE',
 }
 
 export interface AppAction {
@@ -106,6 +107,14 @@ export function getNotes(notes: Note[]): NoteAction {
   const action: NoteAction = {
     type: NoteActions.GetNotes,
     payload: notes,
+  };
+  return action;
+}
+
+export function deleteNote(note: Note): NoteAction {
+  const action: NoteAction = {
+    type: NoteActions.DeleteNote,
+    payload: note,
   };
   return action;
 }
