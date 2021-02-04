@@ -2,11 +2,13 @@
 import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity, Button, FlatList, StyleSheet } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
-import { CharacterState, NoteState, UserState } from '../store/store';
+import { CharacterState, NoteState, UserState, CampaignState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCampaigns, getCharacters } from '../store/actions';
+import userService from '../user/user.service';
 import CharacterService from '../character/character.service';
 import CharacterComponent from '../character/character.componenet';
+import MinCampaignComponent from '../campaign/mincampaign.component';
 
 
 function ProfileComponent() {
@@ -15,6 +17,8 @@ function ProfileComponent() {
     const user = useSelector(userSelector);
     const charSelector = (state: CharacterState) => state.characters;
     const characters = useSelector(charSelector);
+    const campaignSelector = (state: CampaignState) => state.campaigns;
+    const campaigns = useSelector(campaignSelector);
 
     
     const dispatch = useDispatch();
@@ -23,14 +27,35 @@ function ProfileComponent() {
             dispatch(getCharacters(results));
         })
     }, [dispatch])
+
+    useEffect(() => {
+        if (user.id) {
+          userService.getCampaignsByID(user.id).then((results) => {
+            dispatch(getCampaigns(results));
+          });
+        }
+      }, [dispatch]);
+
     return (
-        <View style={styles.infoBoxLarge}>
-            <Text style={styles.titleLeft}> Characters </Text>
-            <View style={styles.background}>
-                <FlatList
-                    data={characters}
-                    renderItem={({ item }) => (<CharacterComponent data={item}></CharacterComponent>)}
-                    keyExtractor={(item) => item.name} />
+        <View style={styles.box}>
+            <Text style={styles.title}> Welcome, {user.name} </Text>
+            <View style={styles.infoBoxLarge}>
+                <Text style={styles.titleLeft}> Your Characters </Text>
+                <View style={styles.background}>
+                    <FlatList
+                        data={characters}
+                        renderItem={({ item }) => (<CharacterComponent data={item}></CharacterComponent>)}
+                        keyExtractor={(item) => item.name} />
+                </View>
+            </View>
+            <View style={styles.infoBoxLarge}>
+                <Text style={styles.titleLeft}> Your Campaigns </Text>
+                <View style={styles.background}>
+                    <FlatList
+                        data={campaigns}
+                        renderItem={({ item }) => (<MinCampaignComponent data={item}></MinCampaignComponent>)}
+                        keyExtractor={(item) => item.campaignname} />
+                </View>
             </View>
         </View>
     )
