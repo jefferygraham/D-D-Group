@@ -29,9 +29,9 @@ function CampaignComponent(data: Props) {
 
   //function to access all notes for the campaign,
   //should route to a notes component
-  const campaignNotes = notes.filter(
-    (note) => note.campaignId === campaign.campaignid
-  );
+  const campaignNotes =
+    notes.length > 0 &&
+    notes.filter((note) => note.campaignId === campaign.campaignid);
 
   //will target a character and take you to the character sheet
   function goToCharacter() {}

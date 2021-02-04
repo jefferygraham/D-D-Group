@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   TextInput,
   Text,
@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import { addNote } from '../store/actions';
+
 import { customAlphabet } from 'nanoid';
 
 import { UserState } from '../store/store';
@@ -23,6 +25,8 @@ function AddNoteComponent({ route, navigation }: any) {
   const { campaign } = route.params;
   console.log(campaign);
 
+  const dispatch = useDispatch();
+
   function submitForm() {
     const note = {
       noteId: nanoid(),
@@ -33,7 +37,8 @@ function AddNoteComponent({ route, navigation }: any) {
       message: message,
       timestamp: Date.now(),
     };
-    console.log(note);
+
+    dispatch(addNote(note));
 
     noteService.addNote(note).then((note) => {
       navigation.navigate('Campaign');

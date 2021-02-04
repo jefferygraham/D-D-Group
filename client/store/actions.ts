@@ -20,6 +20,7 @@ export enum CharacterActions {
 }
 
 export enum NoteActions {
+  AddNote = 'ADD_NOTE',
   GetNotes = 'GET_NOTES',
   DeleteNote = 'DELETE_NOTE',
 }
@@ -99,6 +100,14 @@ export function getPlayers(players: User[]): UserAction<User> {
   const action: UserAction<User> = {
     type: UserActions.GetPlayers,
     payload: players,
+  };
+  return action;
+}
+
+export function addNote(note: Note): NoteAction {
+  const action: NoteAction = {
+    type: NoteActions.AddNote,
+    payload: note,
   };
   return action;
 }

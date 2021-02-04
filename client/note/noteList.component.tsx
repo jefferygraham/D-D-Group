@@ -60,11 +60,13 @@ const NoteListComponent = ({ route, navigation }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.logo}>Notes for {campaign.campaignname}</Text>
-      <FlatList
-        data={campaignNotes}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.noteId}
-      />
+      {campaignNotes.length > 0 && (
+        <FlatList
+          data={campaignNotes}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.noteId}
+        />
+      )}
     </SafeAreaView>
   );
 };
