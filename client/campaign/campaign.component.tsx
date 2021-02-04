@@ -4,13 +4,9 @@ import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
 import { StackParams } from '../router/router.component';
 import styles from '../global-styles';
-<<<<<<< HEAD
-import { CharacterState, UserState } from '../store/store';
-=======
 import { CharacterState, NoteState, UserState } from '../store/store';
->>>>>>> 687a260fc5d3c19c484de430617d075b03a18fb9
 import { useDispatch, useSelector } from 'react-redux';
-import { changeCampaign, getCampaigns, getCharacters } from '../store/actions';
+import { changeCampaign, getCampaigns, getCharacters, getPlayers } from '../store/actions';
 import userService from '../user/user.service';
 import { User } from '../user/user';
 import { Character } from '../character/character';
@@ -27,13 +23,10 @@ function CampaignComponent(data: Props) {
     const user = useSelector(userSelector);
     const charSelector = (state: CharacterState) => state.characters;
     const characters = useSelector(charSelector);
-<<<<<<< HEAD
-=======
     const notesSelector = (state: NoteState) => {
-        console.log(state);
         return state.notes;
     };
->>>>>>> 687a260fc5d3c19c484de430617d075b03a18fb9
+    const notes = useSelector(notesSelector);
     const dispatch = useDispatch();
     let players: User[];
 
@@ -42,10 +35,6 @@ function CampaignComponent(data: Props) {
             dispatch(getCharacters(results));
         })
     }, [dispatch])
-<<<<<<< HEAD
-=======
-    const notes = useSelector(notesSelector);
->>>>>>> 687a260fc5d3c19c484de430617d075b03a18fb9
 
     //function to access all notes for the campaign,
     //should route to a notes component
@@ -83,6 +72,19 @@ function CampaignComponent(data: Props) {
     function editCampaign() {
         nav.navigate('EditCampaign', campaign);
 
+    }
+
+    function leaveCampaign() {
+        if (user.id) {
+            campaignService.removePlayer(campaign.campaignid, user.id).then(() => {
+                if (user.id) {
+                    userService.getCampaignsByID(user.id).then((camps) => {
+                        dispatch(getCampaigns(camps));
+                        nav.navigate('Home');
+                    })
+                }
+            });
+        }
     }
 
 
@@ -129,6 +131,11 @@ function CampaignComponent(data: Props) {
             <Button
                 title='view all notes'
                 onPress={() => nav.navigate('NoteList', { campaign })}></Button>
+            {user.role == 'player' && (
+                <TouchableOpacity style={styles.button} onPress={leaveCampaign}>
+                    <Text style={styles.radioText}>Leave Campaign</Text>
+                </TouchableOpacity>
+            )}
         </View>
     );
 }
