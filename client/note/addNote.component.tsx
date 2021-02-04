@@ -23,7 +23,6 @@ function AddNoteComponent({ route, navigation }: any) {
   const [message, setMessage] = useState('');
 
   const { campaign } = route.params;
-  console.log(campaign);
 
   const dispatch = useDispatch();
 

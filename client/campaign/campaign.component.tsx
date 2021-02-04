@@ -19,10 +19,8 @@ function CampaignComponent(data: Props) {
   const campaign = data.route.params;
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
-  const notesSelector = (state: NoteState) => {
-    console.log(state);
-    return state.notes;
-  };
+  const notesSelector = (state: NoteState) => state.notes;
+
   const notes = useSelector(notesSelector);
   const dispatch = useDispatch();
   let players: User[];

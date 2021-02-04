@@ -1,6 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SafeAreaView, View, FlatList, Text, Button } from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  FlatList,
+  Text,
+  Button,
+  StyleSheet,
+  StatusBar,
+} from 'react-native';
 
 import { NoteState, UserState } from '../store/store';
 import noteService from '../note/note.service';
@@ -23,7 +31,7 @@ const NoteListComponent = ({ route, navigation }: any) => {
 
   const dispatch = useDispatch();
 
-  const handleDeleteNote = (note) => {
+  const handleDeleteNote = (note: any) => {
     noteService.deleteNote(note).then(() => {
       dispatch(deleteNote(note));
     });
@@ -36,18 +44,15 @@ const NoteListComponent = ({ route, navigation }: any) => {
   const renderItem = ({ item }: any) => <Item note={item} user={user} />;
 
   const Item = ({ note, user }: any) => (
-    <View
-      style={{
-        alignItems: 'center',
-        borderColor: 'white',
-        borderWidth: 1,
-        borderRadius: 5,
-        padding: 15,
-        margin: 15,
-      }}>
-      <Text style={styles.loginText}>{note.username} wrote:</Text>
-      <Text style={styles.loginText}>{note.message}</Text>
-      <Text style={[styles.loginText, { marginBottom: 10 }]}>
+    <View style={flatlistStyles.item}>
+      <Text style={[styles.loginText, { textDecorationLine: 'underline' }]}>
+        {note.username} wrote:
+      </Text>
+      <Text style={[styles.loginText, { fontWeight: 'bold' }]}>
+        {note.message}
+      </Text>
+      <Text
+        style={[styles.loginText, { marginBottom: 10, fontStyle: 'italic' }]}>
         {new Date(note.timestamp).toLocaleString()}
       </Text>
 
@@ -70,5 +75,22 @@ const NoteListComponent = ({ route, navigation }: any) => {
     </SafeAreaView>
   );
 };
+
+const flatlistStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    backgroundColor: '#465881',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 5,
+  },
+  title: {
+    fontSize: 32,
+  },
+});
 
 export default NoteListComponent;
