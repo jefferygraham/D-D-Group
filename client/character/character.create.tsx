@@ -49,7 +49,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 
     ]);
     const [lifestyle, setLifestyle] = React.useState([
-        { id: 1, value: 'Wretched', name: 'Wretched', selected: true },
+        { id: 1, value: 'Wretched', name: 'Wretched', selected: false },
         { id: 2, value: 'Squalid', name: 'Squalid', selected: false },
         { id: 3, value: 'Poor', name: 'Poor', selected: false },
         { id: 4, value: 'Modest', name: 'Modest', selected: false },
@@ -60,7 +60,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
     ]);
 
     const [alignment, setAlignment] = React.useState([
-        { id: 1, value: 'Lawful Good', name: 'Lawful Good', selected: true },
+        { id: 1, value: 'Lawful Good', name: 'Lawful Good', selected: false },
         { id: 2, value: 'Neutral Good', name: 'Neutral Good', selected: false },
         { id: 3, value: 'Chaotic Good', name: 'Chaotic Good', selected: false },
         { id: 4, value: 'Lawful Neutral', name: 'Lawful Neutral', selected: false },
