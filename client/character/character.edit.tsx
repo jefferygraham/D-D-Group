@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../global-styles';
-import { changeCharacter, getCharacters } from '../store/actions';
+import { changeCharacter } from '../store/actions';
 import { CharacterState, UserState } from '../store/store';
 import characterService from './character.service';
 import { useNavigation } from '@react-navigation/native';
@@ -18,7 +18,7 @@ interface CreateProp {
     navigation: any;
 }
 
-export function CharacterCreationComponent({ navigation }: CreateProp) {
+export function EditCharacter({ navigation }: CreateProp) {
     const charSelector = (state: CharacterState) => state.character;
     const userSelector = (state: UserState) => state.user;
     const char = useSelector(charSelector);
@@ -28,24 +28,26 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
     const dndAPI = 'https://www.dnd5eapi.co/api/';
     const nav = useNavigation();
 
+
     const [race, setRace] = React.useState([
-        { id: 1, value: 'dragonborn', name: 'Dragonborn', selected: true },
-        { id: 2, value: 'elf', name: 'Elf', selected: false },
-        { id: 3, value: 'half-elf', name: 'Half-Elf', selected: false },
-        { id: 4, value: 'half-orc', name: 'Half-Orc', selected: false },
-        { id: 5, value: 'human', name: 'Human', selected: false },
-        { id: 6, value: 'galfling', name: 'Halfling', selected: false },
-        { id: 7, value: 'tiefling', name: 'Tiefling', selected: false },
+        { id: 1, value: 'Dragonborn', name: 'Dragonborn', selected: false },
+        { id: 2, value: 'Elf', name: 'Elf', selected: false },
+        { id: 3, value: 'Half-Elf', name: 'Half-Elf', selected: false },
+        { id: 4, value: 'Half-Orc', name: 'Half-Orc', selected: false },
+        { id: 5, value: 'Human', name: 'Human', selected: false },
+        { id: 6, value: 'Halfling', name: 'Halfling', selected: false },
+        { id: 7, value: 'Tiefling', name: 'Tiefling', selected: false },
     ]);
 
+
     const [charClass, setCharClass] = React.useState([
-        { id: 1, value: 'bard', name: 'Bard', selected: true },
-        { id: 2, value: 'cleric', name: 'Cleric', selected: false },
-        { id: 3, value: 'fighter', name: 'Fighter', selected: false },
-        { id: 4, value: 'paladin', name: 'Paladin', selected: false },
-        { id: 5, value: 'ranger', name: 'Ranger', selected: false },
-        { id: 6, value: 'rouge', name: 'Rouge', selected: false },
-        { id: 7, value: 'warlock', name: 'Warlock', selected: false },
+        { id: 1, value: 'Bard', name: 'Bard', selected: false },
+        { id: 2, value: 'Cleric', name: 'Cleric', selected: false },
+        { id: 3, value: 'Fighter', name: 'Fighter', selected: false },
+        { id: 4, value: 'Paladin', name: 'Paladin', selected: false },
+        { id: 5, value: 'Ranger', name: 'Ranger', selected: false },
+        { id: 6, value: 'Rouge', name: 'Rouge', selected: false },
+        { id: 7, value: 'Warlock', name: 'Warlock', selected: false },
 
     ]);
     const [lifestyle, setLifestyle] = React.useState([
@@ -72,11 +74,33 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 
     ]);
 
+    //update all of the selected radio buttons; should only run once
+    let updatedStateRace = race.map((isLikedItem) =>
+        isLikedItem.value === char.race
+            ? { ...isLikedItem, selected: true }
+            : { ...isLikedItem, selected: false }
+    );
+    setRace(updatedStateRace);
+    let updatedStateClass = charClass.map((isLikedItem) =>
+        isLikedItem.value === char.class
+            ? { ...isLikedItem, selected: true }
+            : { ...isLikedItem, selected: false }
+    );
+    setRace(updatedStateClass);
+    let updatedStateLifestyle = lifestyle.map((isLikedItem) =>
+            isLikedItem.value === char.lifestyle
+                ? { ...isLikedItem, selected: true }
+                : { ...isLikedItem, selected: false }
+        );
+        setRace(updatedStateLifestyle);
+        let updatedStateAlign = alignment.map((isLikedItem) =>
+            isLikedItem.value === char.alignment
+                ? { ...isLikedItem, selected: true }
+                : { ...isLikedItem, selected: false }
+        );
+        setRace(updatedStateAlign);
+
     function submitForm() {
-        if (user.id) {
-            char.playerid = user.id
-        }
-        console.log(char)
         let race = char.race.toLowerCase();
         let api = dndAPI + 'races/' + race;
         //change stats based on race
@@ -85,22 +109,22 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                 let stat: string = element.ability_score.index;
                 switch (stat) {
                     case 'str':
-                        char.strength += Number(element.bonus)
+                        char.strength = 10 + Number(element.bonus)
                         break;
                     case 'dex':
-                        char.dexterity += Number(element.bonus)
+                        char.dexterity = 10 + Number(element.bonus)
                         break;
                     case 'con':
-                        char.constitution += Number(element.bonus)
+                        char.constitution = 10 + Number(element.bonus)
                         break;
                     case 'int':
-                        char.intelligence += Number(element.bonus)
+                        char.intelligence = 10 + Number(element.bonus)
                         break;
                     case 'wis':
-                        char.wisdom += Number(element.bonus)
+                        char.wisdom = 10 + Number(element.bonus)
                         break;
                     case 'cha':
-                        char.charisma += Number(element.bonus)
+                        char.charisma = 10 + Number(element.bonus)
                         break;
                     default:
                         console.log('error')
@@ -110,16 +134,9 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 
             })
             console.log(char)
-            characterService.createCharacter(char).then(()=>{
-                characterService.getCharactersByUser(user).then((results) => {
-                console.log(results);
-                dispatch(getCharacters(results));
-                dispatch(changeCharacter(new Character()));
-                nav.navigate('Home');
-            })
-            });
-            
-
+            //characterService.createCharacter(char);
+            dispatch(changeCharacter(new Character()));
+            nav.navigate('Home');
         })
 
 
@@ -502,4 +519,4 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 }
 
 
-export default CharacterCreationComponent;
+export default EditCharacter;

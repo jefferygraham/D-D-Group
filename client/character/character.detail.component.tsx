@@ -34,6 +34,9 @@ export default function CharacterDetailComponent(props: Props) {
             }
         })
     }
+    function goToEdit(){
+        nav.navigate('EditCharacter');
+    }
 
     return (
         <View style={styles.charContainer}>
@@ -84,6 +87,9 @@ export default function CharacterDetailComponent(props: Props) {
                     <Text style={styles.leftText}>Enemies: {char.enemies}</Text>
                     <Text style={styles.leftText}>Other Information: {char.otherInfo}</Text>
                 </View>
+                <TouchableOpacity style={styles.createBtn} onPress={goToEdit}>
+                    <Text style={styles.looksLabel}>Edit Character</Text>
+                </TouchableOpacity>
             </View>
             {user.id == char.playerid && (
                 <View style={styles.radio}>
