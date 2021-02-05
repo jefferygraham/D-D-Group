@@ -22,6 +22,7 @@ import { EditCampaign } from '../campaign/campaign.edit';
 import { EditCharacter } from '../character/character.edit';
 import NoteListComponent from '../note/NoteList.component';
 import ProfileComponent from '../user/profile.component';
+import RegisterComponent from '../user/register.component';
 
 export type StackParams = {
   Login: undefined;
@@ -37,7 +38,8 @@ export type StackParams = {
   JoinCampaign: undefined;
   NoteList: undefined;
   Profile: undefined;
-  EditCharacter:undefined;
+  EditCharacter: undefined;
+  Register: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -117,6 +119,11 @@ function RouterComponent(props: any) {
       <Stack.Screen
         name='Profile'
         component={ProfileComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='Register'
+        component={RegisterComponent}
         options={headerOptions}
       />
       <Stack.Screen
