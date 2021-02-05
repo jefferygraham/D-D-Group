@@ -76,7 +76,6 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
         if (user.id) {
             char.playerid = user.id
         }
-        console.log(char)
         let race = char.race.toLowerCase();
         let api = dndAPI + 'races/' + race;
         //change stats based on race
@@ -109,10 +108,8 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 
 
             })
-            console.log(char)
             characterService.createCharacter(char).then(()=>{
                 characterService.getCharactersByUser(user).then((results) => {
-                console.log(results);
                 dispatch(getCharacters(results));
                 dispatch(changeCharacter(new Character()));
                 nav.navigate('Home');
@@ -135,7 +132,6 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
         setRace(updatedState);
         char.race = item.value;
         dispatch(changeCharacter(char));
-        console.log(char)
     };
     const onRadioBtnClickClass = (item: any) => {
         let updatedState = charClass.map((isLikedItem) =>
@@ -146,7 +142,6 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
         setCharClass(updatedState);
         char.class = item.value;
         dispatch(changeCharacter(char));
-        console.log(char)
     };
     const onRadioBtnClickAlignment = (item: any) => {
         let updatedState = alignment.map((isLikedItem) =>
@@ -157,7 +152,6 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
         setAlignment(updatedState);
         char.alignment = item.value;
         dispatch(changeCharacter(char));
-        console.log(char)
     };
     const onRadioBtnClickLifestyle = (item: any) => {
         let updatedState = lifestyle.map((isLikedItem) =>
@@ -168,7 +162,6 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
         setLifestyle(updatedState);
         char.lifestyle = item.value;
         dispatch(changeCharacter(char));
-        console.log(char)
     };
 
 

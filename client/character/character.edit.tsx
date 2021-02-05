@@ -139,7 +139,6 @@ export function EditCharacter({ navigation }: CreateProp) {
 
 
             })
-            console.log(char)
             characterService.updateCharacter(char).then(()=>{
                 characterService.getCharactersByUser(user).then((results)=>{
                     let sorted = results.sort(function (a,b){
@@ -166,7 +165,6 @@ export function EditCharacter({ navigation }: CreateProp) {
         setRace(updatedState);
         char.race = item.value;
         dispatch(changeCharacter(char));
-        console.log(char)
     };
     const onRadioBtnClickClass = (item: any) => {
         let updatedState = charClass.map((isLikedItem) =>
@@ -177,7 +175,6 @@ export function EditCharacter({ navigation }: CreateProp) {
         setCharClass(updatedState);
         char.class = item.value;
         dispatch(changeCharacter(char));
-        console.log(char)
     };
     const onRadioBtnClickAlignment = (item: any) => {
         let updatedState = alignment.map((isLikedItem) =>
@@ -188,7 +185,6 @@ export function EditCharacter({ navigation }: CreateProp) {
         setAlignment(updatedState);
         char.alignment = item.value;
         dispatch(changeCharacter(char));
-        console.log(char)
     };
     const onRadioBtnClickLifestyle = (item: any) => {
         let updatedState = lifestyle.map((isLikedItem) =>
@@ -199,7 +195,6 @@ export function EditCharacter({ navigation }: CreateProp) {
         setLifestyle(updatedState);
         char.lifestyle = item.value;
         dispatch(changeCharacter(char));
-        console.log(char)
     };
     const RadioButton = ({ onPress, selected, children }: any) => {
         return (
