@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Character } from '../character/character';
-import { Encounter } from '../encounter/encounter';
 import { User } from '../user/user';
 import { Campaign } from './campaign';
 
@@ -46,11 +45,6 @@ class CampaignService {
         return axios.get(this.URI+'/'+id+'/characters').then((results) => {
             return results.data as Character[];
         })
-    }
-    addEncounter(id: number): Promise<Encounter>{
-        return axios.post(this.URI+'/'+id+'/encounters')
-        .then(result => result.data.body)
-        .catch((err) => err);
     }
 }
 
