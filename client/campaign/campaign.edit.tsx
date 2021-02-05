@@ -4,8 +4,8 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { StackParams } from '../router/router.component';
-import { changeCampaign, getCampaigns } from '../store/actions';
-import { CampaignState, UserState } from '../store/store';
+import { getCampaigns } from '../store/actions';
+import { UserState } from '../store/store';
 import userService from '../user/user.service';
 import campaignService from './campaign.service';
 
