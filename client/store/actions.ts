@@ -2,12 +2,13 @@ import { Campaign } from '../campaign/campaign';
 import { User } from './../user/user';
 import { Character } from './../character/character';
 import { Note } from './../note/note';
+import { Encounter } from '../encounters/encounter';
+import { EncounterChars } from '../encounters/encounterChars';
 
 export enum UserActions {
   GetUser = 'GET_USER',
   LoginChange = 'CHANGE_LOGIN',
   GetPlayers = 'GET_PLAYERS',
-  RegisterUser = 'REGISTER_USER',
 }
 
 export enum CampaignActions {
@@ -21,9 +22,12 @@ export enum CharacterActions {
 }
 
 export enum NoteActions {
-  AddNote = 'ADD_NOTE',
   GetNotes = 'GET_NOTES',
-  DeleteNote = 'DELETE_NOTE',
+}
+
+export enum EncounterActions {
+  GetEncounters = 'GET_ENCOUNTERS',
+  ChangeEncounterChars = 'CHANGE_ENCOUNTER_CHARS'
 }
 
 export interface AppAction {
@@ -49,6 +53,11 @@ export interface CharacterAction extends AppAction {
 export interface NoteAction extends AppAction {
   type: NoteActions;
   payload: Note | Note[];
+}
+
+export interface EncounterAction extends AppAction {
+  type: EncounterActions;
+  payload: Encounter[] | EncounterChars[];
 }
 
 export function changeCharacter(char: Character): CharacterAction {
@@ -81,14 +90,6 @@ export function loginAction(user: User): UserAction<User> {
   return action;
 }
 
-export function registerAction(user: User): UserAction<User> {
-  const action: UserAction<User> = {
-    type: UserActions.RegisterUser,
-    payload: user,
-  };
-  return action;
-}
-
 export function getCampaigns(campaigns: Campaign[]): CampaignAction {
   const action: CampaignAction = {
     type: CampaignActions.GetCampaigns,
@@ -113,14 +114,6 @@ export function getPlayers(players: User[]): UserAction<User> {
   return action;
 }
 
-export function addNote(note: Note): NoteAction {
-  const action: NoteAction = {
-    type: NoteActions.AddNote,
-    payload: note,
-  };
-  return action;
-}
-
 export function getNotes(notes: Note[]): NoteAction {
   const action: NoteAction = {
     type: NoteActions.GetNotes,
@@ -129,10 +122,18 @@ export function getNotes(notes: Note[]): NoteAction {
   return action;
 }
 
-export function deleteNote(note: Note): NoteAction {
-  const action: NoteAction = {
-    type: NoteActions.DeleteNote,
-    payload: note,
+export function getEncounters(encounters: Encounter[]): EncounterAction {
+  const action: EncounterAction = {
+    type: EncounterActions.GetEncounters,
+    payload: encounters,
+  };
+  return action;
+}
+
+export function changeEncounterChars(characters: EncounterChars[]): EncounterAction {
+  const action: EncounterAction = {
+    type: EncounterActions.ChangeEncounterChars,
+    payload: characters,
   };
   return action;
 }

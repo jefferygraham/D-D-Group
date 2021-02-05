@@ -11,6 +11,7 @@ import userService from '../user/user.service';
 import { User } from '../user/user';
 import { Character } from '../character/character';
 import MinCharacterComponent from './minchar.component';
+import { Encounter } from '../encounters/encounter';
 
 interface Props {
     route: RouteProp<StackParams, 'Campaign'>;
@@ -34,7 +35,6 @@ function CampaignComponent(data: Props) {
     );
     const encounterSelector = (state: EncounterState) => state.encounters;
     const encounters = useSelector(encounterSelector);
-    console.log(encounters);
 
     useEffect(() => {
         let chars: Character[] = [];
@@ -59,9 +59,6 @@ function CampaignComponent(data: Props) {
         nav.navigate('AddNote', { campaign });
     }
 
-    //button shows up if the user is DM
-    //should remove the campaign from each user and character associated
-    //then deletes all notes and the campaign itself
     function removeCampaign() {
         campaignService.deleteCampaign(campaign.campaignid).then(() => {
             if (user.id) {
@@ -90,6 +87,18 @@ function CampaignComponent(data: Props) {
         }
     }
 
+    function addEncounter() {
+        campaignService.addEncounter(campaign.campaignid).then((encounter) => {
+            campaignService.getEncounters(campaign.campaignid).then((results) => {
+                dispatch(getEncounters(results));
+            })
+        })
+    }
+
+    function goToEncounter(encounter:Encounter){
+        nav.navigate('Encounter', encounter);
+    }
+
 
     return (
         <View style={styles.container}>
@@ -113,8 +122,28 @@ function CampaignComponent(data: Props) {
                         </View>
                     );
                 })}
+            <Text style={styles.loginText}>Encounters:</Text>
+            {encounters.length > 0 &&
+                encounters.map((encounter) => {
+                    return (
+                        <View
+                            key={`${encounter.encounterid}`}
+                            style={{ borderColor: 'white', borderWidth: 1 }}>
+                            <Text style={styles.loginText}>{encounter.encounterid}</Text>
+                            <TouchableOpacity style={styles.button} onPress={() => goToEncounter(encounter)}>
+                                <Text style={styles.loginText}>Go To Encounter</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                })}
+            {/* {encounters.map((req: Encounter, index: number) => {
+                <MinEncounterComponent key={'req-' + index} data={req}></MinEncounterComponent>
+            })} */}
             {user.role == 'master' && (
                 <View style={styles.radio}>
+                    <TouchableOpacity style={styles.button} onPress={addEncounter}>
+                        <Text style={styles.radioText}>Add Encounter</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={editCampaign}>
                         <Text style={styles.radioText}>Edit Campaign</Text>
                     </TouchableOpacity>

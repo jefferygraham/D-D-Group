@@ -1,9 +1,11 @@
 import * as Actions from './actions';
 import { User } from './../user/user';
-import { AppState } from './store';
+import { AppState, EncounterState } from './store';
 import { Campaign } from '../campaign/campaign';
 import { Character } from './../character/character';
 import { Note } from './../note/note';
+import { Encounter } from '../encounters/encounter';
+import { EncounterChars } from '../encounters/encounterChars';
 
 export const initialState: AppState = {
   user: new User(),
@@ -15,6 +17,8 @@ export const initialState: AppState = {
   characters: [],
   note: new Note(),
   notes: [],
+  encounters: [],
+  encounterChars: [],
 };
 
 const reducer = (
@@ -31,8 +35,6 @@ const reducer = (
     case Actions.UserActions.LoginChange:
       newState.loginUser = action.payload as User;
       return newState;
-    case Actions.UserActions.RegisterUser:
-      return newState;
     case Actions.CampaignActions.GetCampaigns:
       newState.campaigns = action.payload as Campaign[];
       return newState;
@@ -47,16 +49,14 @@ const reducer = (
       return newState;
     case Actions.UserActions.GetPlayers:
       newState.players = action.payload as User[];
-    case Actions.NoteActions.AddNote:
-      newState.notes = [...state.notes, action.payload];
-      return newState;
     case Actions.NoteActions.GetNotes:
       newState.notes = action.payload as Note[];
       return newState;
-    case Actions.NoteActions.DeleteNote:
-      newState.notes = state.notes.filter(
-        (note) => note.noteId !== action.payload.noteId
-      );
+    case Actions.EncounterActions.GetEncounters:
+      newState.encounters = action.payload as Encounter[];
+      return newState;
+    case Actions.EncounterActions.ChangeEncounterChars:
+      newState.encounterChars = action.payload as EncounterChars[];
       return newState;
     default:
       return state;
