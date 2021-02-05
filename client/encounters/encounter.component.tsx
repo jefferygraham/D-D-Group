@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RouteProp } from "@react-navigation/native";
 import { View, Text } from "react-native";
 import { StackParams } from "../router/router.component";
@@ -16,13 +16,17 @@ function EncounterComponent(data: Props){
     const user = useSelector(userSelector);
     const encounter = data.route.params;
 
-    
+    useEffect(() => {
+        campaignService.getEncounterChars().then((results) => {
+            
+        })
+    })    
 
     return(
         <View style={styles.container}>
             {user.role == 'master' && (
-                <View>
-
+                <View style={styles.container}>
+                    
                 </View>
             )}
         </View>

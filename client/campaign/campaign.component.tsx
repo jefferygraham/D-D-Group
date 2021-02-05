@@ -12,7 +12,6 @@ import { User } from '../user/user';
 import { Character } from '../character/character';
 import MinCharacterComponent from './minchar.component';
 import { Encounter } from '../encounters/encounter';
-import MinEncounterComponent from '../encounters/minEncounter.component';
 
 interface Props {
     route: RouteProp<StackParams, 'Campaign'>;
@@ -42,7 +41,7 @@ function CampaignComponent(data: Props) {
         campaignService.getCharacters(campaign.campaignid).then((results) => {
             dispatch(getCharacters(results));
         })
-    },[dispatch])
+    }, [dispatch])
 
 
 
@@ -96,6 +95,10 @@ function CampaignComponent(data: Props) {
         })
     }
 
+    function goToEncounter(encounter:Encounter){
+        nav.navigate('Encounter', encounter);
+    }
+
 
     return (
         <View style={styles.container}>
@@ -120,9 +123,22 @@ function CampaignComponent(data: Props) {
                     );
                 })}
             <Text style={styles.loginText}>Encounters:</Text>
-            {encounters.map((req: Encounter, index: number) => {
+            {encounters.length > 0 &&
+                encounters.map((encounter) => {
+                    return (
+                        <View
+                            key={`${encounter.encounterid}`}
+                            style={{ borderColor: 'white', borderWidth: 1 }}>
+                            <Text style={styles.loginText}>{encounter.encounterid}</Text>
+                            <TouchableOpacity style={styles.button} onPress={() => goToEncounter(encounter)}>
+                                <Text style={styles.loginText}>Go To Encounter</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                })}
+            {/* {encounters.map((req: Encounter, index: number) => {
                 <MinEncounterComponent key={'req-' + index} data={req}></MinEncounterComponent>
-            })}
+            })} */}
             {user.role == 'master' && (
                 <View style={styles.radio}>
                     <TouchableOpacity style={styles.button} onPress={addEncounter}>

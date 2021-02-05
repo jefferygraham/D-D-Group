@@ -1,5 +1,4 @@
 export class Encounter{
-    id: number = -1;
-    character?: number;
-    initiative?: number;
+    encounterid: number = -1;
+    campaignid?: number;
 }
