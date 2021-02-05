@@ -7,6 +7,7 @@ export enum UserActions {
   GetUser = 'GET_USER',
   LoginChange = 'CHANGE_LOGIN',
   GetPlayers = 'GET_PLAYERS',
+  RegisterUser = 'REGISTER_USER',
 }
 
 export enum CampaignActions {
@@ -76,6 +77,14 @@ export function getUser(user: User): UserAction<User> {
 export function loginAction(user: User): UserAction<User> {
   const action: UserAction<User> = {
     type: UserActions.LoginChange,
+    payload: user,
+  };
+  return action;
+}
+
+export function registerAction(user: User): UserAction<User> {
+  const action: UserAction<User> = {
+    type: UserActions.RegisterUser,
     payload: user,
   };
   return action;

@@ -31,6 +31,8 @@ const reducer = (
     case Actions.UserActions.LoginChange:
       newState.loginUser = action.payload as User;
       return newState;
+    case Actions.UserActions.RegisterUser:
+      return newState;
     case Actions.CampaignActions.GetCampaigns:
       newState.campaigns = action.payload as Campaign[];
       return newState;
