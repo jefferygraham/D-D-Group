@@ -58,7 +58,7 @@ const NoteListComponent = ({ route, navigation }: any) => {
         {new Date(note.timestamp).toLocaleString()}
       </Text>
 
-      {user.id === note.userId && (
+      {(user.id === note.userId || user.role == 'master')&& (
         <Button
           color='#fb5b5a'
           title='delete'
