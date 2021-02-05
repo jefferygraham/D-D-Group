@@ -21,6 +21,7 @@ import { JoinCampaign } from '../campaign/campaign.join';
 import { EditCampaign } from '../campaign/campaign.edit';
 import { EditCharacter } from '../character/character.edit';
 import NoteListComponent from '../note/NoteList.component';
+import ProfileComponent from '../user/profile.component';
 
 export type StackParams = {
   Login: undefined;
@@ -35,6 +36,7 @@ export type StackParams = {
   EditCampaign: undefined;
   JoinCampaign: undefined;
   NoteList: undefined;
+  Profile: undefined;
   EditCharacter:undefined;
 };
 
@@ -110,6 +112,11 @@ function RouterComponent(props: any) {
       <Stack.Screen
         name='EditCampaign'
         component={EditCampaign}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='Profile'
+        component={ProfileComponent}
         options={headerOptions}
       />
       <Stack.Screen

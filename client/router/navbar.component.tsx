@@ -40,6 +40,10 @@ function NavBarComponent() {
     nav.navigate('JoinCampaign');
   }
 
+  function goToProfile() {
+    nav.navigate('Profile');
+  }
+
   // if (user.name) {
   //   header = <Text>{user.name}</Text>;
   // } else {
@@ -67,6 +71,14 @@ function NavBarComponent() {
           </View>
 
         )}
+        {user.id && (
+          <View style={styles.navBox}>
+            <TouchableOpacity style={styles.navButton} onPress={goToProfile}>
+              <Text >Profile</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
         {user.id && (
           <View style={styles.navBox}>
             <TouchableOpacity style={styles.navButton} onPress={logout}>
