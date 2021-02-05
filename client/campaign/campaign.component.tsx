@@ -38,6 +38,8 @@ function CampaignComponent(data: Props) {
     console.log(encounters);
 
     useEffect(() => {
+        let chars: Character[] = [];
+        dispatch(getCharacters(chars));
         campaignService.getCharacters(campaign.campaignid).then((results) => {
             dispatch(getCharacters(results));
         })

@@ -58,8 +58,8 @@ class CampaignService {
             return results.data as Encounter[];
         })
     }
-    getEncounterChars(id: number): Promise<EncounterChars[]>{
-        return axios.get(this.URI+'/'+id+'/encounters').then((results) => {
+    getEncounterChars(cid: number,eid: number): Promise<EncounterChars[]>{
+        return axios.get(this.URI+'/'+cid+'/encounters/'+eid).then((results) => {
             return results.data as EncounterChars[];
         })
     }
