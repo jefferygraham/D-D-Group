@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Character } from '../character/character';
 import { Encounter } from '../encounters/encounter';
+import { EncounterChars } from '../encounters/encounterChars';
 import { User } from '../user/user';
 import { Campaign } from './campaign';
 
@@ -56,6 +57,18 @@ class CampaignService {
         return axios.get(this.URI+'/'+id+'/encounters').then((results) => {
             return results.data as Encounter[];
         })
+    }
+    getEncounterChars(id: number): Promise<EncounterChars[]>{
+        return axios.get(this.URI+'/'+id+'/encounters').then((results) => {
+            return results.data as EncounterChars[];
+        })
+    }
+    updateEncounter(campId: number, encId: number, charId: number, init: number): Promise<null>{
+        let data = {
+            character: charId,
+            initiative: init
+        }
+        return axios.post(this.URI+'/'+campId+'/encounters/'+encId).then(results=>null); 
     }
 }
 

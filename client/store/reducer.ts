@@ -5,6 +5,7 @@ import { Campaign } from '../campaign/campaign';
 import { Character } from './../character/character';
 import { Note } from './../note/note';
 import { Encounter } from '../encounters/encounter';
+import { EncounterChars } from '../encounters/encounterChars';
 
 export const initialState: AppState = {
   user: new User(),
@@ -16,7 +17,8 @@ export const initialState: AppState = {
   characters: [],
   note: new Note(),
   notes: [],
-  encounters: []
+  encounters: [],
+  encounterChars: [],
 };
 
 const reducer = (
@@ -52,6 +54,9 @@ const reducer = (
       return newState;
     case Actions.EncounterActions.GetEncounters:
       newState.encounters = action.payload as Encounter[];
+      return newState;
+    case Actions.EncounterActions.ChangeEncounterChars:
+      newState.encounterChars = action.payload as EncounterChars[];
       return newState;
     default:
       return state;

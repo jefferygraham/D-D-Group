@@ -3,6 +3,7 @@ import { User } from './../user/user';
 import { Character } from './../character/character';
 import { Note } from './../note/note';
 import { Encounter } from '../encounters/encounter';
+import { EncounterChars } from '../encounters/encounterChars';
 
 export enum UserActions {
   GetUser = 'GET_USER',
@@ -25,7 +26,8 @@ export enum NoteActions {
 }
 
 export enum EncounterActions {
-  GetEncounters = 'GET_ENCOUNTERS'
+  GetEncounters = 'GET_ENCOUNTERS',
+  ChangeEncounterChars = 'CHANGE_ENCOUNTER_CHARS'
 }
 
 export interface AppAction {
@@ -55,7 +57,7 @@ export interface NoteAction extends AppAction {
 
 export interface EncounterAction extends AppAction {
   type: EncounterActions;
-  payload: Encounter[];
+  payload: Encounter[] | EncounterChars[];
 }
 
 export function changeCharacter(char: Character): CharacterAction {
@@ -125,6 +127,13 @@ export function getEncounters(encounters: Encounter[]): EncounterAction {
     type: EncounterActions.GetEncounters,
     payload: encounters,
   };
-  console.log(action);
+  return action;
+}
+
+export function changeEncounterChars(characters: EncounterChars[]): EncounterAction {
+  const action: EncounterAction = {
+    type: EncounterActions.ChangeEncounterChars,
+    payload: characters,
+  };
   return action;
 }

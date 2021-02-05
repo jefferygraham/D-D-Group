@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import { Campaign } from '../campaign/campaign';
 import { Character } from '../character/character';
 import { Encounter } from '../encounters/encounter';
+import { EncounterChars } from '../encounters/encounterChars';
 import { Note } from '../note/note';
 import { User } from '../user/user';
 import { AppAction } from './actions';
@@ -31,6 +32,7 @@ export interface NoteState {
 
 export interface EncounterState {
   encounters: Encounter[];
+  encounterChars: EncounterChars[];
 }
 
 export interface AppState
