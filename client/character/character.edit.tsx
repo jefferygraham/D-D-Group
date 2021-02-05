@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../global-styles';
-import { changeCharacter } from '../store/actions';
+import { changeCharacter, getCharacters } from '../store/actions';
 import { CharacterState, UserState } from '../store/store';
 import characterService from './character.service';
 import { useNavigation } from '@react-navigation/native';
@@ -140,7 +140,16 @@ export function EditCharacter({ navigation }: CreateProp) {
 
             })
             console.log(char)
-            //characterService.createCharacter(char);
+            characterService.updateCharacter(char).then(()=>{
+                characterService.getCharactersByUser(user).then((results)=>{
+                    let sorted = results.sort(function (a,b){
+                        return a.charid - b.charid
+
+                    });
+                    dispatch(getCharacters(results));
+                })
+            })
+            
             dispatch(changeCharacter(new Character()));
             nav.navigate('Home');
         })
@@ -535,7 +544,7 @@ export function EditCharacter({ navigation }: CreateProp) {
             </View>
             {/* Create Character Button */}
             <TouchableOpacity style={styles.createBtn} onPress={submitForm}>
-                <Text style={styles.looksLabel}>Create Character</Text>
+                <Text style={styles.looksLabel}>Update Character</Text>
             </TouchableOpacity>
 
 
