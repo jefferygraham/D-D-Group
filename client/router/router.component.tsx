@@ -20,6 +20,8 @@ import { JoinCampaign } from '../campaign/campaign.join';
 import { EditCampaign } from '../campaign/campaign.edit';
 import NoteListComponent from '../note/NoteList.component';
 import CampaignPlayers from '../campaign/campaignplayers.component';
+import EncounterComponent from '../encounters/encounter.component';
+import { Encounter } from '../encounters/encounter';
 
 export type StackParams = {
   Login: undefined;
@@ -34,6 +36,7 @@ export type StackParams = {
   EditCampaign:undefined;
   JoinCampaign: undefined;
   NoteList: undefined;
+  Encounter: Encounter;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -109,6 +112,11 @@ function RouterComponent(props: any) {
       <Stack.Screen
         name='EditCampaign'
         component={EditCampaign}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='Encounter'
+        component={EncounterComponent}
         options={headerOptions}
       />
     </Stack.Navigator>

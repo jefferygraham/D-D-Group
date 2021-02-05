@@ -125,5 +125,6 @@ export function getEncounters(encounters: Encounter[]): EncounterAction {
     type: EncounterActions.GetEncounters,
     payload: encounters,
   };
+  console.log(action);
   return action;
 }

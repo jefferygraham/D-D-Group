@@ -4,13 +4,15 @@ import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
 import { StackParams } from '../router/router.component';
 import styles from '../global-styles';
-import { CharacterState, NoteState, UserState } from '../store/store';
+import { CharacterState, EncounterState, NoteState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeCampaign, getCampaigns, getCharacters, getPlayers } from '../store/actions';
+import { changeCampaign, getCampaigns, getCharacters, getEncounters, getPlayers } from '../store/actions';
 import userService from '../user/user.service';
 import { User } from '../user/user';
 import { Character } from '../character/character';
 import MinCharacterComponent from './minchar.component';
+import { Encounter } from '../encounters/encounter';
+import MinEncounterComponent from '../encounters/minEncounter.component';
 
 interface Props {
     route: RouteProp<StackParams, 'Campaign'>;
@@ -29,18 +31,20 @@ function CampaignComponent(data: Props) {
     const notes = useSelector(notesSelector);
     const dispatch = useDispatch();
     let players: User[];
+    const campaignNotes = notes.filter(
+        (note) => note.campaignId === campaign.campaignid
+    );
+    const encounterSelector = (state: EncounterState) => state.encounters;
+    const encounters = useSelector(encounterSelector);
+    console.log(encounters);
 
     useEffect(() => {
         campaignService.getCharacters(campaign.campaignid).then((results) => {
             dispatch(getCharacters(results));
         })
-    }, [dispatch])
+    },[dispatch])
 
-    //function to access all notes for the campaign,
-    //should route to a notes component
-    const campaignNotes = notes.filter(
-        (note) => note.campaignId === campaign.campaignid
-    );
+
 
     //routes to playerpage for that campaign
     function viewPlayers() {
@@ -71,7 +75,6 @@ function CampaignComponent(data: Props) {
 
     function editCampaign() {
         nav.navigate('EditCampaign', campaign);
-
     }
 
     function leaveCampaign() {
@@ -87,9 +90,9 @@ function CampaignComponent(data: Props) {
         }
     }
 
-    function addEncounter(){
-        campaignService.addEncounter(campaign.campaignid).then(() => {
-            nav.navigate('Campaign',campaign);
+    function addEncounter() {
+        campaignService.addEncounter(campaign.campaignid).then((encounter) => {
+            nav.navigate('Encounter', encounter);
         })
     }
 
@@ -116,8 +119,12 @@ function CampaignComponent(data: Props) {
                         </View>
                     );
                 })}
+            <Text style={styles.loginText}>Encounters:</Text>
+            {encounters.map((req: Encounter, index: number) => {
+                <MinEncounterComponent key={'req-' + index} data={req}></MinEncounterComponent>
+            })}
             {user.role == 'master' && (
-                <View style={styles.radio}>                    
+                <View style={styles.radio}>
                     <TouchableOpacity style={styles.button} onPress={addEncounter}>
                         <Text style={styles.radioText}>Add Encounter</Text>
                     </TouchableOpacity>

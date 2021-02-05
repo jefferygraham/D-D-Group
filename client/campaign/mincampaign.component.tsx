@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { Campaign } from './campaign';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import { UserState } from '../store/store';
-import { useSelector } from 'react-redux';
+import { EncounterState, UserState } from '../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import campaignService from './campaign.service';
+import { getEncounters } from '../store/actions';
 
 
 interface CampaignProps {
@@ -14,8 +16,14 @@ function MinCampaignComponent({ data }: CampaignProps) {
     const nav = useNavigation();
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
+    const dispatch = useDispatch();
+    const encounterSelector = (state: EncounterState) => state.encounters;
+    const encounters = useSelector(encounterSelector);
 
     function goToCampaign() {
+        campaignService.getEncounters(data.campaignid).then((results) => {
+            dispatch(getEncounters(results));
+        })
         nav.navigate('Campaign', data);
     }
 
