@@ -36,8 +36,6 @@ function EditNoteComponent({ route, navigation }: any) {
       timestamp: Date.now(),
     };
 
-    console.log(newNote);
-
     dispatch(updateNote(newNote));
 
     noteService.addNote(newNote).then((note) => {

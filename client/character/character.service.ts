@@ -7,11 +7,15 @@ class CharacterService{
     private URI: string;
   constructor() {
     this.URI =
-      'https://46k03urfmi.execute-api.us-east-1.amazonaws.com/Beta/createCharacter';
+      'https://i22rnnxzg1.execute-api.us-east-1.amazonaws.com/Default/characters';
   }
 
   createCharacter(char:Character):Promise<null>{
       return axios.post(this.URI, char).then(result => null);
+  }
+
+  updateCharacter(char:Character):Promise<null>{
+    return axios.put(this.URI+'/'+ char.charid,char).then(result=>null);
   }
 
   deleteCharacter(id: Number): Promise<null> {
