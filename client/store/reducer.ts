@@ -58,6 +58,16 @@ const reducer = (
         (note) => note.noteId !== action.payload.noteId
       );
       return newState;
+    case Actions.NoteActions.UpdateNote:
+      const idx = state.notes.findIndex(
+        (note) => note.noteId === action.payload.noteId
+      );
+      newState.notes = [
+        ...state.notes.slice(0, idx),
+        action.payload,
+        ...state.notes.slice(idx + 1),
+      ];
+      return newState;
     default:
       return state;
   }
