@@ -36,10 +36,6 @@ export default function App() {
     }
   }, [dispatch]);
 
-  const selectCharacters = (state: CharacterState) => state.characters;
-  const characters = useSelector(selectCharacters);
-  console.log(characters);
-
   return (
     <View style={styles.container}>
       <Text style={styles.logo}>Home Page</Text>

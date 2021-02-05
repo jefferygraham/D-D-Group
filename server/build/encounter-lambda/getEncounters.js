@@ -75,7 +75,7 @@ exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, fu
                 return [3 /*break*/, 5];
             case 3:
                 encounter = event.path.substring(event.path.lastIndexOf('/') + 1, event.path.length);
-                q = 'select * from encounter_characters where encounterid=' + encounter;
+                q = 'select * from(select * from encounter_characters ec inner join "character" c on ec.charid = c.charid) as j where encounterid=' + encounter;
                 return [4 /*yield*/, client.query(q)];
             case 4:
                 response = _a.sent();

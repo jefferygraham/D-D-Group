@@ -35,7 +35,6 @@ function CampaignComponent(data: Props) {
     );
     const encounterSelector = (state: EncounterState) => state.encounters;
     const encounters = useSelector(encounterSelector);
-    console.log(encounters);
 
     useEffect(() => {
         let chars: Character[] = [];
@@ -60,9 +59,6 @@ function CampaignComponent(data: Props) {
         nav.navigate('AddNote', { campaign });
     }
 
-    //button shows up if the user is DM
-    //should remove the campaign from each user and character associated
-    //then deletes all notes and the campaign itself
     function removeCampaign() {
         campaignService.deleteCampaign(campaign.campaignid).then(() => {
             if (user.id) {

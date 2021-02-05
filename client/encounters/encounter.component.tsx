@@ -8,7 +8,7 @@ import styles from '../global-styles';
 import campaignService from '../campaign/campaign.service';
 import RNPickerSelect from 'react-native-picker-select';
 import { changeEncounterChars } from '../store/actions';
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import NumericInput from 'react-native-numeric-input'
 
 interface Props {
@@ -49,7 +49,7 @@ function EncounterComponent(data: Props) {
     }
 
     return (
-        <View style={styles.container}>
+        <View>
             {user.role == 'master' && (
                 <View style={styles.container}>
                     {chars.length > 0 &&
@@ -91,6 +91,9 @@ function EncounterComponent(data: Props) {
                             onChange={(initiative) => setInit(initiative)}
                         />
                     </View>
+                    <TouchableOpacity style={styles.loginBtn} onPress={submitForm}>
+                        <Text style={styles.loginText}>Add Character</Text>
+                    </TouchableOpacity>
                 </View>
             )}
         </View>

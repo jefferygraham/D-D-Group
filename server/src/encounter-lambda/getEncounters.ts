@@ -31,7 +31,7 @@ exports.handler = async (event: any) => {
         }
     } else {
         const encounter = event.path.substring(event.path.lastIndexOf('/') + 1, event.path.length);
-        const q = 'select * from encounter_characters where encounterid=' + encounter;
+        const q = 'select * from(select * from encounter_characters ec inner join "character" c on ec.charid = c.charid) as j where encounterid=' + encounter;
 
         const response = await client.query(q);
 
