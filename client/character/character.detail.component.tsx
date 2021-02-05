@@ -14,7 +14,6 @@ interface Props {
 
 export default function CharacterDetailComponent(props: Props) {
     const char = props.route.params;
-    console.log(char)
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const nav = useNavigation();
