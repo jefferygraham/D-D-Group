@@ -10,7 +10,7 @@ class NoteService {
 
   addNote(note: Note): Promise<Note> {
     return axios
-      .post(`${this.URI}`, note)
+      .put(`${this.URI}`, note)
       .then((result) => result.data.body)
       .catch((err) => err);
   }

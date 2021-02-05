@@ -59,10 +59,16 @@ const NoteListComponent = ({ route, navigation }: any) => {
       </Text>
 
       {user.id === note.userId && (
-        <Button
-          color='#fb5b5a'
-          title='delete'
-          onPress={() => handleDeleteNote(note)}></Button>
+        <View>
+          <Button
+            color='#fb5b5a'
+            title='edit'
+            onPress={() => navigation.navigate('EditNote', { note })}></Button>
+          <Button
+            color='#fb5b5a'
+            title='delete'
+            onPress={() => handleDeleteNote(note)}></Button>
+        </View>
       )}
     </View>
   );
