@@ -18,6 +18,7 @@ import styles from '../global-styles';
 
 const NoteListComponent = ({ route, navigation }: any) => {
   const { campaign } = route.params;
+  console.log(campaign);
 
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);

@@ -23,6 +23,7 @@ import { EditCharacter } from '../character/character.edit';
 import NoteListComponent from '../note/NoteList.component';
 import ProfileComponent from '../user/profile.component';
 import RegisterComponent from '../user/register.component';
+import styles from '../global-styles';
 
 export type StackParams = {
   Login: undefined;
@@ -45,7 +46,7 @@ export type StackParams = {
 const Stack = createStackNavigator<StackParams>();
 
 const headerOptions: StackHeaderOptions = {
-  headerTitle: () => <Text>Dungeons & Dragons</Text>,
+  headerTitle: () => <Text style={styles.logo}>Dungeons & Dragons</Text>,
   headerRight: () => <NavBarComponent />,
 };
 

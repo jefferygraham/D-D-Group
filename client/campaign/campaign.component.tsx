@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity, Button } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
 import { StackParams } from '../router/router.component';
@@ -10,7 +10,6 @@ import {
   changeCampaign,
   getCampaigns,
   getCharacters,
-  getPlayers,
 } from '../store/actions';
 import userService from '../user/user.service';
 import { User } from '../user/user';
@@ -91,6 +90,14 @@ function CampaignComponent(data: Props) {
     }
   }
 
+  function goToAddNote() {
+    nav.navigate('AddNote', campaign)
+  }
+
+  function gotToNoteList() {
+    nav.navigate('NoteList', { campaign })
+
+  }
   // function addEncounter(){
   //     campaignService.addEncounter(campaign.campaignid).then(() => {
   //         nav.navigate('Campaign',campaign);
@@ -99,64 +106,111 @@ function CampaignComponent(data: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.loginText}>{campaign.campaignname}</Text>
-      <Text style={styles.loginText}>Dungeon Master: {campaign.dm}</Text>
-      {characters.map((req: Character, index: number) => (
-        <MinCharacterComponent
-          key={'req-' + index}
-          data={req}></MinCharacterComponent>
-      ))}
-      <Text style={styles.loginText}>Notes:</Text>
-      {sortedNotes.length > 0 &&
-        sortedNotes.splice(0, 3).map((campaign) => {
-          return (
-            <View
-              key={`${campaign.noteId}`}
-              style={{
-                alignItems: 'center',
-                borderColor: 'white',
-                borderWidth: 1,
-                borderRadius: 5,
-                padding: 15,
-                margin: 15,
-              }}>
-              <Text style={styles.loginText}>{campaign.username} wrote:</Text>
-              <Text style={styles.loginText}>{campaign.message}</Text>
-              <Text style={styles.loginText}>
-                {new Date(campaign.timestamp).toLocaleString()}
-              </Text>
-            </View>
-          );
-        })}
-      {user.role == 'master' && (
-        <View style={styles.radio}>
-          {/* <TouchableOpacity style={styles.button} onPress={addEncounter}>
+      <Text style={styles.logo}>{campaign.campaignname}</Text>
+      <Text style={styles.looksLabel}>Dungeon Master: {campaign.dm}</Text>
+      <View style={campaignStyles.container}>
+        <Text style={styles.radioLabel}>Characters</Text>
+        <View style={campaignStyles.backgroundBox}>
+          {characters.map((req: Character, index: number) => (
+            <MinCharacterComponent
+              key={'req-' + index}
+              data={req}></MinCharacterComponent>
+          ))}
+        </View>
+      </View>
+      <View style={campaignStyles.container}>
+        <Text style={styles.radioLabel}>Notes:</Text>
+        <View style={campaignStyles.backgroundBox}>
+          {sortedNotes.length > 0 &&
+            sortedNotes.splice(0, 3).map((campaign) => {
+              return (
+                <View
+                  key={`${campaign.noteId}`}
+                  style={{
+                    alignItems: 'center',
+                    borderColor: 'white',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    padding: 15,
+                    margin: 15,
+                  }}>
+                  <Text style={styles.loginText}>{campaign.username} wrote:</Text>
+                  <Text style={styles.loginText}>{campaign.message}</Text>
+                  <Text style={styles.loginText}>
+                    {new Date(campaign.timestamp).toLocaleString()}
+                  </Text>
+                </View>
+              );
+            })}
+        </View>
+      </View>
+
+
+
+
+      <View style={styles.radio}>
+        <TouchableOpacity style={styles.button} onPress={goToAddNote}>
+          <Text style={styles.radioText}>Add Note</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={gotToNoteList}>
+          <Text style={styles.radioText}>View All Notes</Text>
+        </TouchableOpacity>
+        {user.role == 'master' && (
+
+          <View style={styles.radio}>
+            {/* <TouchableOpacity style={styles.button} onPress={addEncounter}>
                         <Text style={styles.radioText}>Add Encounter</Text>
                     </TouchableOpacity> */}
-          <TouchableOpacity style={styles.button} onPress={editCampaign}>
-            <Text style={styles.radioText}>Edit Campaign</Text>
+            <TouchableOpacity style={styles.button} onPress={editCampaign}>
+              <Text style={styles.radioText}>Edit Campaign</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button} onPress={viewPlayers}>
+              <Text style={styles.radioText}>Manage Players</Text>
+            </TouchableOpacity>
+          </View>
+
+
+        )}
+        {user.role == 'player' && (
+          <TouchableOpacity style={styles.button} onPress={leaveCampaign}>
+            <Text style={styles.radioText}>Leave Campaign</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={removeCampaign}>
-            <Text style={styles.radioText}>Delete Campaign</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={viewPlayers}>
-            <Text style={styles.radioText}>Manage Players</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-      <Button
-        title='add note'
-        onPress={() => nav.navigate('AddNote', { campaign })}></Button>
-      <Button
-        title='view all notes'
-        onPress={() => nav.navigate('NoteList', { campaign })}></Button>
-      {user.role == 'player' && (
-        <TouchableOpacity style={styles.button} onPress={leaveCampaign}>
-          <Text style={styles.radioText}>Leave Campaign</Text>
+        )}
+      </View>
+      {user.role == 'master' && (
+        <TouchableOpacity style={campaignStyles.dangerButton} onPress={removeCampaign}>
+          <Text style={styles.radioText}>DELETE CAMPAIGN</Text>
         </TouchableOpacity>
       )}
     </View>
   );
 }
+
+const campaignStyles = StyleSheet.create({
+  backgroundBox: {
+    backgroundColor: '#465881',
+    flexDirection: 'row',
+    width: '100%',
+    borderRadius: 25,
+    padding: 10,
+  },
+  container: {
+    width: '80%',
+    justifyContent: 'space-evenly'
+  },
+  dangerButton:{
+    margin: 20,
+    padding: 10,
+    justifyContent: 'center',
+    borderRadius: 25,
+    backgroundColor: 'red',
+    width:'25%',
+    fontWeight:'bold'
+
+  }
+
+
+})
 
 export default CampaignComponent;
