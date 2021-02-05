@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     TextInput,
     Text,
@@ -39,7 +39,6 @@ export function EditCharacter({ navigation }: CreateProp) {
         { id: 7, value: 'Tiefling', name: 'Tiefling', selected: false },
     ]);
 
-
     const [charClass, setCharClass] = React.useState([
         { id: 1, value: 'Bard', name: 'Bard', selected: false },
         { id: 2, value: 'Cleric', name: 'Cleric', selected: false },
@@ -50,6 +49,7 @@ export function EditCharacter({ navigation }: CreateProp) {
         { id: 7, value: 'Warlock', name: 'Warlock', selected: false },
 
     ]);
+
     const [lifestyle, setLifestyle] = React.useState([
         { id: 1, value: 'Wretched', name: 'Wretched', selected: false },
         { id: 2, value: 'Squalid', name: 'Squalid', selected: false },
@@ -63,42 +63,48 @@ export function EditCharacter({ navigation }: CreateProp) {
 
     const [alignment, setAlignment] = React.useState([
         { id: 1, value: 'Lawful Good', name: 'Lawful Good', selected: false },
-        { id: 2, value: 'Neutral Good', name: 'Neutral Good', selected: false },
-        { id: 3, value: 'Chaotic Good', name: 'Chaotic Good', selected: false },
         { id: 4, value: 'Lawful Neutral', name: 'Lawful Neutral', selected: false },
-        { id: 5, value: 'True Neutral', name: 'True Neutral', selected: false },
-        { id: 6, value: 'Chaotic Neutral', name: 'Chaotic Neutral', selected: false },
         { id: 7, value: 'Lawful Evil', name: 'Lawful Evil', selected: false },
+        { id: 2, value: 'Neutral Good', name: 'Neutral Good', selected: false },
+        { id: 5, value: 'True Neutral', name: 'True Neutral', selected: false },
         { id: 8, value: 'Neutral Evil', name: 'Neutral Evil', selected: false },
+        { id: 3, value: 'Chaotic Good', name: 'Chaotic Good', selected: false },
+        { id: 6, value: 'Chaotic Neutral', name: 'Chaotic Neutral', selected: false },
         { id: 9, value: 'Chaotic Evil', name: 'Chaotic Evil', selected: false },
+
+
+
 
     ]);
 
-    //update all of the selected radio buttons; should only run once
-    let updatedStateRace = race.map((isLikedItem) =>
-        isLikedItem.value === char.race
-            ? { ...isLikedItem, selected: true }
-            : { ...isLikedItem, selected: false }
-    );
-    setRace(updatedStateRace);
-    let updatedStateClass = charClass.map((isLikedItem) =>
-        isLikedItem.value === char.class
-            ? { ...isLikedItem, selected: true }
-            : { ...isLikedItem, selected: false }
-    );
-    setRace(updatedStateClass);
-    let updatedStateLifestyle = lifestyle.map((isLikedItem) =>
+    useEffect(() => {
+        //update all of the selected radio buttons; should only run once
+        let updatedStateRace = race.map((isLikedItem) =>
+            isLikedItem.value === char.race
+                ? { ...isLikedItem, selected: true }
+                : { ...isLikedItem, selected: false }
+        );
+        setRace(updatedStateRace);
+        let updatedStateClass = charClass.map((isLikedItem) =>
+            isLikedItem.value === char.class
+                ? { ...isLikedItem, selected: true }
+                : { ...isLikedItem, selected: false }
+        );
+        setCharClass(updatedStateClass);
+        let updatedStateLifestyle = lifestyle.map((isLikedItem) =>
             isLikedItem.value === char.lifestyle
                 ? { ...isLikedItem, selected: true }
                 : { ...isLikedItem, selected: false }
         );
-        setRace(updatedStateLifestyle);
+        setLifestyle(updatedStateLifestyle);
         let updatedStateAlign = alignment.map((isLikedItem) =>
             isLikedItem.value === char.alignment
                 ? { ...isLikedItem, selected: true }
                 : { ...isLikedItem, selected: false }
         );
-        setRace(updatedStateAlign);
+        setAlignment(updatedStateAlign);
+    }, [])
+
 
     function submitForm() {
         let race = char.race.toLowerCase();
@@ -142,7 +148,6 @@ export function EditCharacter({ navigation }: CreateProp) {
 
 
     }
-
     const onRadioBtnClickRace = (item: any) => {
         let updatedState = race.map((isLikedItem) =>
             isLikedItem.id === item.id
@@ -187,8 +192,6 @@ export function EditCharacter({ navigation }: CreateProp) {
         dispatch(changeCharacter(char));
         console.log(char)
     };
-
-
     const RadioButton = ({ onPress, selected, children }: any) => {
         return (
             <View style={styles.radioButtonContainer}>
@@ -211,8 +214,6 @@ export function EditCharacter({ navigation }: CreateProp) {
                     <View style={styles.charInputLabel}>
                         <TextInput
                             style={styles.charInputTextLong}
-                            placeholder='Type Name Here'
-                            placeholderTextColor='white'
                             onChangeText={(value) =>
                                 dispatch(changeCharacter({ ...char, name: value }))
                             }
@@ -348,15 +349,39 @@ export function EditCharacter({ navigation }: CreateProp) {
                     <View style={styles.backgroundInfoContainer2}>
                         <Text style={styles.leftLabel}>Alignment</Text>
                         <View style={styles.borderedBoxRow}>
-                            {alignment.map((item) => (
-                                <RadioButton
-                                    onPress={() => onRadioBtnClickAlignment(item)}
-                                    selected={item.selected}
-                                    key={item.id}
-                                >
-                                    {item.name}
-                                </RadioButton>
-                            ))}
+                            <View style={styles.boxOfThree}>
+                                {alignment.slice(0, 3).map((item) => (
+                                    <RadioButton
+                                        onPress={() => onRadioBtnClickAlignment(item)}
+                                        selected={item.selected}
+                                        key={item.id}
+                                    >
+                                        {item.name}
+                                    </RadioButton>
+                                ))}
+                            </View>
+                            <View style={styles.boxOfThree}>
+                                {alignment.slice(3, 6).map((item) => (
+                                    <RadioButton
+                                        onPress={() => onRadioBtnClickAlignment(item)}
+                                        selected={item.selected}
+                                        key={item.id}
+                                    >
+                                        {item.name}
+                                    </RadioButton>
+                                ))}
+                            </View>
+                            <View style={styles.boxOfThree}>
+                                {alignment.slice(6, 9).map((item) => (
+                                    <RadioButton
+                                        onPress={() => onRadioBtnClickAlignment(item)}
+                                        selected={item.selected}
+                                        key={item.id}
+                                    >
+                                        {item.name}
+                                    </RadioButton>
+                                ))}
+                            </View>
                         </View>
                     </View>
                     <View style={styles.backgroundInfoContainer}>
