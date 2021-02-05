@@ -1,6 +1,6 @@
 export class EncounterChars {
     encounterid: number = -1;
-    characterid: number = -1;
-    characterName: string ='';
+    charid: number = -1;
+    name: string ='';
     initiative: number = -1;
 }

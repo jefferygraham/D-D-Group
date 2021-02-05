@@ -89,7 +89,9 @@ function CampaignComponent(data: Props) {
 
     function addEncounter() {
         campaignService.addEncounter(campaign.campaignid).then((encounter) => {
-            nav.navigate('Encounter', encounter);
+            campaignService.getEncounters(campaign.campaignid).then((results) => {
+                dispatch(getEncounters(results));
+            })
         })
     }
 

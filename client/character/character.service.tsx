@@ -15,11 +15,11 @@ class CharacterService{
   }
 
   getCharactersByUser(user:User): Promise<Character []>{
-    return axios.get(this.URI +'/' +user.name).then(result => result.data)
+    return axios.get(this.URI +'/' +user.name).then(result => result.data);
   }
 
   getCharacterByID(id: Number): Promise<Character>{
-    return axios.get(this.URI +'/'+id).then(result => result.data)
+    return axios.get(this.URI +'/'+id).then(result => result.data);
   }
 
 

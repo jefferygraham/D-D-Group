@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { RouteProp, useNavigation } from "@react-navigation/native";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { StackParams } from "../router/router.component";
 import { CharacterState, EncounterState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +8,6 @@ import styles from '../global-styles';
 import campaignService from '../campaign/campaign.service';
 import RNPickerSelect from 'react-native-picker-select';
 import { changeEncounterChars } from '../store/actions';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import NumericInput from 'react-native-numeric-input'
 
 interface Props {
@@ -29,12 +28,13 @@ function EncounterComponent(data: Props) {
     const dispatch = useDispatch();
     const nav = useNavigation();
     const encounter = data.route.params;
+    let round = 1;
 
     useEffect(() => {
         campaignService.getEncounterChars(encounter.campaignid, encounter.encounterid).then((results) => {
             dispatch(changeEncounterChars(results));
         })
-    })
+    },[dispatch])
     const [characterid, setCharID] = useState(-1);
     const [initiative, setInit] = useState(-1);
 
@@ -43,22 +43,29 @@ function EncounterComponent(data: Props) {
             characterid,
             initiative
         }
+        console.log(data);
         campaignService.updateEncounter(encounter.campaignid, encounter.encounterid, data.characterid, data.initiative).then(() => {
-            nav.navigate('Encounter', encounter);
+            campaignService.getEncounterChars(encounter.campaignid,encounter.encounterid).then((results) => {
+                dispatch(changeEncounterChars(results));
+            })
         })
+    }
+    function nextRound(){
+        round++;
+        console.log(round);
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             {user.role == 'master' && (
-                <View style={styles.container}>
+                <View>
                     {chars.length > 0 &&
                         chars.map((char) => {
                             return (
                                 <View
-                                    key={`${char.characterid}`}
+                                    key={`${char.charid}`}
                                     style={{ borderColor: 'white', borderWidth: 1 }}>
-                                    <Text>{char.characterName}: {char.initiative}</Text>
+                                    <Text style={styles.loginText}>{char.name}: {char.initiative}</Text>
                                 </View>
                             )
                         })}

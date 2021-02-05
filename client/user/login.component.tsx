@@ -28,10 +28,9 @@ function LoginComponent({ navigation }: LoginProp) {
       dispatch(getUser(user));
 
       if (user) {
+        navigation.navigate('Home');
         characterService.getCharactersByUser(user).then((char)=>{
-          console.log(char);
           dispatch(getCharacters(char));
-          navigation.navigate('Home');
         })
         
       } else {

@@ -50,6 +50,7 @@ exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, fu
                 return [4 /*yield*/, client.query(q)];
             case 2:
                 response = _a.sent();
+                client.end();
                 if (response.rows.length > 0) {
                     return [2 /*return*/, {
                             statusCode: 200,
@@ -71,7 +72,6 @@ exports.handler = function (event) { return __awaiter(void 0, void 0, void 0, fu
                             },
                         }];
                 }
-                client.end();
                 return [2 /*return*/];
         }
     });

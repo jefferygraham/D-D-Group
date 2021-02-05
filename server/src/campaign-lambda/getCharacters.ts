@@ -9,6 +9,7 @@ exports.handler = async (event: any) => {
 
     const q = `select * from (select * from "character" c inner join player_campaigns pc on pc.character_id = c.charid) as j where campaign_id= ${campaign}`;
     const response = await client.query(q);
+    client.end();
 
     if(response.rows.length > 0){
         return {
@@ -30,7 +31,4 @@ exports.handler = async (event: any) => {
                 },
         }
     }
-
-    
-    client.end();
 }
