@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { addNote } from '../store/actions';
+import { addNote, updateNote } from '../store/actions';
 
 import { customAlphabet } from 'nanoid';
 import { UserState } from '../store/store';
@@ -29,16 +29,16 @@ function EditNoteComponent({ route, navigation }: any) {
     const newNote = {
       noteId: note.noteId,
       campaignId: note.campaignId,
-      userId: note.noteId,
-      role: note.role,
-      username: note.username,
+      userId: Number(user.id),
+      role: user.role,
+      username: user.name,
       message: newMessage,
       timestamp: Date.now(),
     };
 
     console.log(newNote);
 
-    // dispatch(addNote(newNote));
+    dispatch(updateNote(newNote));
 
     noteService.addNote(newNote).then((note) => {
       navigation.navigate('Campaign');

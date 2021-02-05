@@ -23,6 +23,7 @@ export enum NoteActions {
   AddNote = 'ADD_NOTE',
   GetNotes = 'GET_NOTES',
   DeleteNote = 'DELETE_NOTE',
+  UpdateNote = 'UPDATE_NOTE',
 }
 
 export interface AppAction {
@@ -123,6 +124,14 @@ export function getNotes(notes: Note[]): NoteAction {
 export function deleteNote(note: Note): NoteAction {
   const action: NoteAction = {
     type: NoteActions.DeleteNote,
+    payload: note,
+  };
+  return action;
+}
+
+export function updateNote(note: Note): NoteAction {
+  const action: NoteAction = {
+    type: NoteActions.UpdateNote,
     payload: note,
   };
   return action;
