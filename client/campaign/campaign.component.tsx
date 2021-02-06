@@ -119,16 +119,24 @@ function CampaignComponent(data: Props) {
       <View style={campaignStyles.container}>
         <Text style={styles.radioLabel}>Characters</Text>
         <View style={campaignStyles.backgroundBox}>
-          {characters.map((req: Character, index: number) => (
-            <MinCharacterComponent
-              key={'req-' + index}
-              data={req}></MinCharacterComponent>
-          ))}
+          {characters.length == 0 &&
+            <Text style={styles.looksLabel}> No Characters</Text>
+          }
+          {characters.length > 0 &&
+            characters.map((req: Character, index: number) => (
+              <MinCharacterComponent
+                key={'req-' + index}
+                data={req}></MinCharacterComponent>
+            ))
+          }
+
         </View>
       </View>
       <View style={campaignStyles.container}>
         <Text style={styles.radioLabel}>Notes:</Text>
         <View style={campaignStyles.backgroundBox}>
+          {campaignNotes.length == 0 &&
+            <Text style={styles.looksLabel}> No Notes</Text>}
           {campaignNotes.length > 0 &&
             campaignNotes.splice(0, 3).map((campaign) => {
               return (
@@ -153,22 +161,27 @@ function CampaignComponent(data: Props) {
         </View>
 
       </View>
-      <Text style={styles.loginText}>Encounters:</Text>
-      {encounters.length > 0 &&
-        encounters.map((encounter) => {
-          return (
-            <View
-              key={`${encounter.encounterid}`}
-              style={{ borderColor: 'white', borderWidth: 1 }}>
-              <Text style={styles.loginText}>{encounter.encounterid}</Text>
-              <TouchableOpacity style={styles.button} onPress={() => goToEncounter(encounter)}>
-                <Text style={styles.loginText}>Go To Encounter</Text>
-              </TouchableOpacity>
-            </View>
-          )
-        })}
-
-
+      <View style={campaignStyles.container}>
+        <Text style={styles.radioLabel}>Encounters:</Text>
+        <View style={campaignStyles.backgroundBox}>
+          {encounters.length == 0 &&
+            <Text style={styles.looksLabel}> No Encoutners</Text>
+          }
+          {encounters.length > 0 &&
+            encounters.map((encounter) => {
+              return (
+                <View
+                  key={`${encounter.encounterid}`}
+                  style={{ borderColor: 'white', borderWidth: 1 }}>
+                  <Text style={styles.loginText}>{encounter.encounterid}</Text>
+                  <TouchableOpacity style={styles.button} onPress={() => goToEncounter(encounter)}>
+                    <Text style={styles.loginText}>Go To Encounter</Text>
+                  </TouchableOpacity>
+                </View>
+              )
+            })}
+        </View>
+      </View>
       <View style={styles.radio}>
         <TouchableOpacity style={styles.button} onPress={goToAddNote}>
           <Text style={styles.radioText}>Add Note</Text>
@@ -218,7 +231,11 @@ const campaignStyles = StyleSheet.create({
   },
   container: {
     width: '80%',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
+    marginBottom:10,
+    marginTop:10
+
+
   },
   dangerButton: {
     margin: 20,
@@ -228,7 +245,6 @@ const campaignStyles = StyleSheet.create({
     backgroundColor: 'red',
     width: '25%',
     fontWeight: 'bold'
-
   }
 
 
