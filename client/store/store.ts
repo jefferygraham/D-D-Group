@@ -6,6 +6,7 @@ import { Encounter } from '../encounters/encounter';
 import { EncounterChars } from '../encounters/encounterChars';
 import { Note } from '../note/note';
 import { User } from '../user/user';
+import { Message } from '../message/message';
 import { AppAction } from './actions';
 import reducer from './reducer';
 
@@ -35,12 +36,18 @@ export interface EncounterState {
   encounterChars: EncounterChars[];
 }
 
+export interface MessageState {
+  message: Message;
+  messages: Message[];
+}
+
 export interface AppState
   extends UserState,
     CampaignState,
     CharacterState,
     NoteState,
-    EncounterState{}
+    MessageState,
+    EncounterState {}
 
 const store: Store<AppState, AppAction> = createStore(
   reducer,
