@@ -30,8 +30,10 @@ const MessageListComponent = () => {
     messages.length > 0
       ? messages
           .filter((message) => message.campaignId === campaign.campaignid)
-          .filter((message) => message.recipient === user.id)
+          .filter((message) => Number(message.recipient) === user.id)
       : [];
+
+  console.log(messages);
 
   const sortedMessages =
     campaignMessages.length > 0
@@ -58,9 +60,9 @@ const MessageListComponent = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.logo}>Your Messages for {campaign.campaignname}</Text>
-      {sortedMessages.length > 0 && (
+      {campaignMessages.length > 0 && (
         <FlatList
-          data={sortedMessages}
+          data={campaignMessages}
           renderItem={renderItem}
           keyExtractor={(item) => item.messageId}
         />
