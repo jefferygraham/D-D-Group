@@ -23,6 +23,13 @@ export enum CharacterActions {
 
 export enum NoteActions {
   GetNotes = 'GET_NOTES',
+  DeleteNote = 'DELETE_NOTE',
+  UpdateNote = 'UPDATE_NOTE',
+}
+
+export enum EncounterActions {
+  GetEncounters = 'GET_ENCOUNTERS',
+  ChangeEncounterChars = 'CHANGE_ENCOUNTER_CHARS',
 }
 
 export enum EncounterActions {
@@ -130,10 +137,20 @@ export function getEncounters(encounters: Encounter[]): EncounterAction {
   return action;
 }
 
-export function changeEncounterChars(characters: EncounterChars[]): EncounterAction {
+export function changeEncounterChars(
+  characters: EncounterChars[]
+): EncounterAction {
   const action: EncounterAction = {
     type: EncounterActions.ChangeEncounterChars,
     payload: characters,
+  };
+  return action;
+}
+
+export function updateNote(note: Note): NoteAction {
+  const action: NoteAction = {
+    type: NoteActions.UpdateNote,
+    payload: note,
   };
   return action;
 }

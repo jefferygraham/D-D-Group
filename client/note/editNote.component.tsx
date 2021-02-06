@@ -7,58 +7,55 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { addNote } from '../store/actions';
+import { addNote, updateNote } from '../store/actions';
 
 import { customAlphabet } from 'nanoid';
-import { RouteProp, useNavigation } from '@react-navigation/native';
-
 import { UserState } from '../store/store';
-import noteService from '../note/note.service';
+import noteService from './note.service';
 
 const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', 5);
 
-function AddNoteComponent({ route, navigation }: any) {
+function EditNoteComponent({ route, navigation }: any) {
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
 
-  const [message, setMessage] = useState('');
+  const { note } = route.params;
 
-  const { campaign } = route.params;
+  const [newMessage, setNewMessage] = useState(note.message);
 
   const dispatch = useDispatch();
 
   function submitForm() {
-    const note = {
-      noteId: nanoid(),
-      campaignId: campaign.campaignid,
+    const newNote = {
+      noteId: note.noteId,
+      campaignId: note.campaignId,
       userId: Number(user.id),
       role: user.role,
       username: user.name,
-      message: message,
+      message: newMessage,
       timestamp: Date.now(),
     };
 
-    dispatch(addNote(note));
+    dispatch(updateNote(newNote));
 
-    noteService.addNote(note).then((note) => {
+    noteService.addNote(newNote).then((note) => {
       navigation.navigate('Campaign');
     });
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>Add Note</Text>
+      <Text style={styles.logo}>Edit Note</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
-          placeholder='Add message...'
           placeholderTextColor='#003f5c'
-          onChangeText={(message) => setMessage(message)}
-          value={message}
+          onChangeText={(newMessage) => setNewMessage(newMessage)}
+          value={newMessage}
         />
       </View>
       <TouchableOpacity style={styles.loginBtn} onPress={submitForm}>
-        <Text style={styles.loginText}>ADD NOTE</Text>
+        <Text style={styles.loginText}>SUBMIT</Text>
       </TouchableOpacity>
     </View>
   );
@@ -105,4 +102,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddNoteComponent;
+export default EditNoteComponent;

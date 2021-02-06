@@ -18,6 +18,7 @@ interface LoginProp {
 
 function LoginComponent({ navigation }: LoginProp) {
   const userSelector = (state: UserState) => {
+    console.log(state);
     return state.loginUser;
   };
   const user = useSelector(userSelector);
@@ -28,11 +29,10 @@ function LoginComponent({ navigation }: LoginProp) {
       dispatch(getUser(user));
 
       if (user) {
-        navigation.navigate('Home');
-        characterService.getCharactersByUser(user).then((char)=>{
+        characterService.getCharactersByUser(user).then((char) => {
           dispatch(getCharacters(char));
-        })
-        
+          navigation.navigate('Home');
+        });
       } else {
         navigation.navigate('Unauthorized');
       }

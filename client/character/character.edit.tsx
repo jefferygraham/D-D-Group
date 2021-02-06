@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     TextInput,
     Text,
@@ -18,7 +18,7 @@ interface CreateProp {
     navigation: any;
 }
 
-export function CharacterCreationComponent({ navigation }: CreateProp) {
+export function EditCharacter({ navigation }: CreateProp) {
     const charSelector = (state: CharacterState) => state.character;
     const userSelector = (state: UserState) => state.user;
     const char = useSelector(charSelector);
@@ -28,26 +28,28 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
     const dndAPI = 'https://www.dnd5eapi.co/api/';
     const nav = useNavigation();
 
+
     const [race, setRace] = React.useState([
-        { id: 1, value: 'dragonborn', name: 'Dragonborn', selected: true },
-        { id: 2, value: 'elf', name: 'Elf', selected: false },
-        { id: 3, value: 'half-elf', name: 'Half-Elf', selected: false },
-        { id: 4, value: 'half-orc', name: 'Half-Orc', selected: false },
-        { id: 5, value: 'human', name: 'Human', selected: false },
-        { id: 6, value: 'galfling', name: 'Halfling', selected: false },
-        { id: 7, value: 'tiefling', name: 'Tiefling', selected: false },
+        { id: 1, value: 'Dragonborn', name: 'Dragonborn', selected: false },
+        { id: 2, value: 'Elf', name: 'Elf', selected: false },
+        { id: 3, value: 'Half-Elf', name: 'Half-Elf', selected: false },
+        { id: 4, value: 'Half-Orc', name: 'Half-Orc', selected: false },
+        { id: 5, value: 'Human', name: 'Human', selected: false },
+        { id: 6, value: 'Halfling', name: 'Halfling', selected: false },
+        { id: 7, value: 'Tiefling', name: 'Tiefling', selected: false },
     ]);
 
     const [charClass, setCharClass] = React.useState([
-        { id: 1, value: 'bard', name: 'Bard', selected: true },
-        { id: 2, value: 'cleric', name: 'Cleric', selected: false },
-        { id: 3, value: 'fighter', name: 'Fighter', selected: false },
-        { id: 4, value: 'paladin', name: 'Paladin', selected: false },
-        { id: 5, value: 'ranger', name: 'Ranger', selected: false },
-        { id: 6, value: 'rouge', name: 'Rouge', selected: false },
-        { id: 7, value: 'warlock', name: 'Warlock', selected: false },
+        { id: 1, value: 'Bard', name: 'Bard', selected: false },
+        { id: 2, value: 'Cleric', name: 'Cleric', selected: false },
+        { id: 3, value: 'Fighter', name: 'Fighter', selected: false },
+        { id: 4, value: 'Paladin', name: 'Paladin', selected: false },
+        { id: 5, value: 'Ranger', name: 'Ranger', selected: false },
+        { id: 6, value: 'Rouge', name: 'Rouge', selected: false },
+        { id: 7, value: 'Warlock', name: 'Warlock', selected: false },
 
     ]);
+
     const [lifestyle, setLifestyle] = React.useState([
         { id: 1, value: 'Wretched', name: 'Wretched', selected: false },
         { id: 2, value: 'Squalid', name: 'Squalid', selected: false },
@@ -61,22 +63,50 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 
     const [alignment, setAlignment] = React.useState([
         { id: 1, value: 'Lawful Good', name: 'Lawful Good', selected: false },
-        { id: 2, value: 'Neutral Good', name: 'Neutral Good', selected: false },
-        { id: 3, value: 'Chaotic Good', name: 'Chaotic Good', selected: false },
         { id: 4, value: 'Lawful Neutral', name: 'Lawful Neutral', selected: false },
-        { id: 5, value: 'True Neutral', name: 'True Neutral', selected: false },
-        { id: 6, value: 'Chaotic Neutral', name: 'Chaotic Neutral', selected: false },
         { id: 7, value: 'Lawful Evil', name: 'Lawful Evil', selected: false },
+        { id: 2, value: 'Neutral Good', name: 'Neutral Good', selected: false },
+        { id: 5, value: 'True Neutral', name: 'True Neutral', selected: false },
         { id: 8, value: 'Neutral Evil', name: 'Neutral Evil', selected: false },
+        { id: 3, value: 'Chaotic Good', name: 'Chaotic Good', selected: false },
+        { id: 6, value: 'Chaotic Neutral', name: 'Chaotic Neutral', selected: false },
         { id: 9, value: 'Chaotic Evil', name: 'Chaotic Evil', selected: false },
+
+
+
 
     ]);
 
+    useEffect(() => {
+        //update all of the selected radio buttons; should only run once
+        let updatedStateRace = race.map((isLikedItem) =>
+            isLikedItem.value === char.race
+                ? { ...isLikedItem, selected: true }
+                : { ...isLikedItem, selected: false }
+        );
+        setRace(updatedStateRace);
+        let updatedStateClass = charClass.map((isLikedItem) =>
+            isLikedItem.value === char.class
+                ? { ...isLikedItem, selected: true }
+                : { ...isLikedItem, selected: false }
+        );
+        setCharClass(updatedStateClass);
+        let updatedStateLifestyle = lifestyle.map((isLikedItem) =>
+            isLikedItem.value === char.lifestyle
+                ? { ...isLikedItem, selected: true }
+                : { ...isLikedItem, selected: false }
+        );
+        setLifestyle(updatedStateLifestyle);
+        let updatedStateAlign = alignment.map((isLikedItem) =>
+            isLikedItem.value === char.alignment
+                ? { ...isLikedItem, selected: true }
+                : { ...isLikedItem, selected: false }
+        );
+        setAlignment(updatedStateAlign);
+    }, [])
+
+
     function submitForm() {
-        if (user.id) {
-            char.playerid = user.id
-        }
-        console.log(char)
         let race = char.race.toLowerCase();
         let api = dndAPI + 'races/' + race;
         //change stats based on race
@@ -85,22 +115,22 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                 let stat: string = element.ability_score.index;
                 switch (stat) {
                     case 'str':
-                        char.strength += Number(element.bonus)
+                        char.strength = 10 + Number(element.bonus)
                         break;
                     case 'dex':
-                        char.dexterity += Number(element.bonus)
+                        char.dexterity = 10 + Number(element.bonus)
                         break;
                     case 'con':
-                        char.constitution += Number(element.bonus)
+                        char.constitution = 10 + Number(element.bonus)
                         break;
                     case 'int':
-                        char.intelligence += Number(element.bonus)
+                        char.intelligence = 10 + Number(element.bonus)
                         break;
                     case 'wis':
-                        char.wisdom += Number(element.bonus)
+                        char.wisdom = 10 + Number(element.bonus)
                         break;
                     case 'cha':
-                        char.charisma += Number(element.bonus)
+                        char.charisma = 10 + Number(element.bonus)
                         break;
                     default:
                         console.log('error')
@@ -110,22 +140,23 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 
             })
             console.log(char)
-            characterService.createCharacter(char).then(()=>{
-                characterService.getCharactersByUser(user).then((results) => {
-                console.log(results);
-                dispatch(getCharacters(results));
-                dispatch(changeCharacter(new Character()));
-                nav.navigate('Home');
-            })
-            });
-            
+            characterService.updateCharacter(char).then(()=>{
+                characterService.getCharactersByUser(user).then((results)=>{
+                    let sorted = results.sort(function (a,b){
+                        return a.charid - b.charid
 
+                    });
+                    dispatch(getCharacters(results));
+                })
+            })
+            
+            dispatch(changeCharacter(new Character()));
+            nav.navigate('Home');
         })
 
 
 
     }
-
     const onRadioBtnClickRace = (item: any) => {
         let updatedState = race.map((isLikedItem) =>
             isLikedItem.id === item.id
@@ -170,8 +201,6 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
         dispatch(changeCharacter(char));
         console.log(char)
     };
-
-
     const RadioButton = ({ onPress, selected, children }: any) => {
         return (
             <View style={styles.radioButtonContainer}>
@@ -194,8 +223,6 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                     <View style={styles.charInputLabel}>
                         <TextInput
                             style={styles.charInputTextLong}
-                            placeholder='Type Name Here'
-                            placeholderTextColor='white'
                             onChangeText={(value) =>
                                 dispatch(changeCharacter({ ...char, name: value }))
                             }
@@ -331,15 +358,39 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
                     <View style={styles.backgroundInfoContainer2}>
                         <Text style={styles.leftLabel}>Alignment</Text>
                         <View style={styles.borderedBoxRow}>
-                            {alignment.map((item) => (
-                                <RadioButton
-                                    onPress={() => onRadioBtnClickAlignment(item)}
-                                    selected={item.selected}
-                                    key={item.id}
-                                >
-                                    {item.name}
-                                </RadioButton>
-                            ))}
+                            <View style={styles.boxOfThree}>
+                                {alignment.slice(0, 3).map((item) => (
+                                    <RadioButton
+                                        onPress={() => onRadioBtnClickAlignment(item)}
+                                        selected={item.selected}
+                                        key={item.id}
+                                    >
+                                        {item.name}
+                                    </RadioButton>
+                                ))}
+                            </View>
+                            <View style={styles.boxOfThree}>
+                                {alignment.slice(3, 6).map((item) => (
+                                    <RadioButton
+                                        onPress={() => onRadioBtnClickAlignment(item)}
+                                        selected={item.selected}
+                                        key={item.id}
+                                    >
+                                        {item.name}
+                                    </RadioButton>
+                                ))}
+                            </View>
+                            <View style={styles.boxOfThree}>
+                                {alignment.slice(6, 9).map((item) => (
+                                    <RadioButton
+                                        onPress={() => onRadioBtnClickAlignment(item)}
+                                        selected={item.selected}
+                                        key={item.id}
+                                    >
+                                        {item.name}
+                                    </RadioButton>
+                                ))}
+                            </View>
                         </View>
                     </View>
                     <View style={styles.backgroundInfoContainer}>
@@ -493,7 +544,7 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
             </View>
             {/* Create Character Button */}
             <TouchableOpacity style={styles.createBtn} onPress={submitForm}>
-                <Text style={styles.looksLabel}>Create Character</Text>
+                <Text style={styles.looksLabel}>Update Character</Text>
             </TouchableOpacity>
 
 
@@ -502,4 +553,4 @@ export function CharacterCreationComponent({ navigation }: CreateProp) {
 }
 
 
-export default CharacterCreationComponent;
+export default EditCharacter;

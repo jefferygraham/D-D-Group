@@ -73,10 +73,13 @@ export function JoinCampaign() {
             <View style={styles.infoBoxLarge}>
                 <Text style={styles.titleLeft}> Characters </Text>
                 <View style={styles.background}>
-                    <FlatList
-                        data={characters}
-                        renderItem={({ item }) => (<CharacterComponent data={item}></CharacterComponent>)}
-                        keyExtractor={(item) => item.name} />
+                    <View style={styles.listBox}>
+                        <FlatList
+                            data={characters}
+                            renderItem={({ item }) => (<CharacterComponent data={item}></CharacterComponent>)}
+                            keyExtractor={(item) => item.name}
+                            numColumns={2} />
+                    </View>
                 </View>
             </View>
         </View>
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
         margin: 25,
     },
     infoBoxLarge: {
-        width: '80%',
+        width: '90%',
         flexDirection: 'column',
         alignItems: 'center',
         borderRadius: 25,
@@ -124,8 +127,9 @@ const styles = StyleSheet.create({
     },
     background: {
         backgroundColor: '#465881',
-        flexDirection: 'column',
+        flexDirection: 'row',
         alignItems: 'center',
+        alignSelf: 'center',
         borderRadius: 25,
         padding: 25,
         width: '100%'
@@ -157,6 +161,11 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    listBox:{
+        width:'90%',
+        flex:1,
+        alignSelf:'center'
     }
 
 

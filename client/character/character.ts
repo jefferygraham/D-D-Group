@@ -8,8 +8,8 @@ export class Character{
     intelligence = 10;
     wisdom = 10;
     charisma = 10;
-    race = '';
-    class = '';
+    race = 'Dragonborn';
+    class = 'Bard';
     alignment = '';
     faith = '';
     lifestyle = '';

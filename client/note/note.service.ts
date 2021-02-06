@@ -10,7 +10,7 @@ class NoteService {
 
   addNote(note: Note): Promise<Note> {
     return axios
-      .post(`${this.URI}`, note)
+      .put(`${this.URI}`, note)
       .then((result) => result.data.body)
       .catch((err) => err);
   }
@@ -19,6 +19,13 @@ class NoteService {
     return axios
       .get(`${this.URI}`)
       .then((result) => result.data.Items)
+      .catch((err) => err);
+  }
+
+  deleteNote(note: Note): Promise<null> {
+    return axios
+      .delete(`${this.URI}/${note.noteId}`)
+      .then((result) => result.data.body)
       .catch((err) => err);
   }
 }

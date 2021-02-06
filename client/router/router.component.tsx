@@ -19,9 +19,13 @@ import AddNoteComponent from '../note/addNote.component';
 import { JoinCampaign } from '../campaign/campaign.join';
 import { EditCampaign } from '../campaign/campaign.edit';
 import NoteListComponent from '../note/NoteList.component';
+import ProfileComponent from '../user/profile.component';
+import RegisterComponent from '../user/register.component';
+import EditNoteComponent from '../note/editNote.component';
 import CampaignPlayers from '../campaign/campaignplayers.component';
 import EncounterComponent from '../encounters/encounter.component';
 import { Encounter } from '../encounters/encounter';
+import EditCharacter from '../character/character.edit';
 
 export type StackParams = {
   Login: undefined;
@@ -33,9 +37,13 @@ export type StackParams = {
   Players: User[];
   CharacterCreation: undefined;
   AddNote: undefined;
-  EditCampaign:undefined;
+  EditCampaign: undefined;
   JoinCampaign: undefined;
   NoteList: undefined;
+  Profile: undefined;
+  EditCharacter: undefined;
+  Register: undefined;
+  EditNote: undefined;
   Encounter: Encounter;
 };
 
@@ -104,7 +112,6 @@ function RouterComponent(props: any) {
         options={headerOptions}
       />
       <Stack.Screen
-        
         name='NoteList'
         component={NoteListComponent}
         options={headerOptions}
@@ -117,6 +124,21 @@ function RouterComponent(props: any) {
       <Stack.Screen
         name='Encounter'
         component={EncounterComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='EditNote'
+        component={EditNoteComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='Profile'
+        component={ProfileComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='EditCharacter'
+        component={EditCharacter}
         options={headerOptions}
       />
     </Stack.Navigator>

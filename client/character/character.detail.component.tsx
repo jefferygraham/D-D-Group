@@ -1,8 +1,12 @@
 import React from 'react';
 import styles from '../global-styles';
-import {Text,View,} from 'react-native';
-import { RouteProp } from '@react-navigation/native';
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
 import { StackParams } from '../router/router.component';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserState } from '../store/store';
+import characterService from './character.service';
+import { changeCharacter, getCharacters } from '../store/actions';
 
 interface Props {
     route: RouteProp<StackParams, 'CharacterDetail'>;
@@ -11,6 +15,29 @@ interface Props {
 export default function CharacterDetailComponent(props: Props) {
     const char = props.route.params;
     console.log(char)
+    const userSelector = (state: UserState) => state.user;
+    const user = useSelector(userSelector);
+    const nav = useNavigation();
+    const dispatch = useDispatch();
+
+
+    const rest = props.route.params;
+
+    dispatch(changeCharacter(char));
+
+    function removeCharacter() {
+        characterService.deleteCharacter(char.charid).then(() => {
+            if (user.name) {
+                characterService.getCharactersByUser(user).then((result) => {
+                    dispatch(getCharacters(result))
+                    nav.navigate('Home');
+                });
+            }
+        })
+    }
+    function goToEdit() {
+        nav.navigate('EditCharacter');
+    }
 
     return (
         <View style={styles.charContainer}>
@@ -61,8 +88,33 @@ export default function CharacterDetailComponent(props: Props) {
                     <Text style={styles.leftText}>Enemies: {char.enemies}</Text>
                     <Text style={styles.leftText}>Other Information: {char.otherInfo}</Text>
                 </View>
+
+                {user.id == char.playerid && (
+                    <View style={styles.displayBox}>
+                        <TouchableOpacity style={detailStyles.button} onPress={goToEdit}>
+                            <Text style={styles.radioText}>Edit Character</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={detailStyles.button} onPress={removeCharacter}>
+                            <Text style={styles.radioText}>Delete Character</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                )}
+
             </View>
 
         </View>
     )
 }
+
+const detailStyles = StyleSheet.create({
+    button: {
+        margin: 5,
+        padding: 10,
+        justifyContent: 'center',
+        alignSelf:'center',
+        borderRadius: 25,
+        backgroundColor: '#fb5b5a',
+        flex:1
+    }
+})

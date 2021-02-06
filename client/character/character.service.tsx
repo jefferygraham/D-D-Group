@@ -14,6 +14,13 @@ class CharacterService{
       return axios.post(this.URI, char).then(result => null);
   }
 
+  updateCharacter(char:Character):Promise<null>{
+    return axios.put(this.URI+'/'+ char.charid,char).then(result=>null);
+  }
+
+  deleteCharacter(id: Number): Promise<null> {
+    return axios.delete(this.URI + '/' + id).then(result => null);
+  }
   getCharactersByUser(user:User): Promise<Character []>{
     return axios.get(this.URI +'/' +user.name).then(result => result.data);
   }
