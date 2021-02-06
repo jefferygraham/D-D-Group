@@ -4,18 +4,14 @@ import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
 import { StackParams } from '../router/router.component';
 import styles from '../global-styles';
-import { CharacterState, NoteState, UserState } from '../store/store';
+import { CharacterState, EncounterState, NoteState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  changeCampaign,
-  getCampaigns,
-  getCharacters,
-} from '../store/actions';
+import { changeCampaign, getCampaigns, getCharacters, getEncounters, getPlayers } from '../store/actions';
 import userService from '../user/user.service';
 import { User } from '../user/user';
 import { Character } from '../character/character';
 import MinCharacterComponent from './minchar.component';
-import { Note } from '../note/note';
+import { Encounter } from '../encounters/encounter';
 
 interface Props {
   route: RouteProp<StackParams, 'Campaign'>;
@@ -34,21 +30,21 @@ function CampaignComponent(data: Props) {
   const notes = useSelector(notesSelector);
   const dispatch = useDispatch();
   let players: User[];
+  const campaignNotes = notes.filter(
+    (note) => note.campaignId === campaign.campaignid
+  );
+  const encounterSelector = (state: EncounterState) => state.encounters;
+  const encounters = useSelector(encounterSelector);
 
   useEffect(() => {
+    let chars: Character[] = [];
+    dispatch(getCharacters(chars));
     campaignService.getCharacters(campaign.campaignid).then((results) => {
       dispatch(getCharacters(results));
-    });
-  }, [dispatch]);
+    })
+  }, [dispatch])
 
-  //function to access all notes for the campaign,
-  //should route to a notes component
-  const campaignNotes: Note[] =
-    notes.length > 0
-      ? notes.filter((note) => note.campaignId === campaign.campaignid)
-      : [];
 
-  const sortedNotes = campaignNotes.sort((a, b) => b.timestamp - a.timestamp);
 
   //routes to playerpage for that campaign
   function viewPlayers() {
@@ -56,12 +52,13 @@ function CampaignComponent(data: Props) {
     campaignService.getPlayers(campaign.campaignid).then((results) => {
       players = results;
       nav.navigate('Players', players);
-    });
+    })
   }
 
-  //button shows up if the user is DM
-  //should remove the campaign from each user and character associated
-  //then deletes all notes and the campaign itself
+  function gotoAddNote() {
+    nav.navigate('AddNote', { campaign });
+  }
+
   function removeCampaign() {
     campaignService.deleteCampaign(campaign.campaignid).then(() => {
       if (user.id) {
@@ -70,7 +67,7 @@ function CampaignComponent(data: Props) {
           nav.navigate('Home');
         });
       }
-    });
+    })
   }
 
   function editCampaign() {
@@ -84,10 +81,21 @@ function CampaignComponent(data: Props) {
           userService.getCampaignsByID(user.id).then((camps) => {
             dispatch(getCampaigns(camps));
             nav.navigate('Home');
-          });
+          })
         }
       });
     }
+  }
+
+  function addEncounter() {
+    campaignService.addEncounter(campaign.campaignid).then((encounter) => {
+      campaignService.getEncounters(campaign.campaignid).then((results) => {
+        dispatch(getEncounters(results));
+      })
+    })
+  }
+  function goToEncounter(encounter: Encounter) {
+    nav.navigate('Encounter', encounter);
   }
 
   function goToAddNote() {
@@ -121,8 +129,8 @@ function CampaignComponent(data: Props) {
       <View style={campaignStyles.container}>
         <Text style={styles.radioLabel}>Notes:</Text>
         <View style={campaignStyles.backgroundBox}>
-          {sortedNotes.length > 0 &&
-            sortedNotes.splice(0, 3).map((campaign) => {
+          {campaignNotes.length > 0 &&
+            campaignNotes.splice(0, 3).map((campaign) => {
               return (
                 <View
                   key={`${campaign.noteId}`}
@@ -143,9 +151,22 @@ function CampaignComponent(data: Props) {
               );
             })}
         </View>
+
       </View>
-
-
+      <Text style={styles.loginText}>Encounters:</Text>
+      {encounters.length > 0 &&
+        encounters.map((encounter) => {
+          return (
+            <View
+              key={`${encounter.encounterid}`}
+              style={{ borderColor: 'white', borderWidth: 1 }}>
+              <Text style={styles.loginText}>{encounter.encounterid}</Text>
+              <TouchableOpacity style={styles.button} onPress={() => goToEncounter(encounter)}>
+                <Text style={styles.loginText}>Go To Encounter</Text>
+              </TouchableOpacity>
+            </View>
+          )
+        })}
 
 
       <View style={styles.radio}>
@@ -158,9 +179,9 @@ function CampaignComponent(data: Props) {
         {user.role == 'master' && (
 
           <View style={styles.radio}>
-            {/* <TouchableOpacity style={styles.button} onPress={addEncounter}>
-                        <Text style={styles.radioText}>Add Encounter</Text>
-                    </TouchableOpacity> */}
+            <TouchableOpacity style={styles.button} onPress={addEncounter}>
+              <Text style={styles.radioText}>Add Encounter</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={editCampaign}>
               <Text style={styles.radioText}>Edit Campaign</Text>
             </TouchableOpacity>
@@ -199,14 +220,14 @@ const campaignStyles = StyleSheet.create({
     width: '80%',
     justifyContent: 'space-evenly'
   },
-  dangerButton:{
+  dangerButton: {
     margin: 20,
     padding: 10,
     justifyContent: 'center',
     borderRadius: 25,
     backgroundColor: 'red',
-    width:'25%',
-    fontWeight:'bold'
+    width: '25%',
+    fontWeight: 'bold'
 
   }
 
