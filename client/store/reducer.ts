@@ -54,6 +54,7 @@ const reducer = (
       return newState;
     case Actions.UserActions.GetPlayers:
       newState.players = action.payload as User[];
+      return newState;
     case Actions.NoteActions.GetNotes:
       newState.notes = action.payload as Note[];
       return newState;
