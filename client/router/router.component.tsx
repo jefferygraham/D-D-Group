@@ -14,16 +14,17 @@ import CharacterDetailComponent from '../character/character.detail.component';
 import { Character } from '../character/character';
 import { Campaign } from '../campaign/campaign';
 import CampaignComponent from '../campaign/campaign.component';
-import CampaignPlayers from '../campaign/campaignplayers.component';
 import { User } from '../user/user';
 import AddNoteComponent from '../note/addNote.component';
 import { JoinCampaign } from '../campaign/campaign.join';
 import { EditCampaign } from '../campaign/campaign.edit';
-import { EditCharacter } from '../character/character.edit';
 import NoteListComponent from '../note/NoteList.component';
 import ProfileComponent from '../user/profile.component';
 import RegisterComponent from '../user/register.component';
 import EditNoteComponent from '../note/editNote.component';
+import CampaignPlayers from '../campaign/campaignplayers.component';
+import EncounterComponent from '../encounters/encounter.component';
+import { Encounter } from '../encounters/encounter';
 
 export type StackParams = {
   Login: undefined;
@@ -42,6 +43,7 @@ export type StackParams = {
   EditCharacter: undefined;
   Register: undefined;
   EditNote: undefined;
+  Encounter: Encounter;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -119,18 +121,8 @@ function RouterComponent(props: any) {
         options={headerOptions}
       />
       <Stack.Screen
-        name='Profile'
-        component={ProfileComponent}
-        options={headerOptions}
-      />
-      <Stack.Screen
-        name='Register'
-        component={RegisterComponent}
-        options={headerOptions}
-      />
-      <Stack.Screen
-        name='EditCharacter'
-        component={EditCharacter}
+        name='Encounter'
+        component={EncounterComponent}
         options={headerOptions}
       />
       <Stack.Screen
