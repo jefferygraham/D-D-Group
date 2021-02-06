@@ -109,15 +109,15 @@ function CampaignComponent(data: Props) {
             )}
             <Text style={styles.loginText}>Notes:</Text>
             {campaignNotes.length > 0 &&
-                campaignNotes.map((campaign) => {
+                campaignNotes.map((camp) => {
                     return (
                         <View
-                            key={`${campaign.userId}-${campaign.timestamp}`}
+                            key={`${camp.userId}-${camp.timestamp}`}
                             style={{ borderColor: 'white', borderWidth: 1 }}>
-                            <Text style={styles.loginText}>{campaign.message}</Text>
+                            <Text style={styles.loginText}>{camp.message}</Text>
                             <Text style={styles.loginText}>
-                                -{campaign.username},
-                {new Date(campaign.timestamp).toLocaleString()}
+                                -{camp.username},
+                {new Date(camp.timestamp).toLocaleString()}
                             </Text>
                         </View>
                     );
