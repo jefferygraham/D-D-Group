@@ -26,16 +26,11 @@ const MessageListComponent = () => {
   const messagesSelector = (state: MessageState) => state.messages;
   const messages = useSelector(messagesSelector);
 
-  let players: User[];
-  campaignService.getPlayers(campaign.campaignid).then((results) => {
-    players = results;
-  });
-
-  const playersToMessage = players.filter((player) => player.id !== user.id);
-
   const campaignMessages =
     messages.length > 0
-      ? messages.filter((message) => message.campaignId === campaign.campaignid)
+      ? messages
+          .filter((message) => message.campaignId === campaign.campaignid)
+          .filter((message) => message.recipient === user.id)
       : [];
 
   const sortedMessages =

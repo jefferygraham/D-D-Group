@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   TextInput,
@@ -7,31 +7,48 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
+
 import { addMessage } from '../store/actions';
 
 import { customAlphabet } from 'nanoid';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 
 import { User } from '../user/user';
-import { UserState } from '../store/store';
+import { UserState, CampaignState } from '../store/store';
 import messageService from '..//message/message.service';
 import { NetworkContext } from '../router/router.component';
 import campaignService from '../campaign/campaign.service';
 
 const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', 5);
-
+let players: User[];
 function AddMessageComponent({ navigation }) {
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
 
-  let players: User[];
+  const campaignsSelector = (state: CampaignState) => {
+    console.log(state);
+    return state.campaigns;
+  };
+  const campaigns = useSelector(campaignsSelector);
+
+  const playerSelector = (state: UserState) => state.players;
+  const playersArr = useSelector(playerSelector);
+
+  // let players: User[];
 
   const [message, setMessage] = useState('');
+  const [recipient, setRecipient] = useState('');
+  const [players, setPlayers] = useState([]);
 
   const campaign = useContext(NetworkContext);
-  campaignService.getPlayers(campaign.campaignid).then((results) => {
-    players = results;
-  });
+
+  useEffect(() => {
+    campaignService.getPlayers(campaign.campaignid).then((results) => {
+      setPlayers([...results]);
+    });
+  }, []);
+  console.log(players);
 
   const dispatch = useDispatch();
 
@@ -44,7 +61,7 @@ function AddMessageComponent({ navigation }) {
       username: user.name,
       role: user.role,
       message: message,
-      recipient: 'test',
+      recipient: recipient,
     };
 
     dispatch(addMessage(msg));
@@ -64,6 +81,20 @@ function AddMessageComponent({ navigation }) {
           placeholderTextColor='#003f5c'
           onChangeText={(message) => setMessage(message)}
           value={message}
+        />
+      </View>
+      <View style={styles.inputView}>
+        <RNPickerSelect
+          placeholder={{ label: 'Select a recipient', value: null }}
+          useNativeAndroidPickerStyle={false}
+          onValueChange={(recipient) => setRecipient(recipient)}
+          items={players
+            .filter((player) => player.id !== user.id)
+            .map((player) => ({
+              key: player.id,
+              label: player.name,
+              value: player.id,
+            }))}
         />
       </View>
       <TouchableOpacity style={styles.loginBtn} onPress={submitForm}>

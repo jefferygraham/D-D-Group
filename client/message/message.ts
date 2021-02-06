@@ -6,5 +6,5 @@ export class Message {
   username = '';
   role = '';
   message = '';
-  recipient: string = '';
+  recipient: number = 0;
 }
