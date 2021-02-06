@@ -34,7 +34,7 @@ function EncounterComponent(data: Props) {
         campaignService.getEncounterChars(encounter.campaignid, encounter.encounterid).then((results) => {
             dispatch(changeEncounterChars(results));
         })
-    },[dispatch])
+    }, [dispatch])
     const [characterid, setCharID] = useState(-1);
     const [initiative, setInit] = useState(-1);
 
@@ -45,64 +45,71 @@ function EncounterComponent(data: Props) {
         }
         console.log(data);
         campaignService.updateEncounter(encounter.campaignid, encounter.encounterid, data.characterid, data.initiative).then(() => {
-            campaignService.getEncounterChars(encounter.campaignid,encounter.encounterid).then((results) => {
+            campaignService.getEncounterChars(encounter.campaignid, encounter.encounterid).then((results) => {
                 dispatch(changeEncounterChars(results));
             })
         })
     }
-    function nextRound(){
+    function nextRound() {
         round++;
         console.log(round);
     }
 
     return (
         <View style={styles.container}>
-            {user.role == 'master' && (
-                <View>
-                    {chars.length > 0 &&
-                        chars.map((char) => {
-                            return (
-                                <View
-                                    key={`${char.charid}`}
-                                    style={{ borderColor: 'white', borderWidth: 1 }}>
-                                    <Text style={styles.loginText}>{char.name}: {char.initiative}</Text>
-                                </View>
-                            )
-                        })}
-                    <View style={styles.inputView}>
-                        <RNPickerSelect
-                            placeholder={{ label: 'Select a character', value: null }}
-                            useNativeAndroidPickerStyle={false}
-                            onValueChange={(characterid) => setCharID(characterid)}
-                            items={characters.map(character => (
-                                {
-                                    key: character.charid,
-                                    label: character.name,
-                                    value: character.charid,
-                                }))
-                            }
-                        />
+            <Text style={styles.logo}>Ecounter {encounter.encounterid}</Text>
+            <View style={styles.displayContainer}>
+                {user.role == 'master' && (
+                    <View style={styles.backgroundInfoContainer}>
+                        {chars.length > 0 &&
+                            chars.map((char) => {
+                                return (
+                                    <View
+                                        key={`${char.charid}`}
+                                        style={styles.borderedBoxColumn}>
+                                        <Text style={styles.loginText}>Charcter: {char.name}</Text>
+                                        <Text style={styles.loginText}>Initiative: {char.initiative}</Text>
+                                    </View>
+                                )
+                            })}
+                        <View style={styles.borderedBoxColumn}>
+                            <Text style={styles.leftLabel}> Add Initiatieve</Text>
+                            <View style={styles.inputView}>
+                                <RNPickerSelect
+                                    placeholder={{ label: 'Select a character', value: null }}
+                                    useNativeAndroidPickerStyle={false}
+                                    onValueChange={(characterid) => setCharID(characterid)}
+                                    items={characters.map(character => (
+                                        {
+                                            key: character.charid,
+                                            label: character.name,
+                                            value: character.charid,
+                                        }))
+                                    }
+                                />
+                            </View>
+                            <View>
+                                <NumericInput
+                                    type='up-down'
+                                    totalWidth={240}
+                                    totalHeight={50}
+                                    iconSize={25}
+                                    step={1.5}
+                                    valueType='real'
+                                    rounded
+                                    textColor='white'
+                                    rightButtonBackgroundColor='#EA3788'
+                                    leftButtonBackgroundColor='#E56B70'
+                                    onChange={(initiative) => setInit(initiative)}
+                                />
+                            </View>
+                            <TouchableOpacity style={styles.loginBtn} onPress={submitForm}>
+                                <Text style={styles.loginText}>Add Character</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View>
-                        <NumericInput
-                            type='up-down'
-                            totalWidth={240}
-                            totalHeight={50}
-                            iconSize={25}
-                            step={1.5}
-                            valueType='real'
-                            rounded
-                            textColor='#B0228C'
-                            rightButtonBackgroundColor='#EA3788'
-                            leftButtonBackgroundColor='#E56B70'
-                            onChange={(initiative) => setInit(initiative)}
-                        />
-                    </View>
-                    <TouchableOpacity style={styles.loginBtn} onPress={submitForm}>
-                        <Text style={styles.loginText}>Add Character</Text>
-                    </TouchableOpacity>
-                </View>
-            )}
+                )}
+            </View>
         </View>
     )
 }
