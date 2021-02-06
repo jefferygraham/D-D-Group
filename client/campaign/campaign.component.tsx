@@ -4,9 +4,20 @@ import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
 import { StackParams } from '../router/router.component';
 import styles from '../global-styles';
-import { CharacterState, EncounterState, NoteState, UserState } from '../store/store';
+import {
+  CharacterState,
+  EncounterState,
+  NoteState,
+  UserState,
+} from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeCampaign, getCampaigns, getCharacters, getEncounters, getPlayers } from '../store/actions';
+import {
+  changeCampaign,
+  getCampaigns,
+  getCharacters,
+  getEncounters,
+  getPlayers,
+} from '../store/actions';
 import userService from '../user/user.service';
 import { User } from '../user/user';
 import { Character } from '../character/character';
@@ -14,161 +25,161 @@ import MinCharacterComponent from './minchar.component';
 import { Encounter } from '../encounters/encounter';
 
 interface Props {
-    route: RouteProp<StackParams, 'Campaign'>;
+  route: RouteProp<StackParams, 'Campaign'>;
 }
 
 function CampaignComponent(data: Props) {
-    const nav = useNavigation();
-    const campaign = data.route.params;
-    const userSelector = (state: UserState) => state.user;
-    const user = useSelector(userSelector);
-    const charSelector = (state: CharacterState) => state.characters;
-    const characters = useSelector(charSelector);
-    const notesSelector = (state: NoteState) => {
-        return state.notes;
-    };
-    const notes = useSelector(notesSelector);
-    const dispatch = useDispatch();
-    let players: User[];
-    const campaignNotes = notes.filter(
-        (note) => note.campaignId === campaign.campaignid
-    );
-    const encounterSelector = (state: EncounterState) => state.encounters;
-    const encounters = useSelector(encounterSelector);
+  const nav = useNavigation();
+  const campaign = data.route.params;
+  const userSelector = (state: UserState) => state.user;
+  const user = useSelector(userSelector);
+  const charSelector = (state: CharacterState) => state.characters;
+  const characters = useSelector(charSelector);
+  const notesSelector = (state: NoteState) => {
+    return state.notes;
+  };
+  const notes = useSelector(notesSelector);
+  const dispatch = useDispatch();
+  let players: User[];
+  const campaignNotes = notes.filter(
+    (note) => note.campaignId === campaign.campaignid
+  );
+  const encounterSelector = (state: EncounterState) => state.encounters;
+  const encounters = useSelector(encounterSelector);
 
-    useEffect(() => {
-        let chars: Character[] = [];
-        dispatch(getCharacters(chars));
-        campaignService.getCharacters(campaign.campaignid).then((results) => {
-            dispatch(getCharacters(results));
-        })
-    }, [dispatch])
+  useEffect(() => {
+    let chars: Character[] = [];
+    dispatch(getCharacters(chars));
+    campaignService.getCharacters(campaign.campaignid).then((results) => {
+      dispatch(getCharacters(results));
+    });
+  }, [dispatch]);
 
+  //routes to playerpage for that campaign
+  function viewPlayers() {
+    dispatch(changeCampaign(campaign));
+    campaignService.getPlayers(campaign.campaignid).then((results) => {
+      players = results;
+      nav.navigate('Players', players);
+    });
+  }
 
+  function gotoAddNote() {
+    nav.navigate('AddNote', { campaign });
+  }
 
-    //routes to playerpage for that campaign
-    function viewPlayers() {
-        dispatch(changeCampaign(campaign));
-        campaignService.getPlayers(campaign.campaignid).then((results) => {
-            players = results;
-            nav.navigate('Players', players);
-        })
-    }
+  function removeCampaign() {
+    campaignService.deleteCampaign(campaign.campaignid).then(() => {
+      if (user.id) {
+        userService.getCampaignsByID(user.id).then((results) => {
+          dispatch(getCampaigns(results));
+          nav.navigate('Home');
+        });
+      }
+    });
+  }
 
-    function gotoAddNote() {
-        nav.navigate('AddNote', { campaign });
-    }
+  function editCampaign() {
+    nav.navigate('EditCampaign', campaign);
+  }
 
-    function removeCampaign() {
-        campaignService.deleteCampaign(campaign.campaignid).then(() => {
-            if (user.id) {
-                userService.getCampaignsByID(user.id).then((results) => {
-                    dispatch(getCampaigns(results));
-                    nav.navigate('Home');
-                });
-            }
-        })
-    }
-
-    function editCampaign() {
-        nav.navigate('EditCampaign', campaign);
-    }
-
-    function leaveCampaign() {
+  function leaveCampaign() {
+    if (user.id) {
+      campaignService.removePlayer(campaign.campaignid, user.id).then(() => {
         if (user.id) {
-            campaignService.removePlayer(campaign.campaignid, user.id).then(() => {
-                if (user.id) {
-                    userService.getCampaignsByID(user.id).then((camps) => {
-                        dispatch(getCampaigns(camps));
-                        nav.navigate('Home');
-                    })
-                }
-            });
+          userService.getCampaignsByID(user.id).then((camps) => {
+            dispatch(getCampaigns(camps));
+            nav.navigate('Home');
+          });
         }
+      });
     }
+  }
 
-    function addEncounter() {
-        campaignService.addEncounter(campaign.campaignid).then((encounter) => {
-            campaignService.getEncounters(campaign.campaignid).then((results) => {
-                dispatch(getEncounters(results));
-            })
-        })
-    }
+  function addEncounter() {
+    campaignService.addEncounter(campaign.campaignid).then((encounter) => {
+      campaignService.getEncounters(campaign.campaignid).then((results) => {
+        dispatch(getEncounters(results));
+      });
+    });
+  }
 
-    function goToEncounter(encounter:Encounter){
-        nav.navigate('Encounter', encounter);
-    }
+  function goToEncounter(encounter: Encounter) {
+    nav.navigate('Encounter', encounter);
+  }
 
-
-    return (
-        <View style={styles.container}>
-            <Text style={styles.loginText}>{campaign.campaignname}</Text>
-            <Text style={styles.loginText}>Dungeon Master: {campaign.dm}</Text>
-            {characters.map((req: Character, index: number) =>
-                <MinCharacterComponent key={'req-' + index} data={req}></MinCharacterComponent>
-            )}
-            <Text style={styles.loginText}>Notes:</Text>
-            {campaignNotes.length > 0 &&
-                campaignNotes.map((campaign) => {
-                    return (
-                        <View
-                            key={`${campaign.userId}-${campaign.timestamp}`}
-                            style={{ borderColor: 'white', borderWidth: 1 }}>
-                            <Text style={styles.loginText}>{campaign.message}</Text>
-                            <Text style={styles.loginText}>
-                                -{campaign.username},
+  return (
+    <View style={styles.container}>
+      <Text style={styles.loginText}>{campaign.campaignname}</Text>
+      <Text style={styles.loginText}>Dungeon Master: {campaign.dm}</Text>
+      {characters.map((req: Character, index: number) => (
+        <MinCharacterComponent
+          key={'req-' + index}
+          data={req}></MinCharacterComponent>
+      ))}
+      <Text style={styles.loginText}>Notes:</Text>
+      {campaignNotes.length > 0 &&
+        campaignNotes.map((campaign) => {
+          return (
+            <View
+              key={`${campaign.userId}-${campaign.timestamp}`}
+              style={{ borderColor: 'white', borderWidth: 1 }}>
+              <Text style={styles.loginText}>{campaign.message}</Text>
+              <Text style={styles.loginText}>
+                -{campaign.username},
                 {new Date(campaign.timestamp).toLocaleString()}
-                            </Text>
-                        </View>
-                    );
-                })}
-            <Text style={styles.loginText}>Encounters:</Text>
-            {encounters.length > 0 &&
-                encounters.map((encounter) => {
-                    return (
-                        <View
-                            key={`${encounter.encounterid}`}
-                            style={{ borderColor: 'white', borderWidth: 1 }}>
-                            <Text style={styles.loginText}>{encounter.encounterid}</Text>
-                            <TouchableOpacity style={styles.button} onPress={() => goToEncounter(encounter)}>
-                                <Text style={styles.loginText}>Go To Encounter</Text>
-                            </TouchableOpacity>
-                        </View>
-                    )
-                })}
-            {/* {encounters.map((req: Encounter, index: number) => {
+              </Text>
+            </View>
+          );
+        })}
+      <Text style={styles.loginText}>Encounters:</Text>
+      {encounters.length > 0 &&
+        encounters.map((encounter) => {
+          return (
+            <View
+              key={`${encounter.encounterid}`}
+              style={{ borderColor: 'white', borderWidth: 1 }}>
+              <Text style={styles.loginText}>{encounter.encounterid}</Text>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => goToEncounter(encounter)}>
+                <Text style={styles.loginText}>Go To Encounter</Text>
+              </TouchableOpacity>
+            </View>
+          );
+        })}
+      {/* {encounters.map((req: Encounter, index: number) => {
                 <MinEncounterComponent key={'req-' + index} data={req}></MinEncounterComponent>
             })} */}
-            {user.role == 'master' && (
-                <View style={styles.radio}>
-                    <TouchableOpacity style={styles.button} onPress={addEncounter}>
-                        <Text style={styles.radioText}>Add Encounter</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={editCampaign}>
-                        <Text style={styles.radioText}>Edit Campaign</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={removeCampaign}>
-                        <Text style={styles.radioText}>Delete Campaign</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={viewPlayers}>
-                        <Text style={styles.radioText}>Manage Players</Text>
-                    </TouchableOpacity>
-                </View>
-
-            )}
-            <TouchableOpacity style={styles.button} onPress={gotoAddNote}>
-                <Text style={styles.radioText}>Add Note</Text>
-            </TouchableOpacity>
-            <Button
-                title='view all notes'
-                onPress={() => nav.navigate('NoteList', { campaign })}></Button>
-            {user.role == 'player' && (
-                <TouchableOpacity style={styles.button} onPress={leaveCampaign}>
-                    <Text style={styles.radioText}>Leave Campaign</Text>
-                </TouchableOpacity>
-            )}
+      {user.role == 'master' && (
+        <View style={styles.radio}>
+          <TouchableOpacity style={styles.button} onPress={addEncounter}>
+            <Text style={styles.radioText}>Add Encounter</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={editCampaign}>
+            <Text style={styles.radioText}>Edit Campaign</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={removeCampaign}>
+            <Text style={styles.radioText}>Delete Campaign</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={viewPlayers}>
+            <Text style={styles.radioText}>Manage Players</Text>
+          </TouchableOpacity>
         </View>
-    );
+      )}
+      <TouchableOpacity style={styles.button} onPress={gotoAddNote}>
+        <Text style={styles.radioText}>Add Note</Text>
+      </TouchableOpacity>
+      <Button
+        title='view all notes'
+        onPress={() => nav.navigate('NoteList', { campaign })}></Button>
+      {user.role == 'player' && (
+        <TouchableOpacity style={styles.button} onPress={leaveCampaign}>
+          <Text style={styles.radioText}>Leave Campaign</Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  );
 }
 
 export default CampaignComponent;
