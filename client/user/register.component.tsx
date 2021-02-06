@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   TextInput,
   Text,
@@ -8,19 +7,13 @@ import {
   StyleSheet,
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-
-import { registerAction } from '../store/actions';
 import userService from './user.service';
-import { UserState } from '../store/store';
 
 interface RegisterProp {
   navigation: any;
 }
 
 function RegisterComponent({ navigation }: RegisterProp) {
-  const userSelector = (state: UserState) => state.user;
-  const user = useSelector(userSelector);
-  const dispatch = useDispatch();
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -35,13 +28,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
     console.log(user);
 
     userService.register(user).then((user) => {
-      // dispatch(registerAction(user));
-
-      // if (user) {
       navigation.navigate('Login');
-      // } else {
-      //   navigation.navigate('Unauthorized');
-      // }
     });
   }
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPlayers } from '../store/actions';
-import { CampaignState, UserState } from '../store/store';
+import { CampaignState } from '../store/store';
 import { User } from '../user/user';
 import campaignService from './campaign.service';
 import styles from '../global-styles';

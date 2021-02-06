@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Campaign } from './campaign';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import { EncounterState, UserState } from '../store/store';
+import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import campaignService from './campaign.service';
 import { getEncounters } from '../store/actions';

@@ -57,7 +57,7 @@ function CharacterComponent({ data }: CharacterProps) {
 
 
     )
-};
+}
 
 const styles = StyleSheet.create({
     backgroundBox: {

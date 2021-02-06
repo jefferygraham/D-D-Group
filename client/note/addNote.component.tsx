@@ -10,7 +10,6 @@ import {
 import { addNote } from '../store/actions';
 
 import { customAlphabet } from 'nanoid';
-import { RouteProp, useNavigation } from '@react-navigation/native';
 
 import { UserState } from '../store/store';
 import noteService from '../note/note.service';
@@ -40,7 +39,7 @@ function AddNoteComponent({ route, navigation }: any) {
 
     dispatch(addNote(note));
 
-    noteService.addNote(note).then((note) => {
+    noteService.addNote(note).then(() => {
       navigation.navigate('Campaign');
     });
   }

@@ -21,9 +21,6 @@ export default function CharacterDetailComponent(props: Props) {
     const nav = useNavigation();
     const dispatch = useDispatch();
 
-
-    const rest = props.route.params;
-
     dispatch(changeCharacter(char));
 
     function removeCharacter() {

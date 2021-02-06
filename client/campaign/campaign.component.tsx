@@ -6,11 +6,11 @@ import { StackParams } from '../router/router.component';
 import styles from '../global-styles';
 import { CharacterState, EncounterState, NoteState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeCampaign, getCampaigns, getCharacters, getEncounters, getPlayers } from '../store/actions';
+import { changeCampaign, getCampaigns, getCharacters, getEncounters } from '../store/actions';
 import userService from '../user/user.service';
 import { User } from '../user/user';
 import { Character } from '../character/character';
-import MinCharacterComponent from './minchar.component';
+import MinCharacterComponent from '../character/minchar.component';
 import { Encounter } from '../encounters/encounter';
 
 interface Props {

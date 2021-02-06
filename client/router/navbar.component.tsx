@@ -44,12 +44,6 @@ function NavBarComponent() {
     nav.navigate('Profile');
   }
 
-  // if (user.name) {
-  //   header = <Text>{user.name}</Text>;
-  // } else {
-  //   header = <Text>Not logged in</Text>;
-  // }
-
   if (user) {
     return (
       <View style={styles.navBox}>
@@ -99,7 +93,7 @@ function NavBarComponent() {
     )
   }
 
-};
+}
 
 const styles = StyleSheet.create({
   navBox: {

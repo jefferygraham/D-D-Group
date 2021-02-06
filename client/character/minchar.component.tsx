@@ -1,19 +1,13 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/core';
+import { View, Text } from 'react-native';
 import styles from '../global-styles';
-import { Character } from '../character/character';
+import { Character } from './character';
 
 interface CharacterProps {
     data: Character;
 }
 
 function MinCharacterComponent({data}: CharacterProps) {
-    const nav = useNavigation();
-    
-    function goToCharacter(){
-        //nav.navigate('Campaign', data);
-    }
 
     return (
         <View>

@@ -26,9 +26,7 @@ function EncounterComponent(data: Props) {
     const characterSelector = (state: CharacterState) => state.characters;
     const characters = useSelector(characterSelector);
     const dispatch = useDispatch();
-    const nav = useNavigation();
     const encounter = data.route.params;
-    let round = 1;
 
     useEffect(() => {
         campaignService.getEncounterChars(encounter.campaignid, encounter.encounterid).then((results) => {
@@ -39,20 +37,15 @@ function EncounterComponent(data: Props) {
     const [initiative, setInit] = useState(-1);
 
     function submitForm() {
-        const data = {
+        const info = {
             characterid,
             initiative
         }
-        console.log(data);
-        campaignService.updateEncounter(encounter.campaignid, encounter.encounterid, data.characterid, data.initiative).then(() => {
+        campaignService.updateEncounter(encounter.campaignid, encounter.encounterid, info.characterid, info.initiative).then(() => {
             campaignService.getEncounterChars(encounter.campaignid,encounter.encounterid).then((results) => {
                 dispatch(changeEncounterChars(results));
             })
         })
-    }
-    function nextRound(){
-        round++;
-        console.log(round);
     }
 
     return (

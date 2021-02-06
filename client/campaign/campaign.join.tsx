@@ -1,10 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, FlatList, AppState, Alert } from "react-native";
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import CharacterComponent from "../character/character.componenet";
 import { getCampaigns } from "../store/actions";
-import { CampaignState, CharacterState, UserState } from "../store/store";
+import { CharacterState, UserState } from "../store/store";
 import userService from "../user/user.service";
 import campaignService from "./campaign.service";
 
@@ -14,8 +14,6 @@ export function JoinCampaign() {
     const user = useSelector(userSelector);
     const charsSelector = (state: CharacterState) => state.characters;
     const characters = useSelector(charsSelector);
-    const campaignSelector = (state: CampaignState) => state.campaigns;
-    const campaigns = useSelector(campaignSelector);
     const nav = useNavigation();
     const [campaignID, setCampaignID] = React.useState('');
     const [charID, setCharID] = React.useState('');

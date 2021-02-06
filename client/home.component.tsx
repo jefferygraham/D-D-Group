@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
@@ -11,7 +10,6 @@ import {
   CampaignState,
   CharacterState,
   UserState,
-  NoteState,
 } from './store/store';
 import userService from './user/user.service';
 import { thunkGetNotes } from './store/thunks';
@@ -22,7 +20,6 @@ export default function App() {
   const campaignSelector = (state: CampaignState) => state.campaigns;
   const campaigns = useSelector(campaignSelector);
   const dispatch = useDispatch();
-  const nav = useNavigation();
 
   useEffect(() => {
     dispatch(thunkGetNotes());

@@ -1,8 +1,7 @@
 //import styles from '../global-styles';
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity, Button, FlatList, StyleSheet } from 'react-native';
-import { RouteProp, useNavigation } from '@react-navigation/native';
-import { CharacterState, NoteState, UserState, CampaignState } from '../store/store';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { CharacterState, UserState, CampaignState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCampaigns, getCharacters } from '../store/actions';
 import userService from '../user/user.service';
@@ -12,7 +11,6 @@ import MinCampaignComponent from '../campaign/mincampaign.component';
 
 
 function ProfileComponent() {
-    const nav = useNavigation();
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
     const charSelector = (state: CharacterState) => state.characters;

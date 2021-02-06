@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { addNote, updateNote } from '../store/actions';
+import { updateNote } from '../store/actions';
 
 import { customAlphabet } from 'nanoid';
 import { UserState } from '../store/store';
@@ -38,7 +38,7 @@ function EditNoteComponent({ route, navigation }: any) {
 
     dispatch(updateNote(newNote));
 
-    noteService.addNote(newNote).then((note) => {
+    noteService.addNote(newNote).then(() => {
       navigation.navigate('Campaign');
     });
   }
