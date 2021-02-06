@@ -11,6 +11,7 @@ import { getCharacters, getUser, loginAction } from '../store/actions';
 import userService from './user.service';
 import { UserState } from '../store/store';
 import characterService from '../character/character.service';
+import { thunkGetMessages } from '../store/thunks';
 
 interface LoginProp {
   navigation: any;
@@ -22,6 +23,10 @@ function LoginComponent({ navigation }: LoginProp) {
   };
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(thunkGetMessages());
+  }, [dispatch]);
 
   function submitForm() {
     userService.login(user).then((user) => {

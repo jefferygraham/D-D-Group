@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useSelector } from 'react-redux';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import LoginComponent from '../user/login.component';
@@ -27,6 +28,8 @@ import CampaignPlayers from '../campaign/campaignplayers.component';
 import EncounterComponent from '../encounters/encounter.component';
 import { Encounter } from '../encounters/encounter';
 import EditCharacter from '../character/character.edit';
+import AddMessageComponet from '../message/addMessage.component';
+import MessageListComponent from '../message/messageList.component';
 
 export type StackParams = {
   Login: undefined;
@@ -46,14 +49,37 @@ export type StackParams = {
   Register: undefined;
   EditNote: undefined;
   Encounter: Encounter;
+
+  Messages: undefined;
+};
+
+export type TabParams = {
+  MessageList: undefined;
+  AddMessage: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
+const Tab = createBottomTabNavigator<TabParams>();
 
 const headerOptions: StackHeaderOptions = {
   headerTitle: () => <Text style={styles.logo}>Dungeons & Dragons</Text>,
   headerRight: () => <NavBarComponent />,
 };
+
+const campaign = new Campaign();
+
+export const NetworkContext = createContext(campaign);
+
+function Messages({ route }: any) {
+  return (
+    <NetworkContext.Provider value={route.params.campaign}>
+      <Tab.Navigator>
+        <Tab.Screen name='MessageList' component={MessageListComponent} />
+        <Tab.Screen name='AddMessage' component={AddMessageComponet} />
+      </Tab.Navigator>
+    </NetworkContext.Provider>
+  );
+}
 
 function RouterComponent(props: any) {
   const char = useSelector((state: AppState) => state.character);
@@ -140,6 +166,11 @@ function RouterComponent(props: any) {
       <Stack.Screen
         name='EditCharacter'
         component={EditCharacter}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='Messages'
+        component={Messages}
         options={headerOptions}
       />
     </Stack.Navigator>

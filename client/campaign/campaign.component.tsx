@@ -4,9 +4,20 @@ import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
 import { StackParams } from '../router/router.component';
 import styles from '../global-styles';
-import { CharacterState, EncounterState, NoteState, UserState } from '../store/store';
+import {
+  CharacterState,
+  EncounterState,
+  NoteState,
+  UserState,
+} from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeCampaign, getCampaigns, getCharacters, getEncounters, getPlayers } from '../store/actions';
+import {
+  changeCampaign,
+  getCampaigns,
+  getCharacters,
+  getEncounters,
+  getPlayers,
+} from '../store/actions';
 import userService from '../user/user.service';
 import { User } from '../user/user';
 import { Character } from '../character/character';
@@ -52,7 +63,7 @@ function CampaignComponent(data: Props) {
     campaignService.getPlayers(campaign.campaignid).then((results) => {
       players = results;
       nav.navigate('Players', players);
-    })
+    });
   }
 
   function gotoAddNote() {
@@ -67,7 +78,7 @@ function CampaignComponent(data: Props) {
           nav.navigate('Home');
         });
       }
-    })
+    });
   }
 
   function editCampaign() {
@@ -81,7 +92,7 @@ function CampaignComponent(data: Props) {
           userService.getCampaignsByID(user.id).then((camps) => {
             dispatch(getCampaigns(camps));
             nav.navigate('Home');
-          })
+          });
         }
       });
     }
@@ -91,9 +102,10 @@ function CampaignComponent(data: Props) {
     campaignService.addEncounter(campaign.campaignid).then((encounter) => {
       campaignService.getEncounters(campaign.campaignid).then((results) => {
         dispatch(getEncounters(results));
-      })
-    })
+      });
+    });
   }
+
   function goToEncounter(encounter: Encounter) {
     nav.navigate('Encounter', encounter);
   }
