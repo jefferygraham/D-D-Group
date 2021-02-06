@@ -5,27 +5,35 @@ import { useForm } from "react-hook-form";
 import { Campaign } from "./campaign";
 import campaignService from './campaign.service';
 import { UserState } from "../store/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import userService from "../user/user.service";
+import { getCampaigns } from "../store/actions";
 
 type Name = {
-    campaignname: string;
+    campaignName: string;
 }
 
 function AddCampaignComponent() {
     const nav = useNavigation();
     const userSelector = (state: UserState) => state.user;
     const user = useSelector(userSelector);
+    const dispatch = useDispatch();
     const { register, handleSubmit, errors } = useForm<Name>();
 
     const onSubmit = handleSubmit((data) => {
         //create a campaign with the data entered and the user's username
         let newC = new Campaign();
-        newC.campaignname = data.campaignname;
+        newC.campaignname = data.campaignName;
         if (user.id) {
             newC.dm = user.id;
         }
         campaignService.addCampaign(newC).then(() => {
-            nav.navigate('Home');
+            if(user.id){
+                userService.getCampaignsByID(user.id).then((results) => {
+                    dispatch(getCampaigns(results));
+                    nav.navigate('Home');
+                })
+            }
         });
     })
 
@@ -43,7 +51,7 @@ function AddCampaignComponent() {
                     justifyContent: 'center',
                     padding: 20,
                 }} type="text" name='campaignName' ref={register({ required: true })} />
-                {errors.campaignname && <div style={{ color: "red", fontFamily: "Calibri" }} className="error">Enter a campaign name.</div>}
+                {errors.campaignName && <div style={{ color: "red", fontFamily: "Calibri" }} className="error">Enter a campaign name.</div>}
                 <button style={{
                     width: '50%',
                     backgroundColor: '#fb5b5a',

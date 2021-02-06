@@ -13,8 +13,9 @@ class CampaignService {
     }
 
     addCampaign(c: Campaign): Promise<Campaign> {
+        console.log(JSON.stringify(c));
         return axios.post(`${this.URI}`, c)
-        .then(result => result.data.body)
+        .then((result) => {result.data.body})
         .catch((err) => err);
     }
 

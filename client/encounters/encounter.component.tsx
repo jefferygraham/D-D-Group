@@ -13,10 +13,6 @@ import NumericInput from 'react-native-numeric-input'
 interface Props {
     route: RouteProp<StackParams, 'Encounter'>;
 }
-type CharInit = {
-    characterid: number;
-    initiative: number;
-}
 
 function EncounterComponent(data: Props) {
     const userSelector = (state: UserState) => state.user;
