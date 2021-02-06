@@ -25,6 +25,7 @@ import EditNoteComponent from '../note/editNote.component';
 import CampaignPlayers from '../campaign/campaignplayers.component';
 import EncounterComponent from '../encounters/encounter.component';
 import { Encounter } from '../encounters/encounter';
+import EditCharacter from '../character/character.edit';
 
 export type StackParams = {
   Login: undefined;
@@ -128,6 +129,16 @@ function RouterComponent(props: any) {
       <Stack.Screen
         name='EditNote'
         component={EditNoteComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='Profile'
+        component={ProfileComponent}
+        options={headerOptions}
+      />
+      <Stack.Screen
+        name='EditCharacter'
+        component={EditCharacter}
         options={headerOptions}
       />
     </Stack.Navigator>
