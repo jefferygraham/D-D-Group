@@ -6,7 +6,8 @@ import { StackParams } from '../router/router.component';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserState } from '../store/store';
 import characterService from './character.service';
-import { changeCharacter, getCharacters } from '../store/actions';
+import { changeCharacter, getCampaigns, getCharacters } from '../store/actions';
+import userService from '../user/user.service';
 
 interface Props {
     route: RouteProp<StackParams, 'CharacterDetail'>;
@@ -29,8 +30,13 @@ export default function CharacterDetailComponent(props: Props) {
         characterService.deleteCharacter(char.charid).then(() => {
             if (user.name) {
                 characterService.getCharactersByUser(user).then((result) => {
-                    dispatch(getCharacters(result))
-                    nav.navigate('Home');
+                    dispatch(getCharacters(result));
+                    if(user.id){
+                        userService.getCampaignsByID(user.id).then((campaigns) => {
+                            dispatch(getCampaigns(campaigns));
+                            nav.navigate('Home');
+                        })
+                    }
                 });
             }
         })

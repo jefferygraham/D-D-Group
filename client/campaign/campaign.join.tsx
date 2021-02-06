@@ -1,9 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, FlatList, AppState, Alert } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CharacterComponent from "../character/character.componenet";
+import { getCampaigns } from "../store/actions";
 import { CampaignState, CharacterState, UserState } from "../store/store";
+import userService from "../user/user.service";
 import campaignService from "./campaign.service";
 
 
@@ -17,11 +19,17 @@ export function JoinCampaign() {
     const nav = useNavigation();
     const [campaignID, setCampaignID] = React.useState('');
     const [charID, setCharID] = React.useState('');
+    const dispatch = useDispatch();
 
     function submitForm() {
         if (characters.some(char => char.charid == Number(charID))) {
             campaignService.joinCampaign(Number(campaignID), user, Number(charID)).then(() => {
-                nav.navigate('Home');
+                if(user.id){
+                    userService.getCampaignsByID(user.id).then((results) => {
+                        dispatch(getCampaigns(results));
+                        nav.navigate('Home');
+                    })
+                }
             }).catch((err) => {
                 console.log(err);
                 setCharID('');
