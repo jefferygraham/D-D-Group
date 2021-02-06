@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { RouteProp, useNavigation } from "@react-navigation/native";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { StackParams } from "../router/router.component";
 import { CharacterState, EncounterState, UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -60,20 +60,24 @@ function EncounterComponent(data: Props) {
             <Text style={styles.logo}>Ecounter {encounter.encounterid}</Text>
             <View style={styles.displayContainer}>
                 {user.role == 'master' && (
-                    <View style={styles.backgroundInfoContainer}>
+                    <View style={encounterStyles.box}>
                         {chars.length > 0 &&
                             chars.map((char) => {
                                 return (
+                                    <View>
+                                        <Text style={styles.looksLabel}>Initiative</Text>
                                     <View
                                         key={`${char.charid}`}
-                                        style={styles.borderedBoxColumn}>
+                                        style={encounterStyles.borderedBox}>
                                         <Text style={styles.loginText}>Charcter: {char.name}</Text>
                                         <Text style={styles.loginText}>Initiative: {char.initiative}</Text>
                                     </View>
+                                    </View>
                                 )
                             })}
-                        <View style={styles.borderedBoxColumn}>
-                            <Text style={styles.leftLabel}> Add Initiatieve</Text>
+                            <Text style={styles.looksLabel}> Add Initiative</Text>
+                        <View style={encounterStyles.borderedBox}>
+                            
                             <View style={styles.inputView}>
                                 <RNPickerSelect
                                     placeholder={{ label: 'Select a character', value: null }}
@@ -113,5 +117,23 @@ function EncounterComponent(data: Props) {
         </View>
     )
 }
-
+const encounterStyles = StyleSheet.create({
+    box: {
+        alignItems: 'center',
+        width: '100%',
+        padding: 10,
+        alignContent: 'center',
+        justifyContent: 'center',
+        borderRadius: 25,
+    },
+    borderedBox: {
+        borderWidth: 1,
+        borderColor: 'white',
+        flexDirection: 'column',
+        flex: 1,
+        margin:10,
+        padding:10,
+        borderRadius: 25,
+    }
+})
 export default EncounterComponent;

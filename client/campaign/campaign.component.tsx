@@ -136,7 +136,8 @@ function CampaignComponent(data: Props) {
         <Text style={styles.radioLabel}>Notes:</Text>
         <View style={campaignStyles.backgroundBox}>
           {campaignNotes.length == 0 &&
-            <Text style={styles.looksLabel}> No Notes</Text>}
+            <Text style={styles.looksLabel}> No Notes</Text>
+            }
           {campaignNotes.length > 0 &&
             campaignNotes.splice(0, 3).map((campaign) => {
               return (
@@ -165,14 +166,14 @@ function CampaignComponent(data: Props) {
         <Text style={styles.radioLabel}>Encounters:</Text>
         <View style={campaignStyles.backgroundBox}>
           {encounters.length == 0 &&
-            <Text style={styles.looksLabel}> No Encoutners</Text>
+            <Text style={styles.looksLabel}> No Encounters</Text>
           }
           {encounters.length > 0 &&
             encounters.map((encounter) => {
               return (
                 <View
                   key={`${encounter.encounterid}`}
-                  style={{ borderColor: 'white', borderWidth: 1 }}>
+                  style={{ borderColor: 'white', borderWidth: 1, alignItems: 'center', margin: 5 }}>
                   <Text style={styles.loginText}>{encounter.encounterid}</Text>
                   <TouchableOpacity style={styles.button} onPress={() => goToEncounter(encounter)}>
                     <Text style={styles.loginText}>Go To Encounter</Text>
@@ -186,9 +187,12 @@ function CampaignComponent(data: Props) {
         <TouchableOpacity style={styles.button} onPress={goToAddNote}>
           <Text style={styles.radioText}>Add Note</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={gotToNoteList}>
-          <Text style={styles.radioText}>View All Notes</Text>
-        </TouchableOpacity>
+        {campaignNotes.length > 0 &&
+          <TouchableOpacity style={styles.button} onPress={gotToNoteList}>
+            <Text style={styles.radioText}>View All Notes</Text>
+          </TouchableOpacity>
+        }
+
         {user.role == 'master' && (
 
           <View style={styles.radio}>
@@ -198,10 +202,13 @@ function CampaignComponent(data: Props) {
             <TouchableOpacity style={styles.button} onPress={editCampaign}>
               <Text style={styles.radioText}>Edit Campaign</Text>
             </TouchableOpacity>
+            {characters.length > 0 &&
+              <TouchableOpacity style={styles.button} onPress={viewPlayers}>
+                <Text style={styles.radioText}>Manage Players</Text>
+              </TouchableOpacity>
+            }
 
-            <TouchableOpacity style={styles.button} onPress={viewPlayers}>
-              <Text style={styles.radioText}>Manage Players</Text>
-            </TouchableOpacity>
+
           </View>
 
 
@@ -228,12 +235,13 @@ const campaignStyles = StyleSheet.create({
     width: '100%',
     borderRadius: 25,
     padding: 10,
+    flexWrap: 'wrap'
   },
   container: {
     width: '80%',
     justifyContent: 'space-evenly',
-    marginBottom:10,
-    marginTop:10
+    marginBottom: 10,
+    marginTop: 10
 
 
   },
