@@ -32,11 +32,6 @@ export enum EncounterActions {
   ChangeEncounterChars = 'CHANGE_ENCOUNTER_CHARS',
 }
 
-export enum EncounterActions {
-  GetEncounters = 'GET_ENCOUNTERS',
-  ChangeEncounterChars = 'CHANGE_ENCOUNTER_CHARS'
-}
-
 export interface AppAction {
   type: string;
   payload: any;
