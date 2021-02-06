@@ -2,6 +2,7 @@ import { Campaign } from '../campaign/campaign';
 import { User } from './../user/user';
 import { Character } from './../character/character';
 import { Note } from './../note/note';
+import { Message } from './../message/message';
 
 export enum UserActions {
   GetUser = 'GET_USER',
@@ -27,6 +28,11 @@ export enum NoteActions {
   UpdateNote = 'UPDATE_NOTE',
 }
 
+export enum MessageActions {
+  AddMessage = 'ADD_MESSAGE',
+  GetMessages = 'GET_MESSAGES',
+}
+
 export interface AppAction {
   type: string;
   payload: any;
@@ -50,6 +56,11 @@ export interface CharacterAction extends AppAction {
 export interface NoteAction extends AppAction {
   type: NoteActions;
   payload: Note | Note[];
+}
+
+export interface MessageAction extends AppAction {
+  type: MessageActions;
+  payload: Message | Message[];
 }
 
 export function changeCharacter(char: Character): CharacterAction {
@@ -142,6 +153,22 @@ export function updateNote(note: Note): NoteAction {
   const action: NoteAction = {
     type: NoteActions.UpdateNote,
     payload: note,
+  };
+  return action;
+}
+
+export function addMessage(message: Message): MessageAction {
+  const action: MessageAction = {
+    type: MessageActions.AddMessage,
+    payload: message,
+  };
+  return action;
+}
+
+export function getMessages(messages: Message[]): MessageAction {
+  const action: MessageAction = {
+    type: MessageActions.GetMessages,
+    payload: messages,
   };
   return action;
 }

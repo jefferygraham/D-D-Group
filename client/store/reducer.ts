@@ -4,6 +4,7 @@ import { AppState } from './store';
 import { Campaign } from '../campaign/campaign';
 import { Character } from './../character/character';
 import { Note } from './../note/note';
+import { Message } from './../message/message';
 
 export const initialState: AppState = {
   user: new User(),
@@ -15,6 +16,8 @@ export const initialState: AppState = {
   characters: [],
   note: new Note(),
   notes: [],
+  message: new Message(),
+  messages: [],
 };
 
 const reducer = (
@@ -67,6 +70,12 @@ const reducer = (
         action.payload,
         ...state.notes.slice(idx + 1),
       ];
+      return newState;
+    case Actions.MessageActions.GetMessages:
+      newState.messages = action.payload as Message[];
+      return newState;
+    case Actions.MessageActions.AddMessage:
+      newState.messages = [...state.messages, action.payload];
       return newState;
     default:
       return state;

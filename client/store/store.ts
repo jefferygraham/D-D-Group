@@ -4,6 +4,7 @@ import { Campaign } from '../campaign/campaign';
 import { Character } from '../character/character';
 import { Note } from '../note/note';
 import { User } from '../user/user';
+import { Message } from '../message/message';
 import { AppAction } from './actions';
 import reducer from './reducer';
 
@@ -28,10 +29,16 @@ export interface NoteState {
   notes: Note[];
 }
 
+export interface MessageState {
+  message: Message;
+  messages: Message[];
+}
+
 export interface AppState
   extends UserState,
     CampaignState,
     CharacterState,
+    MessageState,
     NoteState {}
 
 const store: Store<AppState, AppAction> = createStore(
