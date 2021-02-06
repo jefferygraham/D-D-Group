@@ -144,12 +144,7 @@ function CampaignComponent(data: Props) {
         onPress={() => nav.navigate('NoteList', { campaign })}></Button>
       <TouchableOpacity
         style={styles.button}
-        onPress={() =>
-          nav.navigate('Messages', {
-            screen: 'MessageList',
-            params: { campaign: campaign },
-          })
-        }>
+        onPress={() => nav.navigate('Messages', { campaign })}>
         <Text style={styles.radioText}>Messages</Text>
       </TouchableOpacity>
       {user.role == 'player' && (

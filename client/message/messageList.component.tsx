@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   SafeAreaView,
@@ -10,19 +10,28 @@ import {
   StatusBar,
 } from 'react-native';
 
+import { User } from '../user/user';
 import { MessageState, UserState } from '../store/store';
-// import { thunkGetMessages } from '../store/thunks';
+import { NetworkContext } from '../router/router.component';
 import styles from '../global-styles';
+import campaignService from '../campaign/campaign.service';
 
-const MessageListComponent = ({ route, navigation }: any) => {
-  console.log(route);
-  const { campaign } = route.params;
+const MessageListComponent = () => {
+  const campaign = useContext(NetworkContext);
+  console.group(campaign);
 
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
 
   const messagesSelector = (state: MessageState) => state.messages;
   const messages = useSelector(messagesSelector);
+
+  let players: User[];
+  campaignService.getPlayers(campaign.campaignid).then((results) => {
+    players = results;
+  });
+
+  const playersToMessage = players.filter((player) => player.id !== user.id);
 
   const campaignMessages =
     messages.length > 0
@@ -34,32 +43,26 @@ const MessageListComponent = ({ route, navigation }: any) => {
       ? campaignMessages.sort((a, b) => b.timestamp - a.timestamp)
       : [];
 
-  const dispatch = useDispatch();
+  const renderItem = ({ item }: any) => <Item message={item} />;
 
-  // useEffect(() => {
-  //   dispatch(thunkGetMessages());
-  // }, [dispatch]);
-
-  const renderItem = ({ item }: any) => <Item note={item} user={user} />;
-
-  const Item = ({ note, user }: any) => (
+  const Item = ({ message }: any) => (
     <View style={flatlistStyles.item}>
       <Text style={[styles.loginText, { textDecorationLine: 'underline' }]}>
-        {note.username} wrote:
+        {message.username} wrote:
       </Text>
       <Text style={[styles.loginText, { fontWeight: 'bold' }]}>
-        {note.message}
+        {message.message}
       </Text>
       <Text
         style={[styles.loginText, { marginBottom: 10, fontStyle: 'italic' }]}>
-        {new Date(note.timestamp).toLocaleString()}
+        {new Date(message.timestamp).toLocaleString()}
       </Text>
     </View>
   );
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.logo}>Messages for {campaign.campaignname}</Text>
+      <Text style={styles.logo}>Your Messages for {campaign.campaignname}</Text>
       {sortedMessages.length > 0 && (
         <FlatList
           data={sortedMessages}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   TextInput,
@@ -12,18 +12,26 @@ import { addMessage } from '../store/actions';
 import { customAlphabet } from 'nanoid';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 
+import { User } from '../user/user';
 import { UserState } from '../store/store';
 import messageService from '..//message/message.service';
+import { NetworkContext } from '../router/router.component';
+import campaignService from '../campaign/campaign.service';
 
 const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', 5);
 
-function AddMessageComponent({ route, navigation }: any) {
+function AddMessageComponent({ navigation }) {
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
 
+  let players: User[];
+
   const [message, setMessage] = useState('');
 
-  // const { campaign } = route.params;
+  const campaign = useContext(NetworkContext);
+  campaignService.getPlayers(campaign.campaignid).then((results) => {
+    players = results;
+  });
 
   const dispatch = useDispatch();
 
@@ -31,17 +39,19 @@ function AddMessageComponent({ route, navigation }: any) {
     const msg = {
       messageId: nanoid(),
       timestamp: Date.now(),
-      campaignId: 11111,
+      campaignId: campaign.campaignid,
       userId: Number(user.id),
       username: user.name,
       role: user.role,
       message: message,
-      recipients: ['test'],
+      recipient: 'test',
     };
 
     dispatch(addMessage(msg));
 
-    messageService.addMessage(msg).then((msg) => {});
+    messageService.addMessage(msg).then((msg) => {
+      navigation.navigate('MessageList');
+    });
   }
 
   return (

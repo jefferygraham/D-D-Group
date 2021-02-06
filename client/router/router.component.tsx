@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -61,12 +61,18 @@ const headerOptions: StackHeaderOptions = {
   headerRight: () => <NavBarComponent />,
 };
 
-function Messages() {
+const campaign = new Campaign();
+
+export const NetworkContext = createContext(campaign);
+
+function Messages({ route }) {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name='MessageList' component={MessageListComponent} />
-      <Tab.Screen name='AddMessage' component={AddMessageComponet} />
-    </Tab.Navigator>
+    <NetworkContext.Provider value={route.params.campaign}>
+      <Tab.Navigator>
+        <Tab.Screen name='MessageList' component={MessageListComponent} />
+        <Tab.Screen name='AddMessage' component={AddMessageComponet} />
+      </Tab.Navigator>
+    </NetworkContext.Provider>
   );
 }
 
