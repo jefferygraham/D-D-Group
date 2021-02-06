@@ -8,8 +8,6 @@ import {
   StyleSheet,
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-
-import { registerAction } from '../store/actions';
 import userService from './user.service';
 import { UserState } from '../store/store';
 
