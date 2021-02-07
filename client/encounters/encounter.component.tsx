@@ -31,6 +31,7 @@ function EncounterComponent(data: Props) {
     let round = 1;
 
     useEffect(() => {
+        dispatch(changeEncounterChars([]));
         campaignService.getEncounterChars(encounter.campaignid, encounter.encounterid).then((results) => {
             dispatch(changeEncounterChars(results));
         })
