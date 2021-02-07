@@ -149,7 +149,7 @@ function CampaignComponent(data: Props) {
         <View style={campaignStyles.backgroundBox}>
           {campaignNotes.length == 0 &&
             <Text style={styles.looksLabel}> No Notes</Text>
-            }
+          }
           {campaignNotes.length > 0 &&
             campaignNotes.splice(0, 3).map((campaign) => {
               return (
@@ -174,27 +174,29 @@ function CampaignComponent(data: Props) {
         </View>
 
       </View>
-      <View style={campaignStyles.container}>
-        <Text style={styles.radioLabel}>Encounters:</Text>
-        <View style={campaignStyles.backgroundBox}>
-          {encounters.length == 0 &&
-            <Text style={styles.looksLabel}> No Encounters</Text>
-          }
-          {encounters.length > 0 &&
-            encounters.map((encounter) => {
-              return (
-                <View
-                  key={`${encounter.encounterid}`}
-                  style={{ borderColor: 'white', borderWidth: 1, alignItems: 'center', margin: 5 }}>
-                  <Text style={styles.loginText}>{encounter.encounterid}</Text>
-                  <TouchableOpacity style={styles.button} onPress={() => goToEncounter(encounter)}>
-                    <Text style={styles.loginText}>Go To Encounter</Text>
-                  </TouchableOpacity>
-                </View>
-              )
-            })}
+      {user.role == 'master' &&
+        <View style={campaignStyles.container}>
+          <Text style={styles.radioLabel}>Encounters:</Text>
+          <View style={campaignStyles.backgroundBox}>
+            {encounters.length == 0 &&
+              <Text style={styles.looksLabel}> No Encounters</Text>
+            }
+            {encounters.length > 0 &&
+              encounters.map((encounter) => {
+                return (
+                  <View
+                    key={`${encounter.encounterid}`}
+                    style={{ borderColor: 'white', borderWidth: 1, alignItems: 'center', margin: 5 }}>
+                    <Text style={styles.loginText}>{encounter.encounterid}</Text>
+                    <TouchableOpacity style={styles.button} onPress={() => goToEncounter(encounter)}>
+                      <Text style={styles.loginText}>Go To Encounter</Text>
+                    </TouchableOpacity>
+                  </View>
+                )
+              })}
+          </View>
         </View>
-      </View>
+      }
       <View style={styles.radio}>
         <TouchableOpacity style={styles.button} onPress={goToAddNote}>
           <Text style={styles.radioText}>Add Note</Text>
