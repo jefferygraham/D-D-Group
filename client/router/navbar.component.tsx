@@ -44,6 +44,10 @@ function NavBarComponent() {
     nav.navigate('Profile');
   }
 
+  function goToHome(){
+    nav.navigate('Home');
+  }
+
   // if (user.name) {
   //   header = <Text>{user.name}</Text>;
   // } else {
@@ -53,6 +57,9 @@ function NavBarComponent() {
   if (user) {
     return (
       <View style={styles.navBox}>
+        <TouchableOpacity style={styles.navButton} onPress={goToHome}>
+              <Text style={styles.navText}>Home</Text>
+            </TouchableOpacity>
         {(user.role == 'player') && (
           <View style={styles.navBox}>
             <TouchableOpacity style={styles.navButton} onPress={goToCreateChar}>

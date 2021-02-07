@@ -107,8 +107,8 @@ export function EditCharacter({ navigation }: CreateProp) {
 
 
     function submitForm() {
-        let race = char.race.toLowerCase();
-        let api = dndAPI + 'races/' + race;
+        let charRace = char.race.toLowerCase();
+        let api = dndAPI + 'races/' + charRace;
         //change stats based on race
         fetch(api).then((response) => response.json()).then((json) => {
             json.ability_bonuses.forEach((element: any) => {
@@ -141,7 +141,7 @@ export function EditCharacter({ navigation }: CreateProp) {
             })
             characterService.updateCharacter(char).then(()=>{
                 characterService.getCharactersByUser(user).then((results)=>{
-                    let sorted = results.sort(function (a,b){
+                    results.sort(function (a,b){
                         return a.charid - b.charid
 
                     });
