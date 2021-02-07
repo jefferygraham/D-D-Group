@@ -215,6 +215,11 @@ function CampaignComponent(data: Props) {
             <Text style={styles.radioText}>View All Notes</Text>
           </TouchableOpacity>
         )}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => nav.navigate('Messages', { campaign })}>
+          <Text style={styles.radioText}>Messages</Text>
+        </TouchableOpacity>
 
         {user.role == 'master' && (
           <View style={styles.radio}>
