@@ -42,6 +42,7 @@ function AddCampaignComponent() {
                     marginBottom: 10,
                     justifyContent: 'center',
                     padding: 20,
+                    color:'white'
                 }} type="text" name='campaignName' ref={register({ required: true })} />
                 {errors.campaignname && <div style={{ color: "red", fontFamily: "Calibri" }} className="error">Enter a campaign name.</div>}
                 <button style={{
