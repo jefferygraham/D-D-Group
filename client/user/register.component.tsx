@@ -14,7 +14,6 @@ interface RegisterProp {
 }
 
 function RegisterComponent({ navigation }: RegisterProp) {
-
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
@@ -26,7 +25,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
       role,
     };
 
-    userService.register(user).then((user) => {
+    userService.register(user).then(() => {
       navigation.navigate('Login');
     });
   }

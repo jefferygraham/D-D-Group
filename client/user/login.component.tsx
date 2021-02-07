@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   TextInput,
@@ -18,9 +18,7 @@ interface LoginProp {
 }
 
 function LoginComponent({ navigation }: LoginProp) {
-  const userSelector = (state: UserState) => {
-    return state.loginUser;
-  };
+  const userSelector = (state: UserState) => state.loginUser;
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
 
@@ -29,11 +27,11 @@ function LoginComponent({ navigation }: LoginProp) {
   }, [dispatch]);
 
   function submitForm() {
-    userService.login(user).then((user) => {
-      dispatch(getUser(user));
+    userService.login(user).then((u) => {
+      dispatch(getUser(u));
 
-      if (user) {
-        characterService.getCharactersByUser(user).then((char) => {
+      if (u) {
+        characterService.getCharactersByUser(u).then((char) => {
           dispatch(getCharacters(char));
           navigation.navigate('Home');
         });
