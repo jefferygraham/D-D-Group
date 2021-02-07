@@ -50,10 +50,6 @@ function EncounterComponent(data: Props) {
             })
         })
     }
-    function nextRound() {
-        round++;
-        console.log(round);
-    }
 
     return (
         <View style={styles.container}>
@@ -61,11 +57,11 @@ function EncounterComponent(data: Props) {
             <View style={styles.displayContainer}>
                 {user.role == 'master' && (
                     <View style={encounterStyles.box}>
+                        <Text style={styles.looksLabel}>Initiative</Text>
                         {chars.length > 0 &&
                             chars.map((char) => {
                                 return (
                                     <View>
-                                        <Text style={styles.looksLabel}>Initiative</Text>
                                     <View
                                         key={`${char.charid}`}
                                         style={encounterStyles.borderedBox}>

@@ -71,6 +71,7 @@ function CampaignComponent(data: Props) {
   }
 
   function removeCampaign() {
+    console.log(campaign.campaignid);
     campaignService.deleteCampaign(campaign.campaignid).then(() => {
       if (user.id) {
         userService.getCampaignsByID(user.id).then((results) => {
