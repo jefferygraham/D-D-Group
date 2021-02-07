@@ -44,7 +44,6 @@ function EncounterComponent(data: Props) {
             characterid,
             initiative
         }
-        console.log(data);
         campaignService.updateEncounter(encounter.campaignid, encounter.encounterid, data.characterid, data.initiative).then(() => {
             campaignService.getEncounterChars(encounter.campaignid, encounter.encounterid).then((results) => {
                 dispatch(changeEncounterChars(results));
