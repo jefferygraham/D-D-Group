@@ -44,39 +44,48 @@ function NavBarComponent() {
     nav.navigate('Profile');
   }
 
+  function goToHome() {
+    nav.navigate('Home');
+  }
+
   if (user) {
     return (
       <View style={styles.navBox}>
+
+        {user.id && (
+          <View style={styles.navBox}>
+            <TouchableOpacity style={styles.navButton} onPress={goToHome}>
+              <Text style={styles.navText}>Home</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.navButton} onPress={goToProfile}>
+              <Text style={styles.navText}>Profile</Text>
+            </TouchableOpacity>
+          </View>
+        )}
         {(user.role == 'player') && (
           <View style={styles.navBox}>
             <TouchableOpacity style={styles.navButton} onPress={goToCreateChar}>
-              <Text >Create A Character</Text>
+              <Text style={styles.navText}>Create A Character</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.navButton} onPress={goToJoinCampaign}>
-              <Text >Join A Campaign</Text>
+              <Text style={styles.navText}>Join A Campaign</Text>
             </TouchableOpacity>
           </View>
         )}
         {user.role == 'master' && (
           <View style={styles.navBox}>
             <TouchableOpacity style={styles.navButton} onPress={goToAdd}>
-              <Text >Add A Campaign</Text>
+              <Text style={styles.navText}>Add A Campaign</Text>
             </TouchableOpacity>
           </View>
 
         )}
-        {user.id && (
-          <View style={styles.navBox}>
-            <TouchableOpacity style={styles.navButton} onPress={goToProfile}>
-              <Text >Profile</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+
 
         {user.id && (
           <View style={styles.navBox}>
             <TouchableOpacity style={styles.navButton} onPress={logout}>
-              <Text >Logout</Text>
+              <Text style={styles.navText}>Logout</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -98,14 +107,16 @@ function NavBarComponent() {
 const styles = StyleSheet.create({
   navBox: {
     flexDirection: 'row',
-
   },
   navButton: {
     margin: 5,
     padding: 10,
     justifyContent: 'center',
     borderRadius: 25,
-    backgroundColor: '#fb5b5a'
+    backgroundColor: '#fb5b5a',
+  },
+  navText: {
+    color: 'white'
   }
 
 });

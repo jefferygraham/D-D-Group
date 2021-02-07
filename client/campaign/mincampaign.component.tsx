@@ -19,6 +19,7 @@ function MinCampaignComponent({ data }: CampaignProps) {
     const dispatch = useDispatch();
 
     function goToCampaign() {
+        dispatch(getEncounters([]));
         campaignService.getEncounters(data.campaignid).then((results) => {
             dispatch(getEncounters(results));
         })
@@ -46,10 +47,11 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         borderRadius: 25,
         padding: 10,
-        margin: 10,
+        margin: 20,
         borderWidth: 1,
         borderColor: 'white',
-        width:'25%'
+        width:'40%'
+        
 
     },
     button: {

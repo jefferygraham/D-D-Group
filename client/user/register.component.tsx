@@ -25,7 +25,6 @@ function RegisterComponent({ navigation }: RegisterProp) {
       password,
       role,
     };
-    console.log(user);
 
     userService.register(user).then((user) => {
       navigation.navigate('Login');

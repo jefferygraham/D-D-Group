@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   TextInput,
   Text,
@@ -7,37 +7,37 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { addNote } from '../store/actions';
-
 import { customAlphabet } from 'nanoid';
 
-import { UserState } from '../store/store';
+import { UserState, CampaignState } from '../store/store';
 import noteService from '../note/note.service';
+
+interface AddNoteProp {
+  navigation: any;
+}
 
 const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', 5);
 
-function AddNoteComponent({ route, navigation }: any) {
+function AddNoteComponent({ navigation }: AddNoteProp) {
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
 
+  const campaignSelector = (state: CampaignState) => state.campaign;
+  const campaign = useSelector(campaignSelector);
+
   const [message, setMessage] = useState('');
-
-  const { campaign } = route.params;
-
-  const dispatch = useDispatch();
 
   function submitForm() {
     const note = {
       noteId: nanoid(),
-      campaignId: campaign.campaignid,
+      campaignId: Number(campaign.campaignid),
       userId: Number(user.id),
       role: user.role,
       username: user.name,
       message: message,
       timestamp: Date.now(),
     };
-
-    dispatch(addNote(note));
+    console.log(note);
 
     noteService.addNote(note).then(() => {
       navigation.navigate('Campaign');
