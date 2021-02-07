@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPlayers } from '../store/actions';
+import { getCharacters, getPlayers } from '../store/actions';
 import { CampaignState } from '../store/store';
 import { User } from '../user/user';
 import campaignService from './campaign.service';
@@ -21,9 +21,13 @@ function PlayerComponent({ data }: Props) {
     function removePlayer() {
         if (data.id) {
             campaignService.removePlayer(campaign.campaignid, data.id).then(() => {
+                dispatch(getPlayers([]));
                 campaignService.getPlayers(campaign.campaignid).then((results) => {
                     dispatch(getPlayers(results));
-                    nav.navigate('Campaign', campaign);
+                    campaignService.getCharacters(campaign.campaignid).then((info) => {
+                        dispatch(getCharacters(info));
+                        nav.navigate('Campaign', campaign);
+                    })
                 })
             });
         }
