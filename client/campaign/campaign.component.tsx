@@ -141,7 +141,7 @@ function CampaignComponent(data: Props) {
             <Text style={styles.looksLabel}> No Notes</Text>
           }
           {campaignNotes.length > 0 &&
-            campaignNotes.splice(0, 3).map((note) => {
+            campaignNotes.slice(0, 3).map((note) => {
               return (
                 <View
                   key={`${note.noteId}`}
