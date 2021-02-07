@@ -43,9 +43,9 @@ const NoteListComponent = ({ route, navigation }: any) => {
     dispatch(thunkGetNotes());
   }, [dispatch]);
 
-  const renderItem = ({ item }: any) => <Item note={item} user={user} />;
+  const renderItem = ({ item }: any) => <Item note={item} u={user} />;
 
-  const Item = ({ note, user }: any) => (
+  const Item = ({ note, u }: any) => (
     <View style={flatlistStyles.item}>
       <Text style={[styles.loginText, { textDecorationLine: 'underline' }]}>
         {note.username} wrote:
@@ -58,7 +58,7 @@ const NoteListComponent = ({ route, navigation }: any) => {
         {new Date(note.timestamp).toLocaleString()}
       </Text>
 
-      {(user.id === note.userId || user.role == 'master') && (
+      {(u.id === note.userId || u.role == 'master') && (
         <View>
           <Button
             color='#fb5b5a'

@@ -17,19 +17,16 @@ interface LoginProp {
 }
 
 function LoginComponent({ navigation }: LoginProp) {
-  const userSelector = (state: UserState) => {
-    console.log(state);
-    return state.loginUser;
-  };
+  const userSelector = (state: UserState) => state.loginUser;
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
 
   function submitForm() {
-    userService.login(user).then((user) => {
-      dispatch(getUser(user));
+    userService.login(user).then((u) => {
+      dispatch(getUser(u));
 
-      if (user) {
-        characterService.getCharactersByUser(user).then((char) => {
+      if (u) {
+        characterService.getCharactersByUser(u).then((char) => {
           dispatch(getCharacters(char));
           navigation.navigate('Home');
         });
