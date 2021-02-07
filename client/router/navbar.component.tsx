@@ -44,7 +44,7 @@ function NavBarComponent() {
     nav.navigate('Profile');
   }
 
-  function goToHome(){
+  function goToHome() {
     nav.navigate('Home');
   }
 
@@ -57,9 +57,17 @@ function NavBarComponent() {
   if (user) {
     return (
       <View style={styles.navBox}>
-        <TouchableOpacity style={styles.navButton} onPress={goToHome}>
+
+        {user.id && (
+          <View style={styles.navBox}>
+            <TouchableOpacity style={styles.navButton} onPress={goToHome}>
               <Text style={styles.navText}>Home</Text>
             </TouchableOpacity>
+            <TouchableOpacity style={styles.navButton} onPress={goToProfile}>
+              <Text style={styles.navText}>Profile</Text>
+            </TouchableOpacity>
+          </View>
+        )}
         {(user.role == 'player') && (
           <View style={styles.navBox}>
             <TouchableOpacity style={styles.navButton} onPress={goToCreateChar}>
@@ -78,13 +86,7 @@ function NavBarComponent() {
           </View>
 
         )}
-        {user.id && (
-          <View style={styles.navBox}>
-            <TouchableOpacity style={styles.navButton} onPress={goToProfile}>
-              <Text style={styles.navText}>Profile</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+
 
         {user.id && (
           <View style={styles.navBox}>
@@ -119,8 +121,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     backgroundColor: '#fb5b5a',
   },
-  navText:{
-    color:'white'
+  navText: {
+    color: 'white'
   }
 
 });
