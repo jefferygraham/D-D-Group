@@ -12,28 +12,17 @@ import RNPickerSelect from 'react-native-picker-select';
 import { addMessage } from '../store/actions';
 
 import { customAlphabet } from 'nanoid';
-import { RouteProp, useNavigation } from '@react-navigation/native';
 
 import { User } from '../user/user';
-import { UserState, CampaignState } from '../store/store';
+import { UserState } from '../store/store';
 import messageService from '..//message/message.service';
 import { NetworkContext } from '../router/router.component';
 import campaignService from '../campaign/campaign.service';
 
 const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', 5);
-let players: User[];
 function AddMessageComponent({ navigation }) {
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
-
-  const campaignsSelector = (state: CampaignState) => {
-    return state.campaigns;
-  };
-  const campaigns = useSelector(campaignsSelector);
-
-  const playerSelector = (state: UserState) => state.players;
-  const playersArr = useSelector(playerSelector);
-
   // let players: User[];
 
   const [message, setMessage] = useState('');

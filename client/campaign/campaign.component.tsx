@@ -141,10 +141,10 @@ function CampaignComponent(data: Props) {
             <Text style={styles.looksLabel}> No Notes</Text>
           }
           {campaignNotes.length > 0 &&
-            campaignNotes.splice(0, 3).map((campaign) => {
+            campaignNotes.splice(0, 3).map((note) => {
               return (
                 <View
-                  key={`${campaign.noteId}`}
+                  key={`${note.noteId}`}
                   style={{
                     alignItems: 'center',
                     borderColor: 'white',
@@ -153,10 +153,10 @@ function CampaignComponent(data: Props) {
                     padding: 15,
                     margin: 15,
                   }}>
-                  <Text style={styles.loginText}>{campaign.username} wrote:</Text>
-                  <Text style={styles.loginText}>{campaign.message}</Text>
+                  <Text style={styles.loginText}>{note.username} wrote:</Text>
+                  <Text style={styles.loginText}>{note.message}</Text>
                   <Text style={styles.loginText}>
-                    {new Date(campaign.timestamp).toLocaleString()}
+                    {new Date(note.timestamp).toLocaleString()}
                   </Text>
                 </View>
               );
