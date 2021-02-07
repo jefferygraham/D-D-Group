@@ -39,11 +39,14 @@ function CampaignComponent(data: Props) {
     return state.notes;
   };
   const notes = useSelector(notesSelector);
+
   const dispatch = useDispatch();
   let players: User[];
   const campaignNotes = notes.filter(
     (note) => note.campaignId === campaign.campaignid
   );
+  const sortedNotes = campaignNotes.sort((a, b) => b.timestamp - a.timestamp);
+
   const encounterSelector = (state: EncounterState) => state.encounters;
   const encounters = useSelector(encounterSelector);
 
@@ -52,10 +55,8 @@ function CampaignComponent(data: Props) {
     dispatch(getCharacters(chars));
     campaignService.getCharacters(campaign.campaignid).then((results) => {
       dispatch(getCharacters(results));
-    })
-  }, [dispatch])
-
-
+    });
+  }, [dispatch]);
 
   //routes to playerpage for that campaign
   function viewPlayers() {
@@ -112,12 +113,11 @@ function CampaignComponent(data: Props) {
   }
 
   function goToAddNote() {
-    nav.navigate('AddNote', campaign)
+    nav.navigate('AddNote', { campaign });
   }
 
   function gotToNoteList() {
-    nav.navigate('NoteList', { campaign })
-
+    nav.navigate('NoteList', { campaign });
   }
   // function addEncounter(){
   //     campaignService.addEncounter(campaign.campaignid).then(() => {
@@ -132,27 +132,25 @@ function CampaignComponent(data: Props) {
       <View style={campaignStyles.container}>
         <Text style={styles.radioLabel}>Characters</Text>
         <View style={campaignStyles.backgroundBox}>
-          {characters.length == 0 &&
+          {characters.length == 0 && (
             <Text style={styles.looksLabel}> No Characters</Text>
-          }
+          )}
           {characters.length > 0 &&
             characters.map((req: Character, index: number) => (
               <MinCharacterComponent
                 key={'req-' + index}
                 data={req}></MinCharacterComponent>
-            ))
-          }
-
+            ))}
         </View>
       </View>
       <View style={campaignStyles.container}>
         <Text style={styles.radioLabel}>Notes:</Text>
         <View style={campaignStyles.backgroundBox}>
-          {campaignNotes.length == 0 &&
+          {campaignNotes.length == 0 && (
             <Text style={styles.looksLabel}> No Notes</Text>
-          }
-          {campaignNotes.length > 0 &&
-            campaignNotes.splice(0, 3).map((campaign) => {
+          )}
+          {sortedNotes.length > 0 &&
+            sortedNotes.splice(0, 3).map((campaign) => {
               return (
                 <View
                   key={`${campaign.noteId}`}
@@ -164,7 +162,9 @@ function CampaignComponent(data: Props) {
                     padding: 15,
                     margin: 15,
                   }}>
-                  <Text style={styles.loginText}>{campaign.username} wrote:</Text>
+                  <Text style={styles.loginText}>
+                    {campaign.username} wrote:
+                  </Text>
                   <Text style={styles.loginText}>{campaign.message}</Text>
                   <Text style={styles.loginText}>
                     {new Date(campaign.timestamp).toLocaleString()}
@@ -173,43 +173,50 @@ function CampaignComponent(data: Props) {
               );
             })}
         </View>
-
       </View>
-      {user.role == 'master' &&
+      {user.role == 'master' && (
         <View style={campaignStyles.container}>
           <Text style={styles.radioLabel}>Encounters:</Text>
           <View style={campaignStyles.backgroundBox}>
-            {encounters.length == 0 &&
+            {encounters.length == 0 && (
               <Text style={styles.looksLabel}> No Encounters</Text>
-            }
+            )}
             {encounters.length > 0 &&
               encounters.map((encounter) => {
                 return (
                   <View
                     key={`${encounter.encounterid}`}
-                    style={{ borderColor: 'white', borderWidth: 1, alignItems: 'center', margin: 5 }}>
-                    <Text style={styles.loginText}>{encounter.encounterid}</Text>
-                    <TouchableOpacity style={styles.button} onPress={() => goToEncounter(encounter)}>
+                    style={{
+                      borderColor: 'white',
+                      borderWidth: 1,
+                      alignItems: 'center',
+                      margin: 5,
+                    }}>
+                    <Text style={styles.loginText}>
+                      {encounter.encounterid}
+                    </Text>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={() => goToEncounter(encounter)}>
                       <Text style={styles.loginText}>Go To Encounter</Text>
                     </TouchableOpacity>
                   </View>
-                )
+                );
               })}
           </View>
         </View>
-      }
+      )}
       <View style={styles.radio}>
         <TouchableOpacity style={styles.button} onPress={goToAddNote}>
           <Text style={styles.radioText}>Add Note</Text>
         </TouchableOpacity>
-        {campaignNotes.length > 0 &&
+        {campaignNotes.length > 0 && (
           <TouchableOpacity style={styles.button} onPress={gotToNoteList}>
             <Text style={styles.radioText}>View All Notes</Text>
           </TouchableOpacity>
-        }
+        )}
 
         {user.role == 'master' && (
-
           <View style={styles.radio}>
             <TouchableOpacity style={styles.button} onPress={addEncounter}>
               <Text style={styles.radioText}>Add Encounter</Text>
@@ -217,16 +224,12 @@ function CampaignComponent(data: Props) {
             <TouchableOpacity style={styles.button} onPress={editCampaign}>
               <Text style={styles.radioText}>Edit Campaign</Text>
             </TouchableOpacity>
-            {characters.length > 0 &&
+            {characters.length > 0 && (
               <TouchableOpacity style={styles.button} onPress={viewPlayers}>
                 <Text style={styles.radioText}>Manage Players</Text>
               </TouchableOpacity>
-            }
-
-
+            )}
           </View>
-
-
         )}
         {user.role == 'player' && (
           <TouchableOpacity style={styles.button} onPress={leaveCampaign}>
@@ -235,7 +238,9 @@ function CampaignComponent(data: Props) {
         )}
       </View>
       {user.role == 'master' && (
-        <TouchableOpacity style={campaignStyles.dangerButton} onPress={removeCampaign}>
+        <TouchableOpacity
+          style={campaignStyles.dangerButton}
+          onPress={removeCampaign}>
           <Text style={styles.radioText}>DELETE CAMPAIGN</Text>
         </TouchableOpacity>
       )}
@@ -250,15 +255,13 @@ const campaignStyles = StyleSheet.create({
     width: '100%',
     borderRadius: 25,
     padding: 10,
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   container: {
     width: '80%',
     justifyContent: 'space-evenly',
     marginBottom: 10,
-    marginTop: 10
-
-
+    marginTop: 10,
   },
   dangerButton: {
     margin: 20,
@@ -267,10 +270,8 @@ const campaignStyles = StyleSheet.create({
     borderRadius: 25,
     backgroundColor: 'red',
     width: '25%',
-    fontWeight: 'bold'
-  }
-
-
-})
+    fontWeight: 'bold',
+  },
+});
 
 export default CampaignComponent;
