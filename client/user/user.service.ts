@@ -35,7 +35,9 @@ class UserService {
   }
 
   getUser(id: number): Promise<User> {
-    return axios.get(this.URI + '/' + id).then((user) => user.data.body);
+    return axios.get(this.URI + '/' + id).then((user) => {
+      return user.data as User;
+    });
   }
 
   getCampaignsByID(id: number): Promise<Campaign[]> {

@@ -48,8 +48,7 @@ function CampaignComponent(data: Props) {
   const encounters = useSelector(encounterSelector);
 
   useEffect(() => {
-    let chars: Character[] = [];
-    dispatch(getCharacters(chars));
+    dispatch(getCharacters([]));
     campaignService.getCharacters(campaign.campaignid).then((results) => {
       dispatch(getCharacters(results));
     })
@@ -64,10 +63,6 @@ function CampaignComponent(data: Props) {
       players = results;
       nav.navigate('Players', players);
     });
-  }
-
-  function gotoAddNote() {
-    nav.navigate('AddNote', { campaign });
   }
 
   function removeCampaign() {
@@ -100,7 +95,7 @@ function CampaignComponent(data: Props) {
   }
 
   function addEncounter() {
-    campaignService.addEncounter(campaign.campaignid).then((encounter) => {
+    campaignService.addEncounter(campaign.campaignid).then(() => {
       campaignService.getEncounters(campaign.campaignid).then((results) => {
         dispatch(getEncounters(results));
       });
@@ -119,16 +114,11 @@ function CampaignComponent(data: Props) {
     nav.navigate('NoteList', { campaign })
 
   }
-  // function addEncounter(){
-  //     campaignService.addEncounter(campaign.campaignid).then(() => {
-  //         nav.navigate('Campaign',campaign);
-  //     })
-  // }
 
   return (
     <View style={styles.container}>
       <Text style={styles.logo}>{campaign.campaignname}</Text>
-      <Text style={styles.looksLabel}>Dungeon Master: {campaign.dm}</Text>
+      <Text style={styles.looksLabel}>Dungeon Master: {campaign.campaignid}</Text>
       <View style={campaignStyles.container}>
         <Text style={styles.radioLabel}>Characters</Text>
         <View style={campaignStyles.backgroundBox}>

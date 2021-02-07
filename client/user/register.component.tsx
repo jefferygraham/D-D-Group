@@ -70,7 +70,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
           onValueChange={(role) => setRole(role)}
           items={[
             { label: 'Player', value: 'player' },
-            { label: 'Master', value: 'master' },
+            { label: 'Dungeon Master', value: 'master' },
           ]}
         />
       </View>
