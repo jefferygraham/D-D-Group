@@ -173,7 +173,13 @@ function RouterComponent(props: any) {
         component={Messages}
         options={headerOptions}
       />
+      <Stack.Screen
+        name='Register'
+        component={RegisterComponent}
+        options={headerOptions}
+      />
     </Stack.Navigator>
+
   );
 }
 

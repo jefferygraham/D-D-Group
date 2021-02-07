@@ -19,6 +19,7 @@ function MinCampaignComponent({ data }: CampaignProps) {
     const dispatch = useDispatch();
 
     function goToCampaign() {
+        dispatch(getEncounters([]));
         campaignService.getEncounters(data.campaignid).then((results) => {
             dispatch(getEncounters(results));
         })
