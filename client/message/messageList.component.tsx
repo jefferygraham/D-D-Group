@@ -29,8 +29,6 @@ const MessageListComponent = () => {
           .filter((message) => Number(message.recipient) === user.id)
       : [];
 
-  console.log(messages);
-
   const sortedMessages =
     campaignMessages.length > 0
       ? campaignMessages.sort((a, b) => b.timestamp - a.timestamp)

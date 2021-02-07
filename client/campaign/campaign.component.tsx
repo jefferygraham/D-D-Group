@@ -65,12 +65,7 @@ function CampaignComponent(data: Props) {
     });
   }
 
-  function gotoAddNote() {
-    nav.navigate('AddNote', { campaign });
-  }
-
   function removeCampaign() {
-    console.log(campaign.campaignid);
     campaignService.deleteCampaign(campaign.campaignid).then(() => {
       if (user.id) {
         userService.getCampaignsByID(user.id).then((results) => {
@@ -196,11 +191,11 @@ function CampaignComponent(data: Props) {
         <TouchableOpacity style={styles.button} onPress={goToAddNote}>
           <Text style={styles.radioText}>Add Note</Text>
         </TouchableOpacity>
-        {campaignNotes.length > 0 &&
+        {campaignNotes.length > 0 && (
           <TouchableOpacity style={styles.button} onPress={gotToNoteList}>
             <Text style={styles.radioText}>View All Notes</Text>
           </TouchableOpacity>
-        }
+        )}
 
         {user.role == 'master' && (
 

@@ -60,7 +60,6 @@ class CampaignService {
     }
     getEncounterChars(cid: number,eid: number): Promise<EncounterChars[]>{
         return axios.get(this.URI+'/'+cid+'/encounters/'+eid).then((results) => {
-            console.log(results.data);
             return results.data as EncounterChars[];
         })
     }

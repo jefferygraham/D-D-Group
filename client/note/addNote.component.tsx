@@ -37,7 +37,6 @@ function AddNoteComponent({ navigation }: AddNoteProp) {
       message: message,
       timestamp: Date.now(),
     };
-    console.log(note);
 
     noteService.addNote(note).then(() => {
       navigation.navigate('Campaign');

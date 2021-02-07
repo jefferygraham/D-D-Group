@@ -27,7 +27,6 @@ function AddMessageComponent({ navigation }) {
   const user = useSelector(userSelector);
 
   const campaignsSelector = (state: CampaignState) => {
-    console.log(state);
     return state.campaigns;
   };
   const campaigns = useSelector(campaignsSelector);
@@ -48,7 +47,6 @@ function AddMessageComponent({ navigation }) {
       setPlayers([...results]);
     });
   }, []);
-  console.log(players);
 
   const dispatch = useDispatch();
 
