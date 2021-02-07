@@ -1,4 +1,4 @@
-# D&D Managaement Project
+# D&D Management Project
 
 This is a mobile application designed to be a one stop for campaign needs as both DUngeons & Dragons players and DMs
 
