@@ -8,8 +8,6 @@ import {
   StyleSheet,
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-
-import { registerAction } from '../store/actions';
 import userService from './user.service';
 import { UserState } from '../store/store';
 
@@ -32,7 +30,6 @@ function RegisterComponent({ navigation }: RegisterProp) {
       password,
       role,
     };
-    console.log(user);
 
     userService.register(user).then((user) => {
       // dispatch(registerAction(user));

@@ -31,8 +31,8 @@ function AddCampaignComponent() {
 
     return (
         <View style={styles.container}>
-            <form style={{width: 750, alignItems: 'center'}} onSubmit={onSubmit}>
-                <label style={{ color: "white", fontFamily: "Calibri"}}>Campaign Name:</label><br /><br />
+            <form style={{width: 750, alignItems: 'center', alignContent:'center'}} onSubmit={onSubmit}>
+                <label style={{ color: "#fb5b5a", fontFamily: "Calibri", fontSize:25, fontWeight:'bold'}}>Campaign Name:</label><br /><br />
                 <input style={{
                     width: '80%',
                     backgroundColor: '#465881',
@@ -51,10 +51,12 @@ function AddCampaignComponent() {
                     border: 'none',
                     height: 50,
                     alignItems: 'center',
+                    alignSelf:'center',
                     justifyContent: 'center',
                     marginTop: 40,
                     marginBottom: 10,
                     color: 'white',
+                    flex:1
                 }} type="submit">Create</button>
             </form>
         </View>
@@ -64,6 +66,7 @@ function AddCampaignComponent() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection:'column',
         backgroundColor: '#003f5c',
         alignItems: 'center',
         justifyContent: 'center',

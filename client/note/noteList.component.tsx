@@ -18,6 +18,7 @@ import styles from '../global-styles';
 
 const NoteListComponent = ({ route, navigation }: any) => {
   const { campaign } = route.params;
+  console.log(campaign);
 
   const userSelector = (state: UserState) => state.user;
   const user = useSelector(userSelector);
@@ -58,11 +59,17 @@ const NoteListComponent = ({ route, navigation }: any) => {
         {new Date(note.timestamp).toLocaleString()}
       </Text>
 
-      {(user.id === note.userId || user.role == 'master')&& (
-        <Button
-          color='#fb5b5a'
-          title='delete'
-          onPress={() => handleDeleteNote(note)}></Button>
+      {(user.id === note.userId || user.role == 'master') && (
+        <View>
+          <Button
+            color='#fb5b5a'
+            title='edit'
+            onPress={() => navigation.navigate('EditNote', { note })}></Button>
+          <Button
+            color='#fb5b5a'
+            title='delete'
+            onPress={() => handleDeleteNote(note)}></Button>
+        </View>
       )}
     </View>
   );
