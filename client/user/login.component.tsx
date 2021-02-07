@@ -19,7 +19,6 @@ interface LoginProp {
 
 function LoginComponent({ navigation }: LoginProp) {
   const userSelector = (state: UserState) => {
-    console.log(state);
     return state.loginUser;
   };
   const user = useSelector(userSelector);
@@ -51,7 +50,7 @@ function LoginComponent({ navigation }: LoginProp) {
         <TextInput
           style={styles.inputText}
           placeholder='Username...'
-          placeholderTextColor='#003f5c'
+          placeholderTextColor='white'
           onChangeText={(value) =>
             dispatch(loginAction({ ...user, name: value }))
           }
@@ -62,7 +61,7 @@ function LoginComponent({ navigation }: LoginProp) {
         <TextInput
           style={styles.inputText}
           placeholder='Password...'
-          placeholderTextColor='#003f5c'
+          placeholderTextColor='white'
           secureTextEntry
           onChangeText={(value) =>
             dispatch(loginAction({ ...user, password: value }))
@@ -71,9 +70,9 @@ function LoginComponent({ navigation }: LoginProp) {
         />
       </View>
       <TouchableOpacity style={styles.loginBtn} onPress={submitForm}>
-        <Text style={styles.loginText}>LOGIN</Text>
+        <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+      <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('Register')}>
         <Text style={styles.loginText}>Register</Text>
       </TouchableOpacity>
     </View>
@@ -107,14 +106,13 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   loginBtn: {
-    width: '80%',
+    width: '50%',
     backgroundColor: '#fb5b5a',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 40,
-    marginBottom: 10,
+    margin:10
   },
   loginText: {
     color: 'white',

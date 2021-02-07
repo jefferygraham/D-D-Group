@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 25,
     color: '#fb5b5a',
-    marginBottom: 40,
+    
   },
   inputView: {
     width: '80%',
@@ -38,14 +38,13 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   loginBtn: {
-    width: '80%',
+    width: '60%',
     backgroundColor: '#fb5b5a',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 40,
-    marginBottom: 10,
+    margin:10
   },
   loginText: {
     color: 'white',

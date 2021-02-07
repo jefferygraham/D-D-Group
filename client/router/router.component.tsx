@@ -22,6 +22,7 @@ import { EditCampaign } from '../campaign/campaign.edit';
 import NoteListComponent from '../note/NoteList.component';
 import ProfileComponent from '../user/profile.component';
 import RegisterComponent from '../user/register.component';
+import styles from '../global-styles';
 import EditNoteComponent from '../note/editNote.component';
 import CampaignPlayers from '../campaign/campaignplayers.component';
 import EncounterComponent from '../encounters/encounter.component';
@@ -61,7 +62,7 @@ const Stack = createStackNavigator<StackParams>();
 const Tab = createBottomTabNavigator<TabParams>();
 
 const headerOptions: StackHeaderOptions = {
-  headerTitle: () => <Text>Dungeons & Dragons</Text>,
+  headerTitle: () => <Text style={styles.logo}>Dungeons & Dragons</Text>,
   headerRight: () => <NavBarComponent />,
 };
 

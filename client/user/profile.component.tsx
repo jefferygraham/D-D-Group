@@ -1,8 +1,8 @@
 //import styles from '../global-styles';
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity, Button, FlatList, StyleSheet } from 'react-native';
-import { RouteProp, useNavigation } from '@react-navigation/native';
-import { CharacterState, NoteState, UserState, CampaignState } from '../store/store';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { CharacterState, UserState, CampaignState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCampaigns, getCharacters } from '../store/actions';
 import userService from '../user/user.service';
@@ -20,7 +20,7 @@ function ProfileComponent() {
     const campaignSelector = (state: CampaignState) => state.campaigns;
     const campaigns = useSelector(campaignSelector);
 
-    
+
     const dispatch = useDispatch();
     useEffect(() => {
         CharacterService.getCharactersByUser(user).then((results) => {
@@ -30,11 +30,11 @@ function ProfileComponent() {
 
     useEffect(() => {
         if (user.id) {
-          userService.getCampaignsByID(user.id).then((results) => {
-            dispatch(getCampaigns(results));
-          });
+            userService.getCampaignsByID(user.id).then((results) => {
+                dispatch(getCampaigns(results));
+            });
         }
-      }, [dispatch]);
+    }, [dispatch]);
 
     return (
         <View style={styles.box}>
@@ -52,11 +52,13 @@ function ProfileComponent() {
             <View style={styles.infoBoxLarge}>
                 <Text style={styles.titleLeft}> Your Campaigns </Text>
                 <View style={styles.background}>
-                    <FlatList
-                        data={campaigns}
-                        renderItem={({ item }) => (<MinCampaignComponent data={item}></MinCampaignComponent>)}
-                        keyExtractor={(item) => item.campaignname} 
-                        numColumns={2} />
+                    <View style={styles.center}>
+                        <FlatList
+                            data={campaigns}
+                            renderItem={({ item }) => (<MinCampaignComponent data={item}></MinCampaignComponent>)}
+                            keyExtractor={(item) => item.campaignname}
+                            numColumns={2} />
+                    </View>
                 </View>
             </View>
         </View>
@@ -77,9 +79,7 @@ const styles = StyleSheet.create({
         width: '80%',
         flexDirection: 'column',
         alignItems: 'center',
-        borderRadius: 25,
-        padding: 25,
-        margin: 25,
+
     },
     title: {
         margin: 10,
@@ -103,11 +103,15 @@ const styles = StyleSheet.create({
 
     },
     background: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
         backgroundColor: '#465881',
-        flexDirection: 'column',
-        alignItems: 'center',
         borderRadius: 25,
-        padding: 25,
+        padding: 10,
+        margin: 10,
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
         width: '100%'
     },
     box: {
@@ -137,6 +141,11 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    center: {
+        alignSelf: 'center',
+        alignItems: 'center',
+        width: '100%'
     }
 
 

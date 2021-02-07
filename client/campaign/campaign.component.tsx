@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity, Button } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import campaignService from './campaign.service';
 import { StackParams } from '../router/router.component';
@@ -52,8 +52,10 @@ function CampaignComponent(data: Props) {
     dispatch(getCharacters(chars));
     campaignService.getCharacters(campaign.campaignid).then((results) => {
       dispatch(getCharacters(results));
-    });
-  }, [dispatch]);
+    })
+  }, [dispatch])
+
+
 
   //routes to playerpage for that campaign
   function viewPlayers() {
@@ -108,83 +110,166 @@ function CampaignComponent(data: Props) {
     nav.navigate('Encounter', encounter);
   }
 
+  function goToAddNote() {
+    nav.navigate('AddNote', campaign)
+  }
+
+  function gotToNoteList() {
+    nav.navigate('NoteList', { campaign })
+
+  }
+  // function addEncounter(){
+  //     campaignService.addEncounter(campaign.campaignid).then(() => {
+  //         nav.navigate('Campaign',campaign);
+  //     })
+  // }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.loginText}>{campaign.campaignname}</Text>
-      <Text style={styles.loginText}>Dungeon Master: {campaign.dm}</Text>
-      {characters.map((req: Character, index: number) => (
-        <MinCharacterComponent
-          key={'req-' + index}
-          data={req}></MinCharacterComponent>
-      ))}
-      <Text style={styles.loginText}>Notes:</Text>
-      {campaignNotes.length > 0 &&
-        campaignNotes.map((campaign) => {
-          return (
-            <View
-              key={`${campaign.userId}-${campaign.timestamp}`}
-              style={{ borderColor: 'white', borderWidth: 1 }}>
-              <Text style={styles.loginText}>{campaign.message}</Text>
-              <Text style={styles.loginText}>
-                -{campaign.username},
-                {new Date(campaign.timestamp).toLocaleString()}
-              </Text>
-            </View>
-          );
-        })}
-      <Text style={styles.loginText}>Encounters:</Text>
-      {encounters.length > 0 &&
-        encounters.map((encounter) => {
-          return (
-            <View
-              key={`${encounter.encounterid}`}
-              style={{ borderColor: 'white', borderWidth: 1 }}>
-              <Text style={styles.loginText}>{encounter.encounterid}</Text>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => goToEncounter(encounter)}>
-                <Text style={styles.loginText}>Go To Encounter</Text>
-              </TouchableOpacity>
-            </View>
-          );
-        })}
-      {/* {encounters.map((req: Encounter, index: number) => {
-                <MinEncounterComponent key={'req-' + index} data={req}></MinEncounterComponent>
-            })} */}
-      {user.role == 'master' && (
-        <View style={styles.radio}>
-          <TouchableOpacity style={styles.button} onPress={addEncounter}>
-            <Text style={styles.radioText}>Add Encounter</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={editCampaign}>
-            <Text style={styles.radioText}>Edit Campaign</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={removeCampaign}>
-            <Text style={styles.radioText}>Delete Campaign</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={viewPlayers}>
-            <Text style={styles.radioText}>Manage Players</Text>
-          </TouchableOpacity>
+      <Text style={styles.logo}>{campaign.campaignname}</Text>
+      <Text style={styles.looksLabel}>Dungeon Master: {campaign.dm}</Text>
+      <View style={campaignStyles.container}>
+        <Text style={styles.radioLabel}>Characters</Text>
+        <View style={campaignStyles.backgroundBox}>
+          {characters.length == 0 &&
+            <Text style={styles.looksLabel}> No Characters</Text>
+          }
+          {characters.length > 0 &&
+            characters.map((req: Character, index: number) => (
+              <MinCharacterComponent
+                key={'req-' + index}
+                data={req}></MinCharacterComponent>
+            ))
+          }
+
         </View>
-      )}
-      <TouchableOpacity style={styles.button} onPress={gotoAddNote}>
-        <Text style={styles.radioText}>Add Note</Text>
-      </TouchableOpacity>
-      <Button
-        title='view all notes'
-        onPress={() => nav.navigate('NoteList', { campaign })}></Button>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => nav.navigate('Messages', { campaign })}>
-        <Text style={styles.radioText}>Messages</Text>
-      </TouchableOpacity>
-      {user.role == 'player' && (
-        <TouchableOpacity style={styles.button} onPress={leaveCampaign}>
-          <Text style={styles.radioText}>Leave Campaign</Text>
+      </View>
+      <View style={campaignStyles.container}>
+        <Text style={styles.radioLabel}>Notes:</Text>
+        <View style={campaignStyles.backgroundBox}>
+          {campaignNotes.length == 0 &&
+            <Text style={styles.looksLabel}> No Notes</Text>
+          }
+          {campaignNotes.length > 0 &&
+            campaignNotes.splice(0, 3).map((campaign) => {
+              return (
+                <View
+                  key={`${campaign.noteId}`}
+                  style={{
+                    alignItems: 'center',
+                    borderColor: 'white',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    padding: 15,
+                    margin: 15,
+                  }}>
+                  <Text style={styles.loginText}>{campaign.username} wrote:</Text>
+                  <Text style={styles.loginText}>{campaign.message}</Text>
+                  <Text style={styles.loginText}>
+                    {new Date(campaign.timestamp).toLocaleString()}
+                  </Text>
+                </View>
+              );
+            })}
+        </View>
+
+      </View>
+      {user.role == 'master' &&
+        <View style={campaignStyles.container}>
+          <Text style={styles.radioLabel}>Encounters:</Text>
+          <View style={campaignStyles.backgroundBox}>
+            {encounters.length == 0 &&
+              <Text style={styles.looksLabel}> No Encounters</Text>
+            }
+            {encounters.length > 0 &&
+              encounters.map((encounter) => {
+                return (
+                  <View
+                    key={`${encounter.encounterid}`}
+                    style={{ borderColor: 'white', borderWidth: 1, alignItems: 'center', margin: 5 }}>
+                    <Text style={styles.loginText}>{encounter.encounterid}</Text>
+                    <TouchableOpacity style={styles.button} onPress={() => goToEncounter(encounter)}>
+                      <Text style={styles.loginText}>Go To Encounter</Text>
+                    </TouchableOpacity>
+                  </View>
+                )
+              })}
+          </View>
+        </View>
+      }
+      <View style={styles.radio}>
+        <TouchableOpacity style={styles.button} onPress={goToAddNote}>
+          <Text style={styles.radioText}>Add Note</Text>
+        </TouchableOpacity>
+        {campaignNotes.length > 0 &&
+          <TouchableOpacity style={styles.button} onPress={gotToNoteList}>
+            <Text style={styles.radioText}>View All Notes</Text>
+          </TouchableOpacity>
+        }
+
+        {user.role == 'master' && (
+
+          <View style={styles.radio}>
+            <TouchableOpacity style={styles.button} onPress={addEncounter}>
+              <Text style={styles.radioText}>Add Encounter</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={editCampaign}>
+              <Text style={styles.radioText}>Edit Campaign</Text>
+            </TouchableOpacity>
+            {characters.length > 0 &&
+              <TouchableOpacity style={styles.button} onPress={viewPlayers}>
+                <Text style={styles.radioText}>Manage Players</Text>
+              </TouchableOpacity>
+            }
+
+
+          </View>
+
+
+        )}
+        {user.role == 'player' && (
+          <TouchableOpacity style={styles.button} onPress={leaveCampaign}>
+            <Text style={styles.radioText}>Leave Campaign</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+      {user.role == 'master' && (
+        <TouchableOpacity style={campaignStyles.dangerButton} onPress={removeCampaign}>
+          <Text style={styles.radioText}>DELETE CAMPAIGN</Text>
         </TouchableOpacity>
       )}
     </View>
   );
 }
+
+const campaignStyles = StyleSheet.create({
+  backgroundBox: {
+    backgroundColor: '#465881',
+    flexDirection: 'row',
+    width: '100%',
+    borderRadius: 25,
+    padding: 10,
+    flexWrap: 'wrap'
+  },
+  container: {
+    width: '80%',
+    justifyContent: 'space-evenly',
+    marginBottom: 10,
+    marginTop: 10
+
+
+  },
+  dangerButton: {
+    margin: 20,
+    padding: 10,
+    justifyContent: 'center',
+    borderRadius: 25,
+    backgroundColor: 'red',
+    width: '25%',
+    fontWeight: 'bold'
+  }
+
+
+})
 
 export default CampaignComponent;
