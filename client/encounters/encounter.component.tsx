@@ -58,6 +58,12 @@ function EncounterComponent(data: Props) {
                 {user.role == 'master' && (
                     <View style={encounterStyles.box}>
                         <Text style={styles.looksLabel}>Initiative</Text>
+                        {chars.length == 0 &&
+                        (
+                            <Text style={styles.loginText}> No Character Initiatvie Yet</Text>
+                        )
+                        
+                        }
                         {chars.length > 0 &&
                             chars.map((char) => {
                                 return (
@@ -71,6 +77,8 @@ function EncounterComponent(data: Props) {
                                     </View>
                                 )
                             })}
+
+
                             <Text style={styles.looksLabel}> Add Initiative</Text>
                         <View style={encounterStyles.borderedBox}>
                             

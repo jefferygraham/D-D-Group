@@ -61,10 +61,12 @@ const NoteListComponent = ({ route, navigation }: any) => {
 
       {(user.id === note.userId || user.role == 'master') && (
         <View>
+          <View style = {flatlistStyles.marginContainer}>
           <Button
             color='#fb5b5a'
             title='edit'
             onPress={() => navigation.navigate('EditNote', { note })}></Button>
+            </View>
           <Button
             color='#fb5b5a'
             title='delete'
@@ -103,6 +105,9 @@ const flatlistStyles = StyleSheet.create({
   title: {
     fontSize: 32,
   },
+  marginContainer:{
+    marginBottom:10
+  }
 });
 
 export default NoteListComponent;

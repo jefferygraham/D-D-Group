@@ -9,6 +9,7 @@ import userService from '../user/user.service';
 import CharacterService from '../character/character.service';
 import CharacterComponent from '../character/character.componenet';
 import MinCampaignComponent from '../campaign/mincampaign.component';
+import { Campaign } from './campaign/campaign';
 
 
 function ProfileComponent() {
@@ -52,12 +53,17 @@ function ProfileComponent() {
             <View style={styles.infoBoxLarge}>
                 <Text style={styles.titleLeft}> Your Campaigns </Text>
                 <View style={styles.background}>
-                    <View style={styles.center}>
-                        <FlatList
+                    <View style={styles.campaignContainer}>
+                        {campaigns.map((req: Campaign, index: number) => (
+                            <MinCampaignComponent
+                                key={'req-' + index}
+                                data={req}></MinCampaignComponent>
+                        ))}
+                        {/* <FlatList
                             data={campaigns}
                             renderItem={({ item }) => (<MinCampaignComponent data={item}></MinCampaignComponent>)}
                             keyExtractor={(item) => item.campaignname}
-                            numColumns={2} />
+                            numColumns={2} /> */}
                     </View>
                 </View>
             </View>
@@ -146,7 +152,17 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center',
         width: '100%'
-    }
+    },
+    campaignContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        backgroundColor: '#465881',
+        borderRadius: 25,
+        padding: 10,
+        margin: 10,
+        justifyContent: 'space-evenly',
+        width: '100%',
+      },
 
 
 });

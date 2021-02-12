@@ -78,7 +78,7 @@ function AddMessageComponent({ navigation }) {
         <TextInput
           style={styles.inputText}
           placeholder='Add message...'
-          placeholderTextColor='#003f5c'
+          placeholderTextColor='white'
           onChangeText={(message) => setMessage(message)}
           value={message}
         />
