@@ -9,7 +9,7 @@ import userService from '../user/user.service';
 import CharacterService from '../character/character.service';
 import CharacterComponent from '../character/character.componenet';
 import MinCampaignComponent from '../campaign/mincampaign.component';
-import { Campaign } from './campaign/campaign';
+import { Campaign } from '../campaign/campaign';
 
 
 function ProfileComponent() {
@@ -59,11 +59,6 @@ function ProfileComponent() {
                                 key={'req-' + index}
                                 data={req}></MinCampaignComponent>
                         ))}
-                        {/* <FlatList
-                            data={campaigns}
-                            renderItem={({ item }) => (<MinCampaignComponent data={item}></MinCampaignComponent>)}
-                            keyExtractor={(item) => item.campaignname}
-                            numColumns={2} /> */}
                     </View>
                 </View>
             </View>
@@ -91,12 +86,12 @@ const styles = StyleSheet.create({
         margin: 10,
         fontWeight: 'bold',
         fontSize: 30,
-        color: '#fb5b5a',
+        color: '#F6DEB9',
     },
     titleLeft: {
         fontWeight: 'bold',
         fontSize: 30,
-        color: '#fb5b5a',
+        color: '#F6DEB9',
         alignSelf: 'flex-start'
 
     },
@@ -142,7 +137,7 @@ const styles = StyleSheet.create({
     },
     btn: {
         width: '45%',
-        backgroundColor: '#fb5b5a',
+        backgroundColor: '#BA3130',
         borderRadius: 25,
         height: 50,
         alignItems: 'center',

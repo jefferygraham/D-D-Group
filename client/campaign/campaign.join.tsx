@@ -116,12 +116,12 @@ const styles = StyleSheet.create({
         margin: 10,
         fontWeight: 'bold',
         fontSize: 30,
-        color: '#fb5b5a',
+        color: '#F6DEB9',
     },
     titleLeft: {
         fontWeight: 'bold',
         fontSize: 30,
-        color: '#fb5b5a',
+        color: '#F6DEB9',
         alignSelf: 'flex-start'
 
     },
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     },
     btn: {
         width: '45%',
-        backgroundColor: '#fb5b5a',
+        backgroundColor: '#BA3130',
         borderRadius: 25,
         height: 50,
         alignItems: 'center',

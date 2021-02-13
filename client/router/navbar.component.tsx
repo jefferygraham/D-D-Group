@@ -113,16 +113,17 @@ function NavBarComponent() {
 const styles = StyleSheet.create({
   navBox: {
     flexDirection: 'row',
+
   },
   navButton: {
     margin: 5,
     padding: 10,
     justifyContent: 'center',
     borderRadius: 25,
-    backgroundColor: '#fb5b5a',
+    backgroundColor: '#F6DEB9',
   },
   navText: {
-    color: 'white'
+    color: '#BA3130'
   }
 
 });

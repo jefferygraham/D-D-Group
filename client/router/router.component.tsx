@@ -62,6 +62,7 @@ const Stack = createStackNavigator<StackParams>();
 const Tab = createBottomTabNavigator<TabParams>();
 
 const headerOptions: StackHeaderOptions = {
+  headerStyle: {backgroundColor:'#BA3130'},
   headerTitle: () => <Text style={styles.logo}>Dungeons & Dragons</Text>,
   headerRight: () => <NavBarComponent />,
 };

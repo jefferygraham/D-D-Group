@@ -63,12 +63,12 @@ const NoteListComponent = ({ route, navigation }: any) => {
         <View>
           <View style = {flatlistStyles.marginContainer}>
           <Button
-            color='#fb5b5a'
+            color='#BA3130'
             title='edit'
             onPress={() => navigation.navigate('EditNote', { note })}></Button>
             </View>
           <Button
-            color='#fb5b5a'
+            color='#BA3130'
             title='delete'
             onPress={() => handleDeleteNote(note)}></Button>
         </View>

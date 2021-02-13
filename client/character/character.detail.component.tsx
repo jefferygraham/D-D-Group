@@ -119,7 +119,7 @@ const detailStyles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf:'center',
         borderRadius: 25,
-        backgroundColor: '#fb5b5a',
+        backgroundColor: '#BA3130',
         flex:1
     }
 })

@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   logo: {
     fontWeight: 'bold',
     fontSize: 25,
-    color: '#fb5b5a',
+    color: '#F6DEB9',
     marginBottom: 40,
   },
   inputView: {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     width: '80%',
-    backgroundColor: '#fb5b5a',
+    backgroundColor: '#BA3130',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
@@ -118,7 +118,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   loginText: {
-    color: 'white',
+    color: '#F6DEB9',
+    fontSize:18
   },
 });
 
