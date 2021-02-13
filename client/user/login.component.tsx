@@ -46,30 +46,39 @@ function LoginComponent({ navigation }: LoginProp) {
   return (
     <View style={styles.container}>
       <Text style={styles.logo}>D&D Management</Text>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder='Username...'
-          placeholderTextColor='white'
-          onChangeText={(value) =>
-            dispatch(loginAction({ ...user, name: value }))
-          }
-          value={user.name}
-        />
-      </View>
-      <View style={styles.inputView}>
+      <View style={styles.inputContainer}>
         <label>
-          Password...
-        <TextInput
-          style={styles.inputText}
-          placeholder='Password...'
-          placeholderTextColor='white'
-          secureTextEntry
-          onChangeText={(value) =>
-            dispatch(loginAction({ ...user, password: value }))
-          }
-          value={user.password}
-        />
+          Username
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.inputText}
+              placeholder='Enter Username'
+              placeholderTextColor='white'
+              onChangeText={(value) =>
+                dispatch(loginAction({ ...user, name: value }))
+              }
+              value={user.name}
+            />
+          </View>
+        </label>
+      </View>
+      <View style={styles.inputContainer}>
+        <label>
+          Password
+          <View style={styles.inputView}>
+            <TextInput
+
+              nativeID={'passwordInput'}
+              style={styles.inputText}
+              placeholder='Enter Password'
+              placeholderTextColor='white'
+              secureTextEntry
+              onChangeText={(value) =>
+                dispatch(loginAction({ ...user, password: value }))
+              }
+              value={user.password}
+            />
+          </View>
         </label>
       </View>
       <TouchableOpacity style={styles.loginBtn} onPress={submitForm}>
@@ -96,13 +105,24 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   inputView: {
-    width: '80%',
+    width: '100%',
     backgroundColor: '#465881',
     borderRadius: 25,
     height: 50,
     marginBottom: 20,
     justifyContent: 'center',
     padding: 20,
+  },
+  inputContainer: {
+    width: '80%',
+    color: 'white',
+    fontSize: 18,
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 20,
+    justifyContent: 'center',
+    padding: 20,
+    margin: 20,
   },
   inputText: {
     height: 50,
@@ -115,14 +135,17 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    margin:10
+    margin: 10
   },
   loginText: {
     color: 'white',
-    fontSize:18
+    fontSize: 18
   },
-  label:{
-    color:'white'
+  label: {
+    color: 'white'
+  },
+  lightBackground: {
+
   }
 });
 
