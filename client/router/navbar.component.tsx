@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
     borderRadius: 25,
-    backgroundColor: '#F6DEB9',
+    backgroundColor: 'white',
   },
   navText: {
     color: '#BA3130'

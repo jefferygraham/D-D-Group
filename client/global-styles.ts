@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   logo: {
     fontWeight: 'bold',
     fontSize: 25,
-    color: '#F6DEB9',
+    color: 'white',
     
   },
   inputView: {
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   radioLabel: {
     fontWeight: 'bold',
     fontSize: 25,
-    color: '#F6DEB9',
+    color: 'white',
     alignSelf: 'flex-start',
 
   },

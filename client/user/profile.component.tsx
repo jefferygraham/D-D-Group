@@ -86,12 +86,12 @@ const styles = StyleSheet.create({
         margin: 10,
         fontWeight: 'bold',
         fontSize: 30,
-        color: '#F6DEB9',
+        color: 'white',
     },
     titleLeft: {
         fontWeight: 'bold',
         fontSize: 30,
-        color: '#F6DEB9',
+        color: 'white',
         alignSelf: 'flex-start'
 
     },

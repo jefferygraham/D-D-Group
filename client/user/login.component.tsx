@@ -48,7 +48,7 @@ function LoginComponent({ navigation }: LoginProp) {
       <Text style={styles.logo}>D&D Management</Text>
       <View style={styles.inputContainer}>
         <label>
-          Username
+        <Text style = {styles.loginText}>Username</Text>
           <View style={styles.inputView}>
             <TextInput
               style={styles.inputText}
@@ -64,7 +64,7 @@ function LoginComponent({ navigation }: LoginProp) {
       </View>
       <View style={styles.inputContainer}>
         <label>
-          Password
+          <Text style = {styles.loginText}>Password</Text>
           <View style={styles.inputView}>
             <TextInput
 
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   logo: {
     fontWeight: 'bold',
     fontSize: 25,
-    color: '#F6DEB9',
+    color: 'white',
     marginBottom: 40,
   },
   inputView: {

@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 25,
         margin:10,
-        color: '#F6DEB9',
+        color: 'white',
         alignSelf:'center',
     },
     inputText: {

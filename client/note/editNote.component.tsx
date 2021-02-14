@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   logo: {
     fontWeight: 'bold',
     fontSize: 25,
-    color: '#F6DEB9',
+    color: 'white',
     marginBottom: 40,
   },
   inputView: {

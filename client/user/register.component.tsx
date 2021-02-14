@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   logo: {
     fontWeight: 'bold',
     fontSize: 25,
-    color: '#F6DEB9',
+    color: 'white',
     marginBottom: 40,
   },
   inputView: {
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   loginText: {
-    color: '#F6DEB9',
+    color: 'white',
     fontSize:18
   },
 });
