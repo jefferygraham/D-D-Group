@@ -49,7 +49,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
         <TextInput
           style={styles.inputText}
           placeholder='Username...'
-          placeholderTextColor='#003f5c'
+          placeholderTextColor='white'
           onChangeText={(name) => setName(name)}
           value={name}
         />
@@ -58,7 +58,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
         <TextInput
           style={styles.inputText}
           placeholder='Password...'
-          placeholderTextColor='#003f5c'
+          placeholderTextColor='white'
           onChangeText={(password) => setPassword(password)}
           value={password}
         />

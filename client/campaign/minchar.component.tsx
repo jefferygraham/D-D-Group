@@ -30,6 +30,7 @@ const charStyles = StyleSheet.create({
         borderColor: 'white',
         padding: 10,
         borderRadius: 25,
+        margin:10
         
     },
 
