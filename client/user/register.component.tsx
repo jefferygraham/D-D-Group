@@ -45,34 +45,49 @@ function RegisterComponent({ navigation }: RegisterProp) {
   return (
     <View style={styles.container}>
       <Text style={styles.logo}>D&D Management</Text>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder='Username...'
-          placeholderTextColor='white'
-          onChangeText={(name) => setName(name)}
-          value={name}
-        />
+      <View style={styles.inputContainer}>
+        <label>
+          <Text style={styles.loginText}>Username</Text>
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.inputText}
+              placeholder='Username...'
+              placeholderTextColor='white'
+              onChangeText={(name) => setName(name)}
+              value={name}
+            />
+          </View>
+        </label>
       </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder='Password...'
-          placeholderTextColor='white'
-          onChangeText={(password) => setPassword(password)}
-          value={password}
-        />
+      <View style={styles.inputContainer}>
+        <label>
+          <Text style={styles.loginText}>Username</Text>
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.inputText}
+              placeholder='Password...'
+              placeholderTextColor='white'
+              onChangeText={(password) => setPassword(password)}
+              value={password}
+            />
+          </View>
+        </label>
       </View>
-      <View style={styles.inputView}>
-        <RNPickerSelect
-          placeholder={{ label: 'Select a role', value: null }}
-          useNativeAndroidPickerStyle={false}
-          onValueChange={(role) => setRole(role)}
-          items={[
-            { label: 'Player', value: 'player' },
-            { label: 'Master', value: 'master' },
-          ]}
-        />
+      <View style={styles.inputContainer}>
+        <label>
+          <Text style={styles.loginText}>Role</Text>
+          <View style={styles.inputView}>
+            <RNPickerSelect
+              placeholder={{ label: 'Select a role', value: null }}
+              useNativeAndroidPickerStyle={false}
+              onValueChange={(role) => setRole(role)}
+              items={[
+                { label: 'Player', value: 'player' },
+                { label: 'Master', value: 'master' },
+              ]}
+            />
+          </View>
+        </label>
       </View>
       <TouchableOpacity style={styles.loginBtn} onPress={submitForm}>
         <Text style={styles.loginText}>REGISTER</Text>
@@ -95,6 +110,15 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   inputView: {
+    width: '100%',
+    backgroundColor: '#465881',
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 20,
+    justifyContent: 'center',
+    padding: 20,
+  },
+  inputView80: {
     width: '80%',
     backgroundColor: '#465881',
     borderRadius: 25,
@@ -119,7 +143,18 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: 'white',
-    fontSize:18
+    fontSize: 18
+  },
+  inputContainer: {
+    width: '80%',
+    color: 'white',
+    fontSize: 18,
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 20,
+    justifyContent: 'center',
+    padding: 20,
+    margin: 20,
   },
 });
 
