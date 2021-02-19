@@ -56,7 +56,7 @@ To-do list:
 5.  View the app on your browser or scan the QR code displayed on terminal using the Expo app on your phone. Note: Your computer and phone needs to be on the same network.
 
 ## Contributors
--Katrina Dieminger
--Jeff Graham 
--Shannon Nielsen
--Kirsten Wood
+- Katrina Dieminger
+- Jeff Graham 
+- Shannon Nielsen
+- Kirsten Wood
