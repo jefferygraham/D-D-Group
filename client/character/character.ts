@@ -1,0 +1,30 @@
+export class Character{
+    playerid = 0;
+    charid = 0;
+    name = '';
+    strength = 10;
+    dexterity = 10;
+    constitution = 10;
+    intelligence = 10;
+    wisdom = 10;
+    charisma = 10;
+    race = 'Dragonborn';
+    class = 'Bard';
+    alignment = '';
+    faith = '';
+    lifestyle = '';
+    gender = '';
+    age = '';
+    hairColor='';
+    skinColor='';
+    eyecolor='';
+    height = '';
+    weight = '';
+    organizations = '';
+    allies = '';
+    enemies = '';
+    otherInfo = '';
+    personalityTraits='';
+    ideals ='';
+    flaws='';
+}
